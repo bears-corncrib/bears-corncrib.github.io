@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Tester's Tricks</title>
+    <title>Birth of my Blog, Pelican based</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="Tao">
@@ -69,7 +69,7 @@
 						<i class="icon-folder-open icon-large"></i>misc
 					</a>
                   </li>
-                  <li >
+                  <li class="active">
                     <a href="/category/tools.html">
 						<i class="icon-folder-open icon-large"></i>Tools
 					</a>
@@ -89,9 +89,20 @@
     <div class="container-fluid">
       <div class="row">
         <div class="span9" id="content">
-        <div class="article">
-                <h1><a href="/Birth of my Blog.html">Birth of my Blog, Pelican based</a></h1>
-                <div class="well small"><footer class="post-info">
+<section id="content">
+        <article>
+                <header>
+                        <h1>
+                                <a href=""
+                                        rel="bookmark"
+                                        title="Permalink to Birth of my Blog, Pelican based">
+                                        Birth of my Blog, Pelican based
+                                </a>
+                        </h1>
+                </header>
+                <div class="entry-content">
+                <div class="well">
+<footer class="post-info">
 <span class="label">Date</span>
 <abbr class="published" title="2019-06-15T20:00:00+08:00">
         <i class="icon-calendar"></i>Sat 15 June 2019
@@ -108,35 +119,94 @@
 	<a href="/tag/it.html"><i class="icon-tag"></i>IT</a>
 	<a href="/tag/blog.html"><i class="icon-tag"></i>Blog</a>
 	<a href="/tag/bears-corncobs.html"><i class="icon-tag"></i>bear's corncobs</a>
-</footer><!-- /.post-info --></div>
-                <div class="summary"><p>Here in this post, records how I understand the steps when building up my blog in a static web pages, and host it in both github and gitee.</p>
-                        <a class="btn primary xsmall" href="/Birth of my Blog.html">more ...</a>
-                </div>
-        </div>
-        <hr />
-        <div class="article">
-                <h1><a href="/My-first-post.html">My first post</a></h1>
-                <div class="well small"><footer class="post-info">
-<span class="label">Date</span>
-<abbr class="published" title="2017-11-26T10:01:00+08:00">
-        <i class="icon-calendar"></i>Sun 26 November 2017
-</abbr>
-<span class="label">By</span>
-<a href="/author/your-name.html"><i class="icon-user"></i>Your name</a>
-<span class="label">Category</span>
-<a href="/category/misc.html"><i class="icon-folder-open"></i>misc</a>.
+</footer><!-- /.post-info -->                </div>
+                <h2>Why I want to build a blog</h2>
+<h3>Needs oriented</h3>
+<h3>Different funtions from notes APP, such as Onenote or Evernote</h3>
+<h2>What Candidates of bloging techniques can be chosen</h2>
+<h3>CSDN, cnblog</h3>
+<h3>wordpress</h3>
+<h3>github pages, finally attracted me.</h3>
+<p>Basically, I still want the posts to be in simple format that can easier read even if from offline. Writing in markdown format which almost the same as text, satisfies my thought. I don't have to worry about transform too much when I may move my blog. 
+Static web pages are good for simple personaly web, no Ads, tidy and focus. People are so smart using scripts to compile markdown into HTML. I don't have to spend time working on formats and decorite my web. There are a few scripts can be used. Here just put down some very basic ideas from my search and compare.</p>
+<h4>Hexo</h4>
+<p>This is writen by Note.js. It is known as good performance compiling files and easy to install. There are a lot of beariful themes which attracts people. </p>
+<h4>jekyll</h4>
+<p>It is writen by Ruby. Performance is not good, said in some of the posts online, but it is still very polular for some reason I don't know. People don't always emphasis performance as the top 1 priority. </p>
+<h4>Pelican</h4>
+<p>Writen by Python, which I knows better than Ruby or Node.js. This is the reason why I pick this one. There could be one day I need to modified something for my own needs.
+<a href="http://docs.getpelican.com/en/3.5.0/index.html">Pelican Doc,</a></p>
+<h4>There are more static website generators, check them out from this link</h4>
+<p><a href="https://www.staticgen.com">https://www.staticgen.com</a></p>
+<h2>How I build up my blog from scratch</h2>
+<ol>
+<li>Build an enviroment (optional)</li>
+<li>Get Pelican and quickly build your project, which is home of your local website.</li>
+<li>sign up for a new account from github, and build activate github page</li>
+</ol>
+<p>After Signing up, change path to <code>output</code> and <code>git clone https://github.com/bears-corncrib/bears-corncrib.github.io.git</code>. It init an local repository in <code>output</code> and have a full copy of your remote repository. 
+<!--It can be down by step by step
+make a folder name what ever you like in <code>output</code>, mine is <code>$HOMEofBLOG/output/bears-corncrib.github.io</code>
+<code>git init</code>
+<code>git remote add origin https://github.com/bears-corncrib/bears-corncrib.github.io.git</code>
+You can use <code>git remode -v</code> to check current remote repository.`--></p>
+<p>`git remote -v</p>
+<p>origin  https://github.com/bears-corncrib/bears-corncrib.github.io.git (fetch)
+origin  https://github.com/bears-corncrib/bears-corncrib.github.io.git (push)`</p>
+<ol>
+<li>Adding another repository, if you are in a country of area that has limited bandwitch to github</li>
+</ol>
+<p><code>git remote set-url origin --add https://gitee.com/bears-corncrib/bears-corncrib.git</code>
+<code>git remote -v
+origin  https://github.com/bears-corncrib/bears-corncrib.github.io.git (fetch)
+origin  https://github.com/bears-corncrib/bears-corncrib.github.io.git (push)
+origin  https://gitee.com/bears-corncrib/bears-corncrib.git (push)</code></p>
+<p><code>git remote -v
+origin  https://github.com/bears-corncrib/bears-corncrib.github.io.git (fetch)
+origin  https://github.com/bears-corncrib/bears-corncrib.github.io.git (push)
+origin  https://gitee.com/bears-corncrib/bears-corncrib.git (push)
+(pelican) Scabbard-MacPro:bears-corncrib.github.io tao$ cat .git/config 
+[core]
+    repositoryformatversion = 0
+    filemode = true
+    bare = false
+    logallrefupdates = true
+    ignorecase = true
+    precomposeunicode = true
+[remote "origin"]
+    url = https://github.com/bears-corncrib/bears-corncrib.github.io.git
+    fetch = +refs/heads/*:refs/remotes/origin/*
+    url = https://gitee.com/bears-corncrib/bears-corncrib.git
+[branch "master"]
+    remote = origin
+    merge = refs/heads/master</code></p>
+<!--`cat config 
+[core]
+    repositoryformatversion = 0
+    filemode = true
+    bare = false
+    logallrefupdates = true
+    ignorecase = true
+    precomposeunicode = true
+[remote "origin"]
+    url = https://github.com/bears-corncrib/bears-corncrib.github.io.git
+    fetch = +refs/heads/*:refs/remotes/origin/*
+    url = https://gitee.com/bears-corncrib/bears-corncrib.git`-->
 
-
-<span class="label">Tags</span>
-	<a href="/tag/first.html"><i class="icon-tag"></i>first</a>
-	<a href="/tag/misc.html"><i class="icon-tag"></i>misc</a>
-</footer><!-- /.post-info --></div>
-                <div class="summary"><p>What does your post talk about? Write here.</p>
-                        <a class="btn primary xsmall" href="/My-first-post.html">more ...</a>
-                </div>
-        </div>
-        <hr />
-
+<ol>
+<li>Make output folder to be local repository of git
+Edit <code>Makefile</code>
+<code>BASEDIR=$(CURDIR)</code>
+<code>OUTPUTDIR</code></li>
+</ol>
+<p><code>make html</code>
+``
+0. Customize your local website
+0. Changing theme
+1. Meta date of postes</p>
+                </div><!-- /.entry-content -->
+        </article>
+</section>
         </div><!--/span-->
 
                 <div class="span3 well sidebar-nav" id="sidebar">
