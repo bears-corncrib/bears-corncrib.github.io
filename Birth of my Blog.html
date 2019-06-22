@@ -13,13 +13,13 @@
 
 <meta property="og:title" content="Birth of my Blog, Pelican based "/>
 <meta property="og:url" content="/Birth of my Blog.html" />
-<meta property="og:description" content="Here in this post, records how I understand the steps when building up my blog in a static web pages, and host it in both github and gitee." />
+<meta property="og:description" content="Here in this post, records how I understand the steps building up my blog in a static web pages, and host it in both github and gitee." />
 <meta property="og:site_name" content="Tester&#39;s Tricks" />
 <meta property="og:article:author" content="Tao" />
 <meta property="og:article:published_time" content="2019-06-15T20:00:00+08:00" />
 <meta property="og:article:modified_time" content="2019-06-20T12:30:00+08:00" />
 <meta name="twitter:title" content="Birth of my Blog, Pelican based ">
-<meta name="twitter:description" content="Here in this post, records how I understand the steps when building up my blog in a static web pages, and host it in both github and gitee.">
+<meta name="twitter:description" content="Here in this post, records how I understand the steps building up my blog in a static web pages, and host it in both github and gitee.">
 
         <title>Birth of my Blog, Pelican based  · Tester&#39;s Tricks
 </title>
@@ -72,67 +72,118 @@
         <div class="span8 offset2 article-content">
 
             
-            <h2>Why I want to build a blog</h2>
-<h3>Needs oriented</h3>
-<h3>Different funtions from notes APP, such as Onenote or Evernote</h3>
-<h2>What Candidates of bloging techniques can be chosen</h2>
-<h3>CSDN, cnblog</h3>
-<h3>wordpress</h3>
-<h3>github pages, finally attracted me.</h3>
-<p>Basically, I still want the posts to be in simple format that can easier read even if from offline. Writing in markdown format which almost the same as text, satisfies my thought. I don't have to worry about transform too much when I may move my blog. 
+            <h1>Bear and corncobs</h1>
+<p>Just realize that lifelong learning is not only about the habit of curious for new things, but also need a good way to memerize knowledge and stills. Not smooth like a brand new car any more, my brain keep dumping something, which make me frustrated when I tried to do something that I had down long time ago, I have to do it like from fresh. What a clumsy bear I am.</p>
+<p>Notes are helpful. I have been using Evernote, youdao note and onenote. They are all good to work like draft material repositories. Wenn I read something and just want to keep them in case I need to review. The problem is that I can't share what I have practiced, emm, I am not a developer. Let me see if I will have anything valuable to share.</p>
+<p>As always, before I start using any new APP or software, especially for those I could use long time. Side by side comparison helps me to make decision. Hosting my blog, I had considered the following options. </p>
+<ul>
+<li>
+<p>CSDN, cnblog, segementfault, etc. 
+These are polular websites hosting technical blogs. They are all very handy, but I have zero control over the views of my blog, I don't like those Ads. Even they are strong in business, I still want my orignal texts stay safly in my personal clouds.</p>
+</li>
+<li>
+<p>Building my own blog using wordpress
+Hosting wordpress is on another extreme side. I have full control, while I will have to spend time on managing website. I can learn a lot, about http servers, database, renting VPC, renting domain names, etc, which are not currently relevant to my daily work. So these knowledge doesn't improve my career. I would leave them in low prioriy in my "to learn" list.  </p>
+</li>
+<li>
+<p>github pages, finally attracted me.
+Basically, I still want the posts to be in simple format that can easier read even if from offline. Writing in markdown format which almost the same as text, satisfies my thought. I don't have to worry about transform too much when I may move my blog. 
 Static web pages are good for simple personaly web, no Ads, tidy and focus. People are so smart using scripts to compile markdown into HTML. I don't have to spend time working on formats and decorite my web. There are a few scripts can be used. Here just put down some very basic ideas from my search and compare.</p>
+</li>
+</ul>
 <h4>Hexo</h4>
 <p>This is writen by Note.js. It is known as good performance compiling files and easy to install. There are a lot of beariful themes which attracts people. </p>
 <h4>jekyll</h4>
-<p>It is writen by Ruby. Performance is not good, said in some of the posts online, but it is still very polular for some reason I don't know. People don't always emphasis performance as the top 1 priority. </p>
+<p>It is writen by Ruby. Performance is not good, said in some of the posts online, but it is still very polular for some reason I don't know. People don't always emphasis performance as the top 1 priority, I guess. </p>
 <h4>Pelican</h4>
 <p>Writen by Python, which I knows better than Ruby or Node.js. This is the reason why I pick this one. There could be one day I need to modified something for my own needs.
-<a href="http://docs.getpelican.com/en/3.5.0/index.html">Pelican Doc,</a></p>
+<a href="http://docs.getpelican.com/en/4.0.1/index.html">Pelican Doc,</a></p>
 <h4>There are more static website generators, check them out from this link</h4>
 <p><a href="https://www.staticgen.com">https://www.staticgen.com</a></p>
-<h2>How I build up my blog from scratch</h2>
-<ol>
-<li>Build an enviroment (optional)</li>
-<li>Get Pelican and quickly build your project, which is home of your local website.</li>
-<li>sign up for a new account from github, and build activate github page</li>
-</ol>
+<h1>How I built up my blog from scratch</h1>
+<h2>Build Python enviroment</h2>
+<p>It must be verbose if I introduce python. Here in this step, just make sure you have your own python and vertual enviroment. I am using <a href="https://www.anaconda.com">ANACONDA</a>.</p>
+<h2>Get Pelican and quickly build your project, which is home of your local website.</h2>
+<p><code>conda activate pelican</code> 
+Here 'pelican' is the name of my vertual enviroment. </p>
+<p>Easly get module pelican. </p>
+<p><code>pip install pelican</code></p>
+<p>Alternatively, it can also be installed from source.</p>
+<div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">getpelican</span><span class="o">/</span><span class="n">pelican</span>
+<span class="n">cd</span> <span class="n">path</span><span class="o">-</span><span class="k">to</span><span class="o">-</span><span class="n">Pelican</span><span class="o">-</span><span class="k">source</span>
+<span class="n">python</span> <span class="n">setup</span><span class="p">.</span><span class="n">py</span> <span class="n">install</span>
+</pre></div>
+
+
+<p>'Markdown' is strongly proposed. I don't see any use case that people host blog in github but not using Markdown as the orignal text of postes.</p>
+<p><code>pip install Markdown</code> </p>
+<p>Then, choose a folder where you want all your project files to be stored. You can put it in you <code>$HOME</code> path or any sync-up folder using any cloud APP. For me, I just simply use a path in my icloud. Here below let me use <code>$MyBlog</code> as an alias of my own path.</p>
+<p><code>cd $MyBlog</code>
+ Initialize the project. It generates some folers and configuration files. We will be using them later.</p>
+<p><code>pelican-quickstart</code></p>
+<div class="highlight"><pre><span></span><span class="err">$</span><span class="n">MyBlog</span><span class="o">/</span>
+<span class="err">├──</span> <span class="n">content</span>
+<span class="err">│</span>   <span class="err">└──</span> <span class="p">(</span><span class="n">pages</span><span class="p">)</span>
+<span class="err">├──</span> <span class="k">output</span>
+<span class="err">├──</span> <span class="n">Makefile</span>
+<span class="err">├──</span> <span class="n">pelicanconf</span><span class="p">.</span><span class="n">py</span>       <span class="o">#</span> <span class="n">Main</span> <span class="n">settings</span> <span class="n">file</span>
+<span class="err">└──</span> <span class="n">publishconf</span><span class="p">.</span><span class="n">py</span>       <span class="o">#</span> <span class="n">Settings</span> <span class="k">to</span> <span class="n">use</span> <span class="k">when</span> <span class="n">ready</span> <span class="k">to</span> <span class="n">publish</span>
+
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="c1">--r--    1 scabbard  staff  3116 Jun 20 17:17 Makefile</span>
+<span class="n">drwxr</span><span class="o">-</span><span class="n">xr</span><span class="o">-</span><span class="n">x</span>    <span class="mi">4</span> <span class="n">scabbard</span>  <span class="n">staff</span>   <span class="mi">128</span> <span class="n">Jun</span> <span class="mi">20</span> <span class="mi">17</span><span class="p">:</span><span class="mi">41</span> <span class="n">__pycache__</span>
+<span class="n">drwxr</span><span class="o">-</span><span class="n">xr</span><span class="o">-</span><span class="n">x</span>    <span class="mi">4</span> <span class="n">scabbard</span>  <span class="n">staff</span>   <span class="mi">128</span> <span class="n">Jun</span> <span class="mi">22</span> <span class="mi">23</span><span class="p">:</span><span class="mi">10</span> <span class="n">content</span>
+<span class="n">drwxr</span><span class="o">-</span><span class="n">xr</span><span class="o">-</span><span class="n">x</span>    <span class="mi">4</span> <span class="n">scabbard</span>  <span class="n">staff</span>   <span class="mi">128</span> <span class="n">Jun</span> <span class="mi">20</span> <span class="mi">17</span><span class="p">:</span><span class="mi">42</span> <span class="k">output</span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="c1">--r--    1 scabbard  staff   893 Jun 20 17:41 pelicanconf.py</span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="c1">--r--    1 scabbard  staff   597 Jun 15 16:36 publishconf.py</span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="c1">--r--    1 scabbard  staff  2109 Jun 15 16:36 tasks.py</span>
+</pre></div>
+
+
+<h2>sign up for a new account from github, and activate github page</h2>
 <p>After Signing up, change path to <code>output</code> and <code>git clone https://github.com/bears-corncrib/bears-corncrib.github.io.git</code>. It init an local repository in <code>output</code> and have a full copy of your remote repository. 
-<!--It can be down by step by step
-make a folder name what ever you like in <code>output</code>, mine is <code>$HOMEofBLOG/output/bears-corncrib.github.io</code>
+It can be down by step by step:
+make a folder name what ever you like in <code>output</code> and change into it, mine is <code>$HOMEofBLOG/output/bears-corncrib.github.io</code>
 <code>git init</code>
 <code>git remote add origin https://github.com/bears-corncrib/bears-corncrib.github.io.git</code>
-You can use <code>git remode -v</code> to check current remote repository.`--></p>
-<p>`git remote -v</p>
-<p>origin  https://github.com/bears-corncrib/bears-corncrib.github.io.git (fetch)
-origin  https://github.com/bears-corncrib/bears-corncrib.github.io.git (push)`</p>
-<ol>
-<li>Adding another repository, if you are in a country of area that has limited bandwitch to github</li>
-</ol>
-<p><code>git remote set-url origin --add https://gitee.com/bears-corncrib/bears-corncrib.git</code>
-<code>git remote -v
-origin  https://github.com/bears-corncrib/bears-corncrib.github.io.git (fetch)
-origin  https://github.com/bears-corncrib/bears-corncrib.github.io.git (push)
-origin  https://gitee.com/bears-corncrib/bears-corncrib.git (push)</code></p>
-<p><code>git remote -v
-origin  https://github.com/bears-corncrib/bears-corncrib.github.io.git (fetch)
-origin  https://github.com/bears-corncrib/bears-corncrib.github.io.git (push)
-origin  https://gitee.com/bears-corncrib/bears-corncrib.git (push)
-(pelican) Scabbard-MacPro:bears-corncrib.github.io tao$ cat .git/config 
-[core]
-    repositoryformatversion = 0
-    filemode = true
-    bare = false
-    logallrefupdates = true
-    ignorecase = true
-    precomposeunicode = true
-[remote "origin"]
-    url = https://github.com/bears-corncrib/bears-corncrib.github.io.git
-    fetch = +refs/heads/*:refs/remotes/origin/*
-    url = https://gitee.com/bears-corncrib/bears-corncrib.git
-[branch "master"]
-    remote = origin
-    merge = refs/heads/master</code></p>
-<!--`cat config 
+You can use <code>git remode -v</code> to check current remote repository.</p>
+<div class="highlight"><pre><span></span><span class="o">`</span><span class="n">git</span> <span class="n">remote</span> <span class="o">-</span><span class="n">v</span>
+
+<span class="n">origin</span>  <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">bears</span><span class="o">-</span><span class="n">corncrib</span><span class="o">/</span><span class="n">bears</span><span class="o">-</span><span class="n">corncrib</span><span class="p">.</span><span class="n">github</span><span class="p">.</span><span class="n">io</span><span class="p">.</span><span class="n">git</span> <span class="p">(</span><span class="k">fetch</span><span class="p">)</span>
+<span class="n">origin</span>  <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">bears</span><span class="o">-</span><span class="n">corncrib</span><span class="o">/</span><span class="n">bears</span><span class="o">-</span><span class="n">corncrib</span><span class="p">.</span><span class="n">github</span><span class="p">.</span><span class="n">io</span><span class="p">.</span><span class="n">git</span> <span class="p">(</span><span class="n">push</span><span class="p">)</span><span class="o">`</span>
+</pre></div>
+
+
+<h2>Adding another repository, if you are in a country of area that has limited bandwitch to github</h2>
+<p>For my case, I picked gitee.</p>
+<p><code>git remote set-url origin --add https://gitee.com/bears-corncrib/bears-corncrib.git</code></p>
+<div class="highlight"><pre><span></span><span class="o">`</span><span class="n">git</span> <span class="n">remote</span> <span class="o">-</span><span class="n">v</span>
+<span class="n">origin</span>  <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">bears</span><span class="o">-</span><span class="n">corncrib</span><span class="o">/</span><span class="n">bears</span><span class="o">-</span><span class="n">corncrib</span><span class="p">.</span><span class="n">github</span><span class="p">.</span><span class="n">io</span><span class="p">.</span><span class="n">git</span> <span class="p">(</span><span class="k">fetch</span><span class="p">)</span>
+<span class="n">origin</span>  <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">bears</span><span class="o">-</span><span class="n">corncrib</span><span class="o">/</span><span class="n">bears</span><span class="o">-</span><span class="n">corncrib</span><span class="p">.</span><span class="n">github</span><span class="p">.</span><span class="n">io</span><span class="p">.</span><span class="n">git</span> <span class="p">(</span><span class="n">push</span><span class="p">)</span>
+<span class="n">origin</span>  <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">gitee</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">bears</span><span class="o">-</span><span class="n">corncrib</span><span class="o">/</span><span class="n">bears</span><span class="o">-</span><span class="n">corncrib</span><span class="p">.</span><span class="n">git</span> <span class="p">(</span><span class="n">push</span><span class="p">)</span><span class="o">`</span>
+</pre></div>
+
+
+<p>Add the changes you did above can check in <code>$MyBlog/.git/config</code></p>
+<div class="highlight"><pre><span></span><span class="n">cat</span><span class="w"> </span><span class="p">.</span><span class="n">git</span><span class="o">/</span><span class="n">config</span><span class="w"> </span>
+<span class="o">[</span><span class="n">core</span><span class="o">]</span><span class="w"></span>
+<span class="w">    </span><span class="n">repositoryformatversion</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="w">    </span><span class="n">filemode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="w"></span>
+<span class="w">    </span><span class="n">bare</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">false</span><span class="w"></span>
+<span class="w">    </span><span class="n">logallrefupdates</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="w"></span>
+<span class="w">    </span><span class="n">ignorecase</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="w"></span>
+<span class="w">    </span><span class="n">precomposeunicode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="w"></span>
+<span class="o">[</span><span class="n">remote &quot;origin&quot;</span><span class="o">]</span><span class="w"></span>
+<span class="w">    </span><span class="n">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nl">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">bears</span><span class="o">-</span><span class="n">corncrib</span><span class="o">/</span><span class="n">bears</span><span class="o">-</span><span class="n">corncrib</span><span class="p">.</span><span class="n">github</span><span class="p">.</span><span class="n">io</span><span class="p">.</span><span class="n">git</span><span class="w"></span>
+<span class="w">    </span><span class="k">fetch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">+</span><span class="n">refs</span><span class="o">/</span><span class="n">heads</span><span class="cm">/*:refs/remotes/origin/*</span>
+<span class="cm">    url = https://gitee.com/bears-corncrib/bears-corncrib.git</span>
+<span class="cm">[branch &quot;master&quot;]</span>
+<span class="cm">    remote = origin</span>
+<span class="cm">    merge = refs/heads/master</span>
+</pre></div>
+
+
+<!-- This is the config generated by git init which is different from what generated by git clone at 'branch "master"'
+`cat config 
 [core]
     repositoryformatversion = 0
     filemode = true
@@ -145,25 +196,36 @@ origin  https://gitee.com/bears-corncrib/bears-corncrib.git (push)
     fetch = +refs/heads/*:refs/remotes/origin/*
     url = https://gitee.com/bears-corncrib/bears-corncrib.git`-->
 
-<ol>
-<li>Make output folder to be local repository of git
-Edit <code>Makefile</code>
-<code>BASEDIR=$(CURDIR)</code>
-<code>OUTPUTDIR</code></li>
-</ol>
+<h2>Make output folder to be local repository of git</h2>
+<p>Now you have both local project path and remote repositories. Edit <code>Makefile</code> to let pelican knows that which folder to output
+<code>OUTPUTDIR=$(BASEDIR)/output/bears-corncrib.github.io</code></p>
+<h2>Compose your first post</h2>
+<p>In <code>content</code>, make a new .md file. Put the following meta data in the file on the top.</p>
+<div class="highlight"><pre><span></span>    <span class="nv">Title</span>: <span class="nv">My</span> <span class="nv">super</span> <span class="nv">title</span>
+    <span class="nv">Date</span>: <span class="mi">2010</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">03</span> <span class="mi">10</span>:<span class="mi">20</span>
+    <span class="nv">Modified</span>: <span class="mi">2010</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">05</span> <span class="mi">19</span>:<span class="mi">30</span>
+    <span class="nv">Category</span>: <span class="nv">Python</span>
+    <span class="nv">Tags</span>: <span class="nv">pelican</span>, <span class="nv">publishing</span>
+    <span class="nv">Slug</span>: <span class="nv">my</span><span class="o">-</span><span class="nv">super</span><span class="o">-</span><span class="nv">post</span>
+    <span class="nv">Authors</span>: <span class="nv">Alexis</span> <span class="nv">Metaireau</span>, <span class="nv">Conan</span> <span class="nv">Doyle</span>
+    <span class="nv">Summary</span>: <span class="nv">Short</span> <span class="nv">version</span> <span class="k">for</span> <span class="nv">index</span> <span class="nv">and</span> <span class="nv">feeds</span>
+
+    <span class="nv">This</span> <span class="nv">is</span> <span class="nv">the</span> <span class="nv">content</span> <span class="nv">of</span> <span class="nv">my</span> <span class="nv">super</span> <span class="nv">blog</span> <span class="nv">post</span>.
+</pre></div>
+
+
+<h2>Compile your first blog</h2>
 <p><code>make html</code>
 <code>make devserver</code>
 You can review you blog from 0.0.0.0:8000
-<strong>Warnning: Don't use make publish or make github, it clear out your local reposibory.</strong></p>
+<strong>Warnning: Don't use make publish or make github, it clear out your local reposibory.</strong>
+* publish to both of your remote repositories. </p>
 <p><code>git add .</code> This will make sure all your new files will be added to track by stage of local respository
 <code>git commit -m "Your comments"</code> This will submit your stage to local repository
 <code>git push -u origin master</code> Push local repository to reomote repositories, which defined above.</p>
 <p>Note. Gitee.com doesn't automatically refresh you blog the same as github. You need to login your gitee account and refressh gitee page "Services-Gitee pages-Update"</p>
-<ol>
-<li>Customize your local website</li>
-<li>Changing theme</li>
-<li>Meta date of postes</li>
-</ol>
+<h2>Customize your local website</h2>
+<h2>Changing theme</h2>
             <div>
 </div>
 
