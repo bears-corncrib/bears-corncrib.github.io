@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="zh_cn">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Tao" />
+
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content="Bash, awk, Perl, Scripts, " />
+
+<meta property="og:title" content="Arena of performance, How fast are they handling log filtering: Bash,awk,perl "/>
+<meta property="og:url" content="/Arena of performance.html" />
+<meta property="og:description" content="Here in this post, I am going to do a side by side performance comparison to see which one can run faster screening logs. Conclusion goes first, awk and perl works much better on top of bash." />
+<meta property="og:site_name" content="Tester&#39;s Tricks" />
+<meta property="og:article:author" content="Tao" />
+<meta property="og:article:published_time" content="2019-06-23T11:01:00+08:00" />
+<meta property="og:article:modified_time" content="2019-06-23T11:01:00+08:00" />
+<meta name="twitter:title" content="Arena of performance, How fast are they handling log filtering: Bash,awk,perl ">
+<meta name="twitter:description" content="Here in this post, I am going to do a side by side performance comparison to see which one can run faster screening logs. Conclusion goes first, awk and perl works much better on top of bash.">
+
+        <title>Arena of performance, How fast are they handling log filtering: Bash,awk,perl  · Tester&#39;s Tricks
+</title>
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="/theme/css/pygments.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="/theme/tipuesearch/tipuesearch.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="/theme/css/elegant.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="/theme/css/admonition.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="/theme/css/custom.css" media="screen">
+
+
+
+    </head>
+    <body>
+        <div id="content-sans-footer">
+        <div class="navbar navbar-static-top">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="/"><span class=site-name>Tester's Tricks</span></a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav pull-right top-menu">
+                            <li ><a href="">Home</a></li>
+                            <li ><a href="/categories">Categories</a></li>
+                            <li ><a href="/tags">Tags</a></li>
+                            <li ><a href="/archives">Archives</a></li>
+                            <li><form class="navbar-search" action="/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span1"></div>
+                <div class="span10">
+<article itemscope>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+    <h1><a href="/Arena of performance.html"> Arena of performance, How fast are they handling log filtering: Bash,awk,perl  </a></h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+
+            
+            <h1>First, count the total number of the log lines and understand the basic time consumption of cat and grep</h1>
+<p><code>cat /tmp/testlog.txt |grep "" -n</code>, it shows 892889 lines</p>
+<p>Base performace that used by cat.</p>
+<div class="highlight"><pre><span></span><span class="nv">time</span> <span class="nv">cat</span> <span class="o">/</span><span class="nv">tmp</span><span class="o">/</span><span class="nv">testlog</span>.<span class="nv">txt</span>
+... # <span class="nv">I</span> <span class="nv">conceal</span> <span class="nv">the</span> <span class="nv">output</span> <span class="nv">of</span> <span class="nv">log</span> <span class="nv">lines</span>, <span class="nv">as</span> <span class="nv">they</span> <span class="nv">are</span> <span class="nv">not</span> <span class="nv">useful</span> <span class="nv">to</span> <span class="k">show</span>. 
+<span class="nv">real</span>    <span class="mi">0</span><span class="nv">m5</span>.<span class="mi">844</span><span class="nv">s</span>
+<span class="nv">user</span>    <span class="mi">0</span><span class="nv">m0</span>.<span class="mi">003</span><span class="nv">s</span>
+<span class="nv">sys</span>     <span class="mi">0</span><span class="nv">m0</span>.<span class="mi">860</span><span class="nv">s</span>
+</pre></div>
+
+
+<p>grep actually takes some time, here records the time consumed by it. </p>
+<div class="highlight"><pre><span></span><span class="nv">time</span> <span class="nv">cat</span> <span class="o">/</span><span class="nv">tmp</span><span class="o">/</span><span class="nv">testlog</span>.<span class="nv">txt</span> <span class="o">|</span><span class="nv">grep</span> <span class="s2">&quot;&quot;</span>
+... # <span class="nv">I</span> <span class="nv">conceal</span> <span class="nv">the</span> <span class="nv">output</span> <span class="nv">of</span> <span class="nv">log</span> <span class="nv">lines</span>, <span class="nv">as</span> <span class="nv">they</span> <span class="nv">are</span> <span class="nv">not</span> <span class="nv">useful</span> <span class="nv">to</span> <span class="k">show</span>. 
+<span class="nv">real</span>    <span class="mi">0</span><span class="nv">m6</span>.<span class="mi">837</span><span class="nv">s</span>
+<span class="nv">user</span>    <span class="mi">0</span><span class="nv">m0</span>.<span class="mi">929</span><span class="nv">s</span>
+<span class="nv">sys</span>     <span class="mi">0</span><span class="nv">m1</span>.<span class="mi">618</span><span class="nv">s</span>
+</pre></div>
+
+
+<p>Adding -n introduce a little more time.</p>
+<div class="highlight"><pre><span></span><span class="nv">time</span> <span class="nv">cat</span> <span class="o">/</span><span class="nv">tmp</span><span class="o">/</span><span class="nv">testlog</span>.<span class="nv">txt</span> <span class="o">|</span><span class="nv">grep</span> <span class="s2">&quot;&quot;</span> <span class="o">-</span><span class="nv">n</span>
+... # <span class="nv">I</span> <span class="nv">conceal</span> <span class="nv">the</span> <span class="nv">output</span> <span class="nv">of</span> <span class="nv">log</span> <span class="nv">lines</span>, <span class="nv">as</span> <span class="nv">they</span> <span class="nv">are</span> <span class="nv">not</span> <span class="nv">useful</span> <span class="nv">to</span> <span class="k">show</span>. 
+<span class="nv">Here</span> <span class="nv">I</span> 
+<span class="nv">real</span>    <span class="mi">0</span><span class="nv">m7</span>.<span class="mi">051</span><span class="nv">s</span>
+<span class="nv">user</span>    <span class="mi">0</span><span class="nv">m1</span>.<span class="mi">135</span><span class="nv">s</span>
+<span class="nv">sys</span>     <span class="mi">0</span><span class="nv">m1</span>.<span class="mi">529</span><span class="nv">s</span>
+</pre></div>
+
+
+<h1>How good bash loop can do?</h1>
+<p>Here is the overall structure of my test scripts. As I will use all three of them as part of Bash, so I claim at the first line as <code>#!/bin/bash</code></p>
+<div class="highlight"><pre><span></span><span class="mi">1</span> #<span class="o">!/</span><span class="nv">bin</span><span class="o">/</span><span class="nv">bash</span>
+<span class="mi">2</span> <span class="k">while</span> <span class="nv">getopts</span> <span class="s2">&quot;</span><span class="s">a:p:b:</span><span class="s2">&quot;</span> <span class="nv">opt</span><span class="c1">;</span>
+<span class="mi">3</span> <span class="k">do</span>
+<span class="mi">4</span>     <span class="nv">case</span> $<span class="nv">opt</span> <span class="nv">in</span>
+<span class="mi">5</span>     <span class="nv">b</span><span class="ss">)</span> #<span class="nv">User</span> <span class="nv">arg</span> <span class="o">-</span><span class="nv">b</span> <span class="nv">to</span> <span class="nv">go</span> <span class="nv">this</span> <span class="nv">branch</span> <span class="nv">to</span> <span class="nv">test</span> <span class="nv">bash</span>
+<span class="mi">6</span>     <span class="k">while</span> <span class="nv">read</span> <span class="nv">line</span>
+<span class="mi">7</span>     <span class="k">do</span>
+<span class="mi">8</span>         <span class="nv">echo</span> $<span class="nv">line</span> 
+<span class="mi">9</span>         #<span class="nv">printf</span> <span class="s2">&quot;</span><span class="s">$line</span><span class="se">\n</span><span class="s2">&quot;</span>
+<span class="mi">10</span>     <span class="nv">done</span><span class="c1">;;</span>
+<span class="mi">11</span>     <span class="nv">a</span><span class="ss">)</span> #<span class="nv">User</span> <span class="nv">arg</span> <span class="o">-</span><span class="nv">a</span> <span class="nv">to</span> <span class="nv">go</span> <span class="nv">this</span> <span class="nv">branch</span> <span class="nv">to</span> <span class="nv">test</span> <span class="nv">awk</span>
+<span class="mi">12</span>     <span class="nv">awk</span> <span class="s1">&#39;</span><span class="s">{print $0}</span><span class="s1">&#39;</span>
+<span class="mi">13</span>     <span class="c1">;;</span>
+<span class="mi">14</span>     <span class="nv">p</span><span class="ss">)</span> #<span class="nv">User</span> <span class="nv">arg</span> <span class="o">-</span><span class="nv">p</span> <span class="nv">to</span> <span class="nv">go</span> <span class="nv">this</span> <span class="nv">branch</span> <span class="nv">to</span> <span class="nv">test</span> <span class="nv">perl</span>
+<span class="mi">15</span>     <span class="nv">perl</span> <span class="o">-</span><span class="nv">e</span><span class="s1">&#39;</span>
+<span class="mi">16</span>         <span class="k">while</span> <span class="ss">(</span><span class="o">&lt;&gt;</span><span class="ss">)</span>{
+<span class="mi">17</span>         <span class="nv">print</span> $<span class="nv">_</span>}
+<span class="mi">18</span>     <span class="s1">&#39;</span>
+<span class="mi">19</span>     <span class="c1">;;</span>
+<span class="mi">20</span>     <span class="nv">esac</span>
+<span class="mi">21</span>     <span class="nv">done</span>
+</pre></div>
+
+
+<p>The first test, I only want to Bash to get pipe input and directly print out. No work maching or regular expression matching.</p>
+<div class="highlight"><pre><span></span><span class="nv">time</span> <span class="nv">cat</span> <span class="o">/</span><span class="nv">tmp</span><span class="o">/</span><span class="nv">testlog</span>.<span class="nv">txt</span> <span class="o">|</span>.<span class="o">/</span><span class="nv">arena</span>.<span class="nv">sh</span> <span class="o">-</span><span class="nv">b</span> <span class="nv">argHolder</span>
+... # <span class="nv">I</span> <span class="nv">conceal</span> <span class="nv">the</span> <span class="nv">output</span> <span class="nv">of</span> <span class="nv">log</span> <span class="nv">lines</span>, <span class="nv">as</span> <span class="nv">they</span> <span class="nv">are</span> <span class="nv">not</span> <span class="nv">useful</span> <span class="nv">to</span> <span class="k">show</span>. 
+<span class="nv">real</span>    <span class="mi">7</span><span class="nv">m46</span>.<span class="mi">246</span><span class="nv">s</span>
+<span class="nv">user</span>    <span class="mi">3</span><span class="nv">m52</span>.<span class="mi">114</span><span class="nv">s</span>
+<span class="nv">sys</span>     <span class="mi">5</span><span class="nv">m32</span>.<span class="mi">192</span><span class="nv">s</span>
+</pre></div>
+
+
+<p>Then try printf</p>
+<div class="highlight"><pre><span></span><span class="mi">1</span> #<span class="o">!/</span><span class="nv">bin</span><span class="o">/</span><span class="nv">bash</span>
+<span class="mi">2</span> <span class="k">while</span> <span class="nv">getopts</span> <span class="s2">&quot;</span><span class="s">a:p:b:</span><span class="s2">&quot;</span> <span class="nv">opt</span><span class="c1">;</span>
+<span class="mi">3</span> <span class="k">do</span>
+<span class="mi">4</span>     <span class="nv">case</span> $<span class="nv">opt</span> <span class="nv">in</span>
+<span class="mi">5</span>     <span class="nv">b</span><span class="ss">)</span> 
+<span class="mi">6</span>     <span class="k">while</span> <span class="nv">read</span> <span class="nv">line</span>
+<span class="mi">7</span>     <span class="k">do</span>
+<span class="mi">8</span>         #<span class="nv">echo</span> $<span class="nv">line</span> 
+<span class="mi">9</span>         <span class="nv">printf</span> <span class="s2">&quot;</span><span class="s">$line</span><span class="se">\n</span><span class="s2">&quot;</span>
+<span class="mi">10</span>     <span class="nv">done</span><span class="c1">;;</span>
+<span class="mi">11</span>     <span class="nv">a</span><span class="ss">)</span>
+<span class="mi">12</span>     <span class="nv">awk</span> <span class="s1">&#39;</span><span class="s">{print $0}</span><span class="s1">&#39;</span>
+<span class="mi">13</span>     <span class="c1">;;</span>
+<span class="mi">14</span>     <span class="nv">p</span><span class="ss">)</span>
+<span class="mi">15</span>     <span class="nv">perl</span> <span class="o">-</span><span class="nv">e</span><span class="s1">&#39;</span>
+<span class="mi">16</span>         <span class="k">while</span> <span class="ss">(</span><span class="o">&lt;&gt;</span><span class="ss">)</span>{
+<span class="mi">17</span>         <span class="nv">print</span> $<span class="nv">_</span>}
+<span class="mi">18</span>     <span class="s1">&#39;</span>
+<span class="mi">19</span>     <span class="c1">;;</span>
+<span class="mi">20</span>     <span class="nv">esac</span>
+<span class="mi">21</span>     <span class="nv">done</span>
+</pre></div>
+
+
+<p>It doesn't seem to improve much.</p>
+<div class="highlight"><pre><span></span><span class="nv">time</span> <span class="nv">cat</span> <span class="o">/</span><span class="nv">tmp</span><span class="o">/</span><span class="nv">testlog</span>.<span class="nv">txt</span> <span class="o">|</span>.<span class="o">/</span><span class="nv">arena</span>.<span class="nv">sh</span> <span class="o">-</span><span class="nv">b</span> <span class="nv">argHolder</span>
+... # <span class="nv">I</span> <span class="nv">conceal</span> <span class="nv">the</span> <span class="nv">output</span> <span class="nv">of</span> <span class="nv">log</span> <span class="nv">lines</span>, <span class="nv">as</span> <span class="nv">they</span> <span class="nv">are</span> <span class="nv">not</span> <span class="nv">useful</span> <span class="nv">to</span> <span class="k">show</span>. 
+<span class="nv">real</span>    <span class="mi">6</span><span class="nv">m36</span>.<span class="mi">344</span><span class="nv">s</span>
+<span class="nv">user</span>    <span class="mi">1</span><span class="nv">m54</span>.<span class="mi">662</span><span class="nv">s</span>
+<span class="nv">sys</span>     <span class="mi">4</span><span class="nv">m23</span>.<span class="mi">008</span><span class="nv">s</span>
+</pre></div>
+
+
+<p>Run arena.sh in current shell. Still slow, but improve a little bit.
+note: The first dote after pipi sign is equevolant to <code>source</code>, </p>
+<div class="highlight"><pre><span></span><span class="nv">time</span> <span class="nv">cat</span> <span class="o">/</span><span class="nv">tmp</span><span class="o">/</span><span class="nv">testlog</span>.<span class="nv">txt</span> <span class="o">|</span>. .<span class="o">/</span><span class="nv">arena</span>.<span class="nv">sh</span> <span class="o">-</span><span class="nv">b</span> <span class="nv">argHolder</span>
+... # <span class="nv">I</span> <span class="nv">conceal</span> <span class="nv">the</span> <span class="nv">output</span> <span class="nv">of</span> <span class="nv">log</span> <span class="nv">lines</span>, <span class="nv">as</span> <span class="nv">they</span> <span class="nv">are</span> <span class="nv">not</span> <span class="nv">useful</span> <span class="nv">to</span> <span class="k">show</span>. 
+<span class="nv">real</span>    <span class="mi">5</span><span class="nv">m16</span>.<span class="mi">064</span><span class="nv">s</span>
+<span class="nv">user</span>    <span class="mi">2</span><span class="nv">m6</span>.<span class="mi">884</span><span class="nv">s</span>
+<span class="nv">sys</span>     <span class="mi">4</span><span class="nv">m56</span>.<span class="mi">311</span><span class="nv">s</span>
+</pre></div>
+
+
+<p>Here is the version I ran with.</p>
+<div class="highlight"><pre><span></span><span class="n">bash</span> <span class="o">-</span><span class="k">version</span>
+<span class="n">GNU</span> <span class="n">bash</span><span class="p">,</span> <span class="k">version</span> <span class="mi">3</span><span class="p">.</span><span class="mi">2</span><span class="p">.</span><span class="mi">57</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">-</span><span class="n">release</span> <span class="p">(</span><span class="n">x86_64</span><span class="o">-</span><span class="n">apple</span><span class="o">-</span><span class="n">darwin18</span><span class="p">)</span>
+</pre></div>
+
+
+<h1>How good awk can do the read and print job?</h1>
+<p>awk can do much faster than bash, while slower than grep.</p>
+<div class="highlight"><pre><span></span><span class="nv">time</span> <span class="nv">cat</span> <span class="o">/</span><span class="nv">tmp</span><span class="o">/</span><span class="nv">testlog</span>.<span class="nv">txt</span> <span class="o">|</span>.<span class="o">/</span><span class="nv">arena</span>.<span class="nv">sh</span> <span class="o">-</span><span class="nv">a</span> <span class="nv">argHolder</span>
+... # <span class="nv">I</span> <span class="nv">conceal</span> <span class="nv">the</span> <span class="nv">output</span> <span class="nv">of</span> <span class="nv">log</span> <span class="nv">lines</span>, <span class="nv">as</span> <span class="nv">they</span> <span class="nv">are</span> <span class="nv">not</span> <span class="nv">useful</span> <span class="nv">to</span> <span class="k">show</span>. 
+<span class="nv">real</span>    <span class="mi">0</span><span class="nv">m14</span>.<span class="mi">712</span><span class="nv">s</span>
+<span class="nv">user</span>    <span class="mi">0</span><span class="nv">m9</span>.<span class="mi">213</span><span class="nv">s</span>
+<span class="nv">sys</span>     <span class="mi">0</span><span class="nv">m1</span>.<span class="mi">842</span><span class="nv">s</span>
+</pre></div>
+
+
+<p>Here is the awk version I ran with.</p>
+<div class="highlight"><pre><span></span><span class="n">awk</span> <span class="o">-</span><span class="k">version</span>
+<span class="n">awk</span> <span class="k">version</span> <span class="mi">20070501</span>
+</pre></div>
+
+
+<h1>How good perl can do.</h1>
+<p>Looks amazing. It runs faster than awk.</p>
+<div class="highlight"><pre><span></span><span class="nv">time</span> <span class="nv">cat</span> <span class="o">/</span><span class="nv">tmp</span><span class="o">/</span><span class="nv">testlog</span>.<span class="nv">txt</span> <span class="o">|</span>.<span class="o">/</span><span class="nv">arena</span>.<span class="nv">sh</span> <span class="o">-</span><span class="nv">p</span> <span class="nv">argHolder</span>
+... # <span class="nv">I</span> <span class="nv">conceal</span> <span class="nv">the</span> <span class="nv">output</span> <span class="nv">of</span> <span class="nv">log</span> <span class="nv">lines</span>, <span class="nv">as</span> <span class="nv">they</span> <span class="nv">are</span> <span class="nv">not</span> <span class="nv">useful</span> <span class="nv">to</span> <span class="k">show</span>. 
+<span class="nv">real</span>    <span class="mi">0</span><span class="nv">m6</span>.<span class="mi">941</span><span class="nv">s</span>
+<span class="nv">user</span>    <span class="mi">0</span><span class="nv">m0</span>.<span class="mi">991</span><span class="nv">s</span>
+<span class="nv">sys</span>     <span class="mi">0</span><span class="nv">m1</span>.<span class="mi">724</span><span class="nv">s</span>
+</pre></div>
+
+
+<p>Here is the perl version I ran with.    </p>
+<div class="highlight"><pre><span></span><span class="nv">perl</span> <span class="o">-</span><span class="nv">version</span>
+<span class="nv">This</span> <span class="nv">is</span> <span class="nv">perl</span> <span class="mi">5</span>, <span class="nv">version</span> <span class="mi">18</span>, <span class="nv">subversion</span> <span class="mi">2</span> <span class="ss">(</span><span class="nv">v5</span>.<span class="mi">18</span>.<span class="mi">2</span><span class="ss">)</span> <span class="nv">built</span> <span class="k">for</span> <span class="nv">darwin</span><span class="o">-</span><span class="nv">thread</span><span class="o">-</span><span class="nv">multi</span><span class="o">-</span><span class="mi">2</span><span class="nv">level</span>
+<span class="ss">(</span><span class="nv">with</span> <span class="mi">2</span> <span class="nv">registered</span> <span class="nv">patches</span>, <span class="nv">see</span> <span class="nv">perl</span> <span class="o">-</span><span class="nv">V</span> <span class="k">for</span> <span class="nv">more</span> <span class="nv">detail</span><span class="ss">)</span>
+</pre></div>
+
+
+<h1>Conclusion</h1>
+<p>I ran into some situation when parsing real-time printed logs, some of the log lines did not show but I don't know the performance gay by using only bash. 
+From some posts, they med that the performance of bash and perl are similar, but my test shows that bash is not good idea to handle such an amound of log lings. It takes much more time and always wheezing my Mac.</p>
+            <div>
+</div>
+
+            
+            
+            <hr/>
+        </div>
+        <section>
+        <div class="span2" style="float:right;font-size:0.9em;">
+            <h4>Published</h4>
+            <time itemprop="dateCreated" datetime="2019-06-23T11:01:00+08:00">Jun 23, 2019</time>
+
+<h4>Last Updated</h4>
+<time datetime="2019-06-23T11:01:00+08:00">Jun 23, 2019</time>
+
+            <h4>Category</h4>
+            <a class="category-link" href="/categories.html#scripts-ref">Scripts</a>
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article">
+                <li><a href="/tags#awk-ref">awk
+                    <span>1</span>
+</a></li>
+                <li><a href="/tags#bash-ref">Bash
+                    <span>1</span>
+</a></li>
+                <li><a href="/tags#perl-ref">Perl
+                    <span>1</span>
+</a></li>
+            </ul>
+<h4>Contact</h4>
+    <a href="#" title="My You can add links in your config file Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-you can add links in your config file sidebar-social-links"></i></a>
+    <a href="#" title="My Another social link Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-another social link sidebar-social-links"></i></a>
+        </div>
+        </section>
+</div>
+</article>
+                </div>
+                <div class="span1"></div>
+            </div>
+        </div>
+        <div id="push"></div>
+    </div>
+<footer>
+<div id="footer">
+    <ul class="footer-content">
+        <li class="elegant-power">Powered by <a href="http://getpelican.com/" title="Pelican Home Page">Pelican</a>. Theme: <a href="https://github.com/Pelican-Elegant/elegant/" title="Theme Elegant Home Page">Elegant</a></li>
+    </ul>
+</div>
+</footer>            <script src="//code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    
+    </body>
+    <!-- Theme: Elegant built for Pelican
+    License : MIT -->
+</html>
