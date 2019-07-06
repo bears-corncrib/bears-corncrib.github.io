@@ -9,7 +9,7 @@
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
-<meta name="keywords" content="git, Pelican, Blog, Python, bear's corncobs, Tools, " />
+<meta name="keywords" content="github, gitee, Pelican, Blog, Python, bear's corncobs, " />
 
 <meta property="og:title" content="Birth of my Blog, Pelican based "/>
 <meta property="og:url" content="/Birth of my Blog.html" />
@@ -17,7 +17,7 @@
 <meta property="og:site_name" content="Tester&#39;s Tricks" />
 <meta property="og:article:author" content="Tao" />
 <meta property="og:article:published_time" content="2019-06-15T20:00:00+08:00" />
-<meta property="og:article:modified_time" content="2019-07-02T12:30:00+08:00" />
+<meta property="og:article:modified_time" content="2019-07-05T00:00:00+08:00" />
 <meta name="twitter:title" content="Birth of my Blog, Pelican based ">
 <meta name="twitter:description" content="Here in this post, it records how I understand the steps building up my blog in a static web pages, and host it in both github and gitee.">
 
@@ -262,8 +262,18 @@ It is different from github. In gitee, you don't have to name your repository li
 
 <p>Now you have both local project path and remote repositories. </p>
 <h2>Confiure your Pelican, make output folder to be local repository of git</h2>
-<p>Edit <code>Makefile</code> to let pelican knows that which folder to output
-<code>OUTPUTDIR=$(BASEDIR)/output/bears-corncrib.github.io</code></p>
+<p>Edit <code>Makefile</code> to let pelican knows that which folder to output</p>
+<div class="highlight"><pre><span></span>#<span class="nv">BASEDIR</span><span class="o">=</span>$<span class="ss">(</span><span class="nv">CURDIR</span><span class="ss">)</span> # <span class="k">If</span> <span class="nv">your</span> <span class="nv">project</span> <span class="nv">folder</span> <span class="nv">path</span> <span class="nv">contains</span> <span class="nv">space</span>, <span class="nv">I</span> <span class="nv">would</span> <span class="nv">propose</span> <span class="nv">you</span> <span class="nv">to</span> <span class="nv">give</span> <span class="nv">a</span> <span class="nv">obsolute</span> <span class="nv">path</span>, <span class="nv">otherwise</span> <span class="nv">Pelican</span> <span class="nv">will</span> <span class="nv">compile</span> <span class="nv">your</span> <span class="nv">postes</span> <span class="nv">with</span> <span class="nv">failure</span>. <span class="k">If</span> <span class="nv">your</span> <span class="nv">obsolute</span> <span class="nv">path</span>, <span class="nv">just</span> <span class="nv">add</span> <span class="nv">an</span> <span class="nv">excate</span> <span class="nv">sign</span> \ <span class="k">for</span> <span class="nv">all</span> <span class="nv">the</span> <span class="nv">spaces</span>.  <span class="nv">Mine</span> <span class="nv">is</span> <span class="nv">blow</span> <span class="nv">as</span> <span class="nv">an</span> <span class="nv">example</span>.
+<span class="nv">BASEDIR</span><span class="o">=~/</span><span class="nv">Library</span><span class="o">/</span><span class="nv">Mobile</span>\ <span class="nv">Documents</span><span class="o">/</span><span class="nv">com</span><span class="o">~</span><span class="nv">apple</span><span class="o">~</span><span class="nv">CloudDocs</span><span class="o">/</span><span class="nv">MyBlog</span><span class="o">/</span><span class="nv">pelicanBlog</span>
+<span class="nv">INPUTDIR</span><span class="o">=</span>$<span class="ss">(</span><span class="nv">BASEDIR</span><span class="ss">)</span><span class="o">/</span><span class="nv">content</span>
+<span class="nv">OUTPUTDIR</span><span class="o">=</span>$<span class="ss">(</span><span class="nv">BASEDIR</span><span class="ss">)</span><span class="o">/</span><span class="nv">output</span><span class="o">/</span><span class="nv">bears</span><span class="o">-</span><span class="nv">corncrib</span>.<span class="nv">github</span>.<span class="nv">io</span>
+<span class="nv">CONFFILE</span><span class="o">=</span>$<span class="ss">(</span><span class="nv">BASEDIR</span><span class="ss">)</span><span class="o">/</span><span class="nv">pelicanconf</span>.<span class="nv">py</span>
+<span class="nv">PUBLISHCONF</span><span class="o">=</span>$<span class="ss">(</span><span class="nv">BASEDIR</span><span class="ss">)</span><span class="o">/</span><span class="nv">publishconf</span>.<span class="nv">py</span>
+</pre></div>
+
+
+<p>If you are not so good with Pelican's default theme, just download themes into a subfolder. My is <code>$MyBlog/pelican-themes</code>, and then give the path in pelicanconf.py. <code>THEME = 'pelican-themes/THEMEofYOURS'</code>
+There are some other parameters in pelicanconf.py, you can easily define and try.</p>
 <h2>Compose your first post</h2>
 <p>In <code>content</code>, make a new md/markdown file. Put the following meta data in the file on the top.</p>
 <div class="highlight"><pre><span></span>    <span class="nv">Title</span>: <span class="nv">My</span> <span class="nv">super</span> <span class="nv">title</span>
@@ -279,18 +289,55 @@ It is different from github. In gitee, you don't have to name your repository li
 </pre></div>
 
 
+<p>To undersant how you should use the meta data, here is the example from this page.</p>
+<div class="highlight"><pre><span></span>    <span class="n">Title</span><span class="p">:</span> <span class="n">Birth</span> <span class="k">of</span> <span class="n">my</span> <span class="n">Blog</span><span class="p">,</span> <span class="n">Pelican</span> <span class="n">based</span>
+    <span class="nb">Date</span><span class="p">:</span> <span class="mi">2019</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">15</span> <span class="mi">20</span><span class="p">:</span><span class="mi">00</span>
+    <span class="n">Modified</span><span class="p">:</span> <span class="mi">2019</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">05</span>
+    <span class="n">Category</span><span class="p">:</span> <span class="n">bear</span><span class="err">&#39;</span><span class="n">s</span> <span class="n">corncobs</span>
+    <span class="n">Tags</span><span class="p">:</span> <span class="n">github</span><span class="p">,</span> <span class="n">gitee</span><span class="p">,</span> <span class="n">Pelican</span><span class="p">,</span> <span class="n">Blog</span><span class="p">,</span> <span class="n">Python</span>
+    <span class="n">Slug</span><span class="p">:</span> <span class="n">Birth</span> <span class="k">of</span> <span class="n">my</span> <span class="n">Blog</span>
+    <span class="n">Authors</span><span class="p">:</span> <span class="n">Tao</span>
+    <span class="n">Summary</span><span class="p">:</span> <span class="n">Here</span> <span class="k">in</span> <span class="n">this</span> <span class="n">post</span><span class="p">,</span> <span class="n">it</span> <span class="n">records</span> <span class="n">how</span> <span class="n">I</span> <span class="n">understand</span> <span class="n">the</span> <span class="n">steps</span> <span class="n">building</span> <span class="n">up</span> <span class="n">my</span> <span class="n">blog</span> <span class="k">in</span> <span class="n">a</span> <span class="k">static</span> <span class="n">web</span> <span class="n">pages</span><span class="p">,</span> <span class="k">and</span> <span class="k">host</span> <span class="n">it</span> <span class="k">in</span> <span class="k">both</span> <span class="n">github</span> <span class="k">and</span> <span class="n">gitee</span><span class="p">.</span>
+</pre></div>
+
+
 <h2>Compile your first blog</h2>
-<p><code>make html</code>
-<code>make devserver</code>
-You can review you blog from 0.0.0.0:8000
-<strong>Warnning: Don't use make publish or make github, it clear out your local reposibory.</strong>
-* publish to both of your remote repositories. </p>
-<p><code>git add .</code> This will make sure all your new files will be added to track by stage of local respository
-<code>git commit -m "Your comments"</code> This will submit your stage to local repository
-<code>git push -u origin master</code> Push local repository to reomote repositories, which defined above.</p>
+<p>Once you have finish composing your poste in .md files. You are ready to update you blog.
+Go to the home of you Pelican project folder, like <code>cd $MyBlog</code></p>
+<p>Compile your post from markdown into html.</p>
+<div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">html</span>
+</pre></div>
+
+
+<p>You can review your page locally.</p>
+<div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">devserver</span>
+</pre></div>
+
+
+<p>Then, browse you blog from 0.0.0.0:8000 or localhost:8000</p>
+<p><strong>Warnning: Don't use make publish or make github, it clear out your local reposibory. They are used to publish your page in another way, gh-pages, which I don't use.</strong></p>
+<h2>publish to both of your remote repositories.</h2>
+<p>I am not using Pelican to publish blog pages to remote repositoriy, but directly using git. I would propose you to understand some of the basic use of git for this part.</p>
+<p>Change working direcytory to <code>cd $HOMEofBLOG/output/YOURLOCALREPOSITORY</code>, like mine  <code>cd $MyBlog/output/bears-corncrib.github.io</code></p>
+<div class="highlight"><pre><span></span><span class="n">git</span> <span class="k">add</span> <span class="p">.</span> <span class="o">#</span><span class="n">This</span> <span class="n">will</span> <span class="n">make</span> <span class="n">sure</span> <span class="k">all</span> <span class="n">your</span> <span class="k">new</span> <span class="n">files</span> <span class="n">will</span> <span class="n">be</span> <span class="n">added</span> <span class="k">to</span> <span class="n">track</span> <span class="k">by</span> <span class="n">stage</span> <span class="k">of</span> <span class="k">local</span> <span class="n">respository</span>
+<span class="n">git</span> <span class="k">commit</span> <span class="o">-</span><span class="n">m</span> <span class="ss">&quot;Your comments&quot;</span> <span class="o">#</span><span class="n">This</span> <span class="n">will</span> <span class="n">submit</span> <span class="n">your</span> <span class="n">stage</span> <span class="k">to</span> <span class="k">local</span> <span class="n">repository</span>
+<span class="n">git</span> <span class="n">push</span> <span class="o">-</span><span class="n">u</span> <span class="n">origin</span> <span class="n">master</span>  <span class="o">#</span><span class="n">Push</span> <span class="k">local</span> <span class="n">repository</span> <span class="k">to</span> <span class="n">reomote</span> <span class="n">repositories</span><span class="p">,</span> <span class="k">both</span> <span class="n">github</span> <span class="k">and</span> <span class="n">gitee</span><span class="p">,</span> <span class="n">which</span> <span class="k">defined</span> <span class="n">above</span><span class="p">.</span>
+</pre></div>
+
+
 <p>Note. Gitee.com doesn't automatically refresh you blog the same as github. You need to login your gitee account and refressh gitee page "Services-Gitee pages-Update"</p>
-<h2>Customize your local website</h2>
-<h2>Changing theme</h2>
+<p>Then you will be able to see your page in browser. Mine are <code>https://bears-corncrib.github.io</code> and <code>https://bears-corncrib.gitee.io</code></p>
+<h2>Lazy like me</h2>
+<p>Every time, when you have any new posts or udpate. there are a few command to repeat. Here is my way to make them faster. Just save these lines in a bash file in your Blog project folder, mine is "updateBlog.sh"</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> [ <span class="o">-</span><span class="nv">e</span> <span class="s2">&quot;</span><span class="s">$1</span><span class="s2">&quot;</span> ]<span class="c1">;then echo &quot;Please add a comment for git commit, such as updateBlog.sh &quot;new post&quot;, and try again.&quot;;exit;fi</span>
+<span class="nv">pwd</span><span class="o">|</span><span class="nv">egrep</span> <span class="s2">&quot;</span><span class="s">pelicanBlog$</span><span class="s2">&quot;</span><span class="o">||</span>{ <span class="nv">echo</span> <span class="s2">&quot;</span><span class="s">Please go to your Blog folder</span><span class="s2">&quot;</span> <span class="o">&amp;&amp;</span> <span class="k">exit</span><span class="c1">; }</span>
+<span class="nv">make</span> <span class="nv">html</span>
+<span class="nv">cd</span> <span class="nv">output</span><span class="o">/</span><span class="nv">bears</span><span class="o">-</span><span class="nv">corncrib</span>.<span class="nv">github</span>.<span class="nv">io</span><span class="o">/</span>
+<span class="nv">git</span> <span class="nv">add</span> .
+<span class="nv">git</span> <span class="nv">commit</span> <span class="mh">$1</span>
+<span class="nv">git</span> <span class="nv">push</span> <span class="o">-</span><span class="nv">u</span> <span class="nv">origin</span> <span class="nv">master</span>
+<span class="nv">cd</span> <span class="o">-</span>
+</pre></div>
             <div>
 </div>
 
@@ -304,19 +351,19 @@ You can review you blog from 0.0.0.0:8000
             <time itemprop="dateCreated" datetime="2019-06-15T20:00:00+08:00">Jun 15, 2019</time>
 
 <h4>Last Updated</h4>
-<time datetime="2019-07-02T12:30:00+08:00">Jul 2, 2019</time>
+<time datetime="2019-07-05T00:00:00+08:00">Jul 5, 2019</time>
 
             <h4>Category</h4>
-            <a class="category-link" href="/categories.html#tools-ref">Tools</a>
+            <a class="category-link" href="/categories.html#bears-corncobs-ref">bear's corncobs</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="/tags#bears-corncobs-ref">bear's corncobs
-                    <span>1</span>
-</a></li>
                 <li><a href="/tags#blog-ref">Blog
                     <span>1</span>
 </a></li>
-                <li><a href="/tags#git-ref">git
+                <li><a href="/tags#gitee-ref">gitee
+                    <span>1</span>
+</a></li>
+                <li><a href="/tags#github-ref">github
                     <span>1</span>
 </a></li>
                 <li><a href="/tags#pelican-ref">Pelican
