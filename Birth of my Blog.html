@@ -74,31 +74,24 @@
             
             <h1>Bear and corncobs</h1>
 <p>Just realize that lifelong learning is not only about the habit of curious for new things, but also need a good way to memerize knowledge and skills. Not smooth like a brand new car any more, my brain keep dumping something, which make me frustrated when I tried to do something that I had down long time ago, I have to do it like from fresh. What a clumsy bear I am.</p>
-<p>Notes are helpful. I have been using Evernote, youdao note and onenote. They are all good to work like draft material repositories. When I read something and just want to keep them, in case I need to review. The problem is that I can't share what I have practiced, emm, I have not been a developer since the start of my career. Let me see if I will have anything valuable to share.</p>
+<p>Notes are helpful. I have been using Evernote, youdao note and onenote. They are all good to work like draft material repositories. When I read something and just want to keep them, in case I will need to remind sometime. The problem is that I can't share what I have practiced, emm, I have not been a developer since the start of my career. Let me see if I will have anything valuable to share.</p>
 <p>As always, before I start using any new tools, like APP or software, especially for those I could use long time. Side by side comparison helps me to make decision. Hosting my blog, I had considered the following options. </p>
-<ul>
-<li>
-<p>CSDN, cnblog, segementfault, etc. 
-These are polular websites hosting technical blogs. They are all very handy, but I have zero control over the views of my blog, I don't like those Ads. Even they are strong in business, I still want my orignal texts stay safly in my personal clouds.</p>
-</li>
-<li>
-<p>Building my own blog using wordpress
-Hosting wordpress is on another extreme side. I have full control, while I will have to spend time on managing website. I can learn a lot, about http servers, database, renting VPC, renting domain names, etc, which are not currently relevant to my daily work. So these knowledge doesn't improve my career. I would leave them in low prioriy in my "to learn" list.  </p>
-</li>
-<li>
-<p>Github pages, finally attracted me.
-Basically, I still want the posts to be in simple format that can easier read even if from offline. Writing in markdown format which almost the same as text, satisfies my thought. I don't have to worry about transform too much when I may move my blog. 
+<h3>CSDN, cnblog, segementfault, etc.</h3>
+<p>These are polular websites hosting technical blogs. They are all very handy, but I have zero control over the views of my blog, I don't like those Ads. Even they are strong in business, I still want my orignal texts stay safly in my personal cloud.</p>
+<h3>Building my own blog using wordpress</h3>
+<p>Hosting wordpress is on another extreme side. I will have full control, while I will have to spend time on managing website itself. I can learn a lot about website, about http servers, database, renting VPC, renting domain names, etc, which are not currently relevant to my daily work. So these knowledge doesn't improve my career. I would leave them in low prioriy in my "to learn" list.  </p>
+<h3>Github pages, finally attracted me.</h3>
+<p>Basically, I still want the posts to be in simple format that can easier read even if from offline. Writing in markdown format which almost the same as text, satisfies my thought. I don't have to worry about transform too much when I may move my blog. 
 Static web pages are good for simple personaly web, no Ads, tidy and focus. People are so smart using scripts to compile markdown into HTML. It is not necessary to spend time working on formats and decorite my web. There are a few scripts can be used. Here just put down some very basic ideas from my search and compare.</p>
-</li>
+<ul>
+<li><a href="https://hexo.com">Hexo</a>
+This is writen by Note.js. It is known as good performance compiling files and easy to install. There are a lot of beautiful themes which attracts people. </li>
+<li><a href="https://jekyllrb.com">jekyll</a>
+It is writen by Ruby. Performance is not good, said in some of the posts online, but it is still very polular. People don't always emphasis performance as the top 1 priority, I guess. </li>
+<li><a href="http://docs.getpelican.com">Pelican</a>
+Writen by Python, which I knows better than Ruby or Node.js. This is the reason why I pick this one. There could be one day I need to modified something for my own needs.</li>
 </ul>
-<h4>Hexo</h4>
-<p>This is writen by Note.js. It is known as good performance compiling files and easy to install. There are a lot of beautiful themes which attracts people. </p>
-<h4>jekyll</h4>
-<p>It is writen by Ruby. Performance is not good, said in some of the posts online, but it is still very polular. People don't always emphasis performance as the top 1 priority, I guess. </p>
-<h4>Pelican</h4>
-<p>Writen by Python, which I knows better than Ruby or Node.js. This is the reason why I pick this one. There could be one day I need to modified something for my own needs.
-<a href="http://docs.getpelican.com/en/4.0.1/index.html">Pelican Doc,</a></p>
-<h5>There are more static website generators, check them out from this link <a href="https://www.staticgen.com">https://www.staticgen.com</a></h5>
+<p>There are more static website generators, check them out from this link <a href="https://www.staticgen.com">https://www.staticgen.com</a></p>
 <h1>Building up from scratch</h1>
 <h2>Build Python enviroment</h2>
 <p>It must be verbose if I introduce Python. Here in this step, just make sure you have your own Python and vertual enviroment. I am using <a href="https://www.anaconda.com">ANACONDA</a>.</p>
@@ -117,9 +110,16 @@ Here 'pelican' is the name of my vertual enviroment. </p>
 <p>'Markdown' is strongly proposed. I don't see any use case that people host blog in github but not using Markdown as the orignal text of postes.</p>
 <p><code>pip install Markdown</code> </p>
 <p>Then, choose a folder where you want all your project files to be stored. You can put it in you <code>$HOME</code> path or any sync-up folder using any cloud APP. For me, I just simply use a path in my icloud. Here below let me use <code>$MyBlog</code> as an alias of my own path.</p>
-<p><code>cd $MyBlog</code>
- Initialize the project. It generates some folers and configuration files. We will be using them later.</p>
-<p><code>pelican-quickstart</code></p>
+<div class="highlight"><pre><span></span><span class="n">cd</span> <span class="err">$</span><span class="n">MyBlog</span>
+</pre></div>
+
+
+<p>Initialize the project. </p>
+<div class="highlight"><pre><span></span><span class="n">pelican</span><span class="o">-</span><span class="n">quickstart</span>
+</pre></div>
+
+
+<p>It generates some folers and configuration files. We are using them later.</p>
 <div class="highlight"><pre><span></span><span class="err">$</span><span class="n">MyBlog</span><span class="o">/</span>
 <span class="err">├──</span> <span class="n">content</span>
 <span class="err">│</span>   <span class="err">└──</span> <span class="p">(</span><span class="n">pages</span><span class="p">)</span>
@@ -143,22 +143,24 @@ Here 'pelican' is the name of my vertual enviroment. </p>
 
 
 <h2>sign up for a new account from github, and activate github page</h2>
-<p>No difficulty I can imagine when signing up a new accout. Just make sure you have account there. If you care about the FQDN/domain name, here is my understanding. With github, you username will be used as the prefix of the FQDN, like USERNAME.github.io. I would remind that to pick a good name that you like if you don't want to spend extra effort to apply for a fancy FQDN from provider, such as https://www.name.com or https://www.godaddy.com . 
-There is another way to define your FQDN if your USERNAME is not what you want to use, organization. Just create a new orgnization, and use ORGANIZATION.github.io. 
-By either way above, github page need to be activated. You need to create a new reposiborty, named as <em>name USERNAME.github.io or ORGANIZATION.github.io</em>. It is a must. <a href="https://pages.github.com">Github Page</a>
+<p>No difficulty I can imagine when signing up a new accout. Just make sure you have account there. </p>
+<p>If you care about the FQDN/domain name, here is my understanding. With github, you username will be used as the prefix of the FQDN, like USERNAME.github.io. I would remind that to pick a good name that you like if you don't want to spend extra effort to apply for a fancy FQDN from provider, such as https://www.name.com or https://www.godaddy.com . </p>
+<p>There is another way to define your FQDN if your USERNAME is not what you want to use, organization. Just create a new orgnization, and use ORGANIZATION.github.io as your FQDN. </p>
+<p>By either way above, github page need to be activated. You need to create a new reposiborty, named as <em>name USERNAME.github.io or ORGANIZATION.github.io</em>. It is a must, refer to <a href="https://pages.github.com">Github Page</a>. 
 For new git user, I would propose to check "Initialize this repository with a README" when you creat your repository, otherwise you will see error next when your run git clone to build your locate repository. </p>
-<ol>
-<li>After Signing up, change path to <code>$MyBlog/output</code> and then clone your own remote repository. </li>
-</ol>
-<p><code>git clone https://github.com/bears-corncrib/bears-corncrib.github.io.git</code>. </p>
+<p>After Signing up, change path to <code>$HOMEofBLOG/output</code> and then clone your own remote repository. </p>
+<div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">bears</span><span class="o">-</span><span class="n">corncrib</span><span class="o">/</span><span class="n">bears</span><span class="o">-</span><span class="n">corncrib</span><span class="p">.</span><span class="n">github</span><span class="p">.</span><span class="n">io</span><span class="p">.</span><span class="n">git</span>
+</pre></div>
+
+
 <p>It init an local repository in <code>output</code> and have a full copy of your remote repository. </p>
-<p>It can also be down step by step, but I would not propose you to do so unless you knows git some form already. </p>
-<ol>
+<p>It can also be done step by step as following, but I would not propose you to do so unless you knows git some form already. Ignor the folowing steps and jump to next chapter.</p>
+<ul>
 <li>
-<p>Make a folder name whatever you like in <code>output</code> and change into it, mine is <code>$HOMEofBLOG/output/bears-corncrib.github.io</code></p>
+<p>Make a folder name whatever you like in <code>output</code> and change into it, mine is <code>$MyBLOG/output/bears-corncrib.github.io</code></p>
 <p>git init</p>
 </li>
-</ol>
+</ul>
 <p>You can check config fire in <code>.git</code> folder</p>
 <div class="highlight"><pre><span></span><span class="n">cat</span><span class="w"> </span><span class="n">config</span><span class="w"> </span>
 <span class="o">[</span><span class="n">core</span><span class="o">]</span><span class="w"></span>
@@ -171,12 +173,12 @@ For new git user, I would propose to check "Initialize this repository with a RE
 </pre></div>
 
 
-<ol>
+<ul>
 <li>
 <p>Adding remote repository</p>
-<p><code>git remote add origin https://github.com/bears-corncrib/bears-corncrib.github.io.git</code></p>
+<p>git remote add origin https://github.com/bears-corncrib/bears-corncrib.github.io.git</p>
 </li>
-</ol>
+</ul>
 <p>Check what has been changed in config.</p>
 <div class="highlight"><pre><span></span><span class="n">cat</span><span class="w"> </span><span class="n">config</span><span class="w"> </span>
 <span class="o">[</span><span class="n">core</span><span class="o">]</span><span class="w"></span>
@@ -200,24 +202,21 @@ For new git user, I would propose to check "Initialize this repository with a RE
 </pre></div>
 
 
-<ol>
+<ul>
 <li>
 <p>download from remote repository. </p>
-<p><code>git pull https://github.com/bears-corncrib/bears-corncrib.github.io.git</code></p>
+<p>git pull https://github.com/bears-corncrib/bears-corncrib.github.io.git</p>
 </li>
-</ol>
+</ul>
 <h2>Adding another repository, optional, if you are in a country or area that has limited bandwitch to github</h2>
 <p>For my case, I picked <a href="http://gitee.com">Gitee</a>. Make sure you can read Chinese to use this website.</p>
-<ol>
-<li>
 <p>Sign up for an account in Gitee, and similarly start your gitee page. 
-It is different from github. In gitee, you don't have to name your repository like <em>name USERNAME.github.io or ORGANIZATION.github.io</em> to activate page. Just name your repository, then your page will be accessible from YOURREPOSITORY.gitee.io. Mine is bears-corncrib.gitee.io.</p>
-</li>
-<li>
-<p>Adding another remote repository.</p>
-<p><code>git remote set-url origin --add https://gitee.com/bears-corncrib/bears-corncrib.git</code></p>
-</li>
-</ol>
+It is different from github. In gitee, you don't have to name your repository like <em>name USERNAME.github.io or ORGANIZATION.github.io</em> to activate page. Just name your repository withou <code>gitee.io</code>, then your page will be accessible from YOURREPOSITORY.gitee.io. Mine is bears-corncrib.gitee.io.</p>
+<p>Adding another remote repository. In your local repository folder <code>cd $HOMEofBLOG/output/YOURLOCALREPOSITORY</code></p>
+<div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">remote</span> <span class="k">set</span><span class="o">-</span><span class="n">url</span> <span class="n">origin</span> <span class="c1">--add https://gitee.com/bears-corncrib/bears-corncrib.git</span>
+</pre></div>
+
+
 <p>Check what has been changed in config.</p>
 <div class="highlight"><pre><span></span><span class="n">cat</span><span class="w"> </span><span class="p">.</span><span class="n">git</span><span class="o">/</span><span class="n">config</span><span class="w"> </span>
 <span class="o">[</span><span class="n">core</span><span class="o">]</span><span class="w"></span>
@@ -261,21 +260,22 @@ It is different from github. In gitee, you don't have to name your repository li
         merge = refs/heads/master-->
 
 <p>Now you have both local project path and remote repositories. </p>
-<h2>Confiure your Pelican, make output folder to be local repository of git</h2>
-<p>Edit <code>Makefile</code> to let pelican knows that which folder to output</p>
-<div class="highlight"><pre><span></span>#<span class="nv">BASEDIR</span><span class="o">=</span>$<span class="ss">(</span><span class="nv">CURDIR</span><span class="ss">)</span> # <span class="k">If</span> <span class="nv">your</span> <span class="nv">project</span> <span class="nv">folder</span> <span class="nv">path</span> <span class="nv">contains</span> <span class="nv">space</span>, <span class="nv">I</span> <span class="nv">would</span> <span class="nv">propose</span> <span class="nv">you</span> <span class="nv">to</span> <span class="nv">give</span> <span class="nv">a</span> <span class="nv">obsolute</span> <span class="nv">path</span>, <span class="nv">otherwise</span> <span class="nv">Pelican</span> <span class="nv">will</span> <span class="nv">compile</span> <span class="nv">your</span> <span class="nv">postes</span> <span class="nv">with</span> <span class="nv">failure</span>. <span class="k">If</span> <span class="nv">your</span> <span class="nv">obsolute</span> <span class="nv">path</span>, <span class="nv">just</span> <span class="nv">add</span> <span class="nv">an</span> <span class="nv">excate</span> <span class="nv">sign</span> \ <span class="k">for</span> <span class="nv">all</span> <span class="nv">the</span> <span class="nv">spaces</span>.  <span class="nv">Mine</span> <span class="nv">is</span> <span class="nv">blow</span> <span class="nv">as</span> <span class="nv">an</span> <span class="nv">example</span>.
-<span class="nv">BASEDIR</span><span class="o">=~/</span><span class="nv">Library</span><span class="o">/</span><span class="nv">Mobile</span>\ <span class="nv">Documents</span><span class="o">/</span><span class="nv">com</span><span class="o">~</span><span class="nv">apple</span><span class="o">~</span><span class="nv">CloudDocs</span><span class="o">/</span><span class="nv">MyBlog</span><span class="o">/</span><span class="nv">pelicanBlog</span>
-<span class="nv">INPUTDIR</span><span class="o">=</span>$<span class="ss">(</span><span class="nv">BASEDIR</span><span class="ss">)</span><span class="o">/</span><span class="nv">content</span>
-<span class="nv">OUTPUTDIR</span><span class="o">=</span>$<span class="ss">(</span><span class="nv">BASEDIR</span><span class="ss">)</span><span class="o">/</span><span class="nv">output</span><span class="o">/</span><span class="nv">bears</span><span class="o">-</span><span class="nv">corncrib</span>.<span class="nv">github</span>.<span class="nv">io</span>
-<span class="nv">CONFFILE</span><span class="o">=</span>$<span class="ss">(</span><span class="nv">BASEDIR</span><span class="ss">)</span><span class="o">/</span><span class="nv">pelicanconf</span>.<span class="nv">py</span>
-<span class="nv">PUBLISHCONF</span><span class="o">=</span>$<span class="ss">(</span><span class="nv">BASEDIR</span><span class="ss">)</span><span class="o">/</span><span class="nv">publishconf</span>.<span class="nv">py</span>
+<h2>Confiure your Pelican, make output folder to local repository of git</h2>
+<p>Edit <code>Makefile</code> to let pelican knows that which folder to output.</p>
+<p>If your project folder path contains space, I would propose you to give a obsolute path, otherwise Pelican will compile your postes with failure. In your obsolute path, just add an escpate sign \ for all the spaces.  Mine is blow as an example.</p>
+<div class="highlight"><pre><span></span><span class="c">#BASEDIR=$(CURDIR)</span>
+<span class="nv">BASEDIR</span><span class="o">=</span>~/Library/Mobile<span class="se">\ </span>Documents/com~apple~CloudDocs/MyBlog/pelicanBlog
+<span class="nv">INPUTDIR</span><span class="o">=</span><span class="k">$(</span>BASEDIR<span class="k">)</span>/content
+<span class="nv">OUTPUTDIR</span><span class="o">=</span><span class="k">$(</span>BASEDIR<span class="k">)</span>/output/bears-corncrib.github.io <span class="c1">#Here point to your local repository.</span>
+<span class="nv">CONFFILE</span><span class="o">=</span><span class="k">$(</span>BASEDIR<span class="k">)</span>/pelicanconf.py
+<span class="nv">PUBLISHCONF</span><span class="o">=</span><span class="k">$(</span>BASEDIR<span class="k">)</span>/publishconf.py
 </pre></div>
 
 
 <p>If you are not so good with Pelican's default theme, just download themes into a subfolder. My is <code>$MyBlog/pelican-themes</code>, and then give the path in pelicanconf.py. <code>THEME = 'pelican-themes/THEMEofYOURS'</code>
 There are some other parameters in pelicanconf.py, you can easily define and try.</p>
 <h2>Compose your first post</h2>
-<p>In <code>content</code>, make a new md/markdown file. Put the following meta data in the file on the top.</p>
+<p>In <code>content</code>, make a new markdown file, extension .md. Put the following meta data in the file on the top.</p>
 <div class="highlight"><pre><span></span>    <span class="nv">Title</span>: <span class="nv">My</span> <span class="nv">super</span> <span class="nv">title</span>
     <span class="nv">Date</span>: <span class="mi">2010</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">03</span> <span class="mi">10</span>:<span class="mi">20</span>
     <span class="nv">Modified</span>: <span class="mi">2010</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">05</span> <span class="mi">19</span>:<span class="mi">30</span>
@@ -289,7 +289,7 @@ There are some other parameters in pelicanconf.py, you can easily define and try
 </pre></div>
 
 
-<p>To undersant how you should use the meta data, here is the example from this page.</p>
+<p>To understand how you should use the meta data, here is the example from this page.</p>
 <div class="highlight"><pre><span></span>    <span class="n">Title</span><span class="p">:</span> <span class="n">Birth</span> <span class="k">of</span> <span class="n">my</span> <span class="n">Blog</span><span class="p">,</span> <span class="n">Pelican</span> <span class="n">based</span>
     <span class="nb">Date</span><span class="p">:</span> <span class="mi">2019</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">15</span> <span class="mi">20</span><span class="p">:</span><span class="mi">00</span>
     <span class="n">Modified</span><span class="p">:</span> <span class="mi">2019</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">05</span>
@@ -303,7 +303,7 @@ There are some other parameters in pelicanconf.py, you can easily define and try
 
 <h2>Compile your first blog</h2>
 <p>Once you have finish composing your poste in .md files. You are ready to update you blog.
-Go to the home of you Pelican project folder, like <code>cd $MyBlog</code></p>
+Go to the home of you Pelican project folder, like <code>cd $HOMEofBLOG</code></p>
 <p>Compile your post from markdown into html.</p>
 <div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">html</span>
 </pre></div>
@@ -325,10 +325,10 @@ Go to the home of you Pelican project folder, like <code>cd $MyBlog</code></p>
 </pre></div>
 
 
-<p>Note. Gitee.com doesn't automatically refresh you blog the same as github. You need to login your gitee account and refressh gitee page "Services-Gitee pages-Update"</p>
+<p>Note. Gitee.com doesn't automatically refresh you blog the same as github. You need to login your gitee account and refresh gitee page "Services-&gt;Gitee pages-&gt;Update"</p>
 <p>Then you will be able to see your page in browser. Mine are <code>https://bears-corncrib.github.io</code> and <code>https://bears-corncrib.gitee.io</code></p>
-<h2>Lazy like me</h2>
-<p>Every time, when you have any new posts or udpate. there are a few command to repeat. Here is my way to make them faster. Just save these lines in a bash file in your Blog project folder, mine is "updateBlog.sh"</p>
+<h2>The late, Lazy like me</h2>
+<p>Every time, when you have any new posts or udpate. There are a few command to repeat. Here is my way to make them faster. Just save these lines in a bash file in your Blog project folder, mine is "updateBlog.sh"</p>
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -341,21 +341,25 @@ Go to the home of you Pelican project folder, like <code>cd $MyBlog</code></p>
 10
 11
 12
-13</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+13
+14</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 <span class="c1">#Go to you Blog project folder</span>
 <span class="c1">#active your virtual env</span>
 <span class="c1">#I do above two actions by aliase, which is in ~/.bash_profile</span>
-<span class="nv">NAMEofBLOG</span><span class="o">=</span><span class="s2">&quot;XXXXX&quot;</span>  <span class="c1">#Make sure XXXXX is replaced by the name of your Pelecan project</span>
+<span class="nv">nameOfBlog</span><span class="o">=</span><span class="s2">&quot;XXXX&quot;</span>  <span class="c1">#Make sure to replace the XXXX with your project name/folder name of your blog</span>
+<span class="nv">localRep</span><span class="o">=</span><span class="s2">&quot;YYYY&quot;</span>  <span class="c1"># Make sure to replace YYYY with your path to your local repository, mine is &quot;output/bears-corncrib.github.io/&quot;</span>
 <span class="k">if</span> <span class="o">[</span> -e <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span> <span class="nb">echo</span> <span class="s2">&quot;Please add a comment for git commit, such as updateBlog.sh &quot;</span>new post<span class="s2">&quot;, and try again.&quot;</span><span class="p">;</span>exit<span class="p">;</span><span class="k">fi</span>
-pwd<span class="p">|</span>egrep <span class="s2">&quot;</span><span class="nv">$NAMEofBLOG</span>$<span class="s2">&quot;</span><span class="o">||{</span> <span class="nb">echo</span> <span class="s2">&quot;Please go to your Blog folder&quot;</span> <span class="o">&amp;&amp;</span> exit<span class="p">;</span> <span class="o">}</span>
+pwd<span class="p">|</span>egrep <span class="s2">&quot;</span><span class="nv">$nameOfBlog</span>$<span class="s2">&quot;</span><span class="o">||{</span> <span class="nb">echo</span> <span class="s2">&quot;Please go to your Blog folder&quot;</span> <span class="o">&amp;&amp;</span> exit<span class="p">;</span> <span class="o">}</span>
 make html
-<span class="nb">cd</span> output/bears-corncrib.github.io/
+<span class="nb">cd</span> <span class="nv">$localRep</span>
 git add .
 git commit -m <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>
 git push -u origin master
 <span class="nb">cd</span> -
 </pre></div>
 </td></tr></table>
+
+<p>Run it in your project folder <code>bash ./updateBlog.sh "Here is your comments for git commit"</code></p>
             <div>
 </div>
 
