@@ -329,15 +329,33 @@ Go to the home of you Pelican project folder, like <code>cd $MyBlog</code></p>
 <p>Then you will be able to see your page in browser. Mine are <code>https://bears-corncrib.github.io</code> and <code>https://bears-corncrib.gitee.io</code></p>
 <h2>Lazy like me</h2>
 <p>Every time, when you have any new posts or udpate. there are a few command to repeat. Here is my way to make them faster. Just save these lines in a bash file in your Blog project folder, mine is "updateBlog.sh"</p>
-<div class="highlight"><pre><span></span><span class="k">if</span> [ <span class="o">-</span><span class="nv">e</span> <span class="s2">&quot;</span><span class="s">$1</span><span class="s2">&quot;</span> ]<span class="c1">;then echo &quot;Please add a comment for git commit, such as updateBlog.sh &quot;new post&quot;, and try again.&quot;;exit;fi</span>
-<span class="nv">pwd</span><span class="o">|</span><span class="nv">egrep</span> <span class="s2">&quot;</span><span class="s">pelicanBlog$</span><span class="s2">&quot;</span><span class="o">||</span>{ <span class="nv">echo</span> <span class="s2">&quot;</span><span class="s">Please go to your Blog folder</span><span class="s2">&quot;</span> <span class="o">&amp;&amp;</span> <span class="k">exit</span><span class="c1">; }</span>
-<span class="nv">make</span> <span class="nv">html</span>
-<span class="nv">cd</span> <span class="nv">output</span><span class="o">/</span><span class="nv">bears</span><span class="o">-</span><span class="nv">corncrib</span>.<span class="nv">github</span>.<span class="nv">io</span><span class="o">/</span>
-<span class="nv">git</span> <span class="nv">add</span> .
-<span class="nv">git</span> <span class="nv">commit</span> <span class="mh">$1</span>
-<span class="nv">git</span> <span class="nv">push</span> <span class="o">-</span><span class="nv">u</span> <span class="nv">origin</span> <span class="nv">master</span>
-<span class="nv">cd</span> <span class="o">-</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="c1">#Go to you Blog project folder</span>
+<span class="c1">#active your virtual env</span>
+<span class="c1">#I do above two actions by aliase, which is in ~/.bash_profile</span>
+<span class="nv">NAMEofBLOG</span><span class="o">=</span><span class="s2">&quot;XXXXX&quot;</span>  <span class="c1">#Make sure XXXXX is replaced by the name of your Pelecan project</span>
+<span class="k">if</span> <span class="o">[</span> -e <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span> <span class="nb">echo</span> <span class="s2">&quot;Please add a comment for git commit, such as updateBlog.sh &quot;</span>new post<span class="s2">&quot;, and try again.&quot;</span><span class="p">;</span>exit<span class="p">;</span><span class="k">fi</span>
+pwd<span class="p">|</span>egrep <span class="s2">&quot;</span><span class="nv">$NAMEofBLOG</span>$<span class="s2">&quot;</span><span class="o">||{</span> <span class="nb">echo</span> <span class="s2">&quot;Please go to your Blog folder&quot;</span> <span class="o">&amp;&amp;</span> exit<span class="p">;</span> <span class="o">}</span>
+make html
+<span class="nb">cd</span> output/bears-corncrib.github.io/
+git add .
+git commit -m <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>
+git push -u origin master
+<span class="nb">cd</span> -
 </pre></div>
+</td></tr></table>
             <div>
 </div>
 
