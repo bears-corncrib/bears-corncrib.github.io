@@ -315,7 +315,9 @@ Go to the home of you Pelican project folder, like <code>cd $HOMEofBLOG</code></
 
 
 <p>Then, browse you blog from 0.0.0.0:8000 or localhost:8000</p>
-<p><strong>Warnning: Don't use make publish or make github, it clear out your local reposibory. They are used to publish your page in another way, gh-pages, which I don't use.</strong></p>
+<p><strong>Warnning: Don't use make publish or make github, they clear out your <code>.git</code> folder from local reposibory. They are used to publish your page in another branch, gh-pages, and need another module "ghp-import", which I don't use.</strong>
+<!--Here I quote from https://help.github.com/en/articles/configuring-a-publishing-source-for-github-pages
+If your site is a User or Organization Page that has a repository named <username>.github.ioor <orgname>.github.io, you cannot publish your site's source files from different locations. User and Organization Pages that have this type of repository name are only published from the master branch.--></p>
 <h2>publish to both of your remote repositories.</h2>
 <p>I am not using Pelican to publish blog pages to remote repositoriy, but directly using git. I would propose you to understand some of the basic use of git for this part.</p>
 <p>Change working direcytory to <code>cd $HOMEofBLOG/output/YOURLOCALREPOSITORY</code>, like mine  <code>cd $MyBlog/output/bears-corncrib.github.io</code></p>
@@ -348,7 +350,7 @@ Go to the home of you Pelican project folder, like <code>cd $HOMEofBLOG</code></
 <span class="c1">#I do above two actions by aliase, which is in ~/.bash_profile</span>
 <span class="nv">nameOfBlog</span><span class="o">=</span><span class="s2">&quot;XXXX&quot;</span>  <span class="c1">#Make sure to replace the XXXX with your project name/folder name of your blog</span>
 <span class="nv">localRep</span><span class="o">=</span><span class="s2">&quot;YYYY&quot;</span>  <span class="c1"># Make sure to replace YYYY with your path to your local repository, mine is &quot;output/bears-corncrib.github.io/&quot;</span>
-<span class="k">if</span> <span class="o">[</span> -e <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span> <span class="nb">echo</span> <span class="s2">&quot;Please add a comment for git commit, such as updateBlog.sh &quot;</span>new post<span class="s2">&quot;, and try again.&quot;</span><span class="p">;</span>exit<span class="p">;</span><span class="k">fi</span>
+<span class="k">if</span> <span class="o">[</span> -n <span class="nv">$1</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span> <span class="nb">echo</span> <span class="s2">&quot;Please add a comment for git commit, such as updateBlog.sh \&quot;new post\&quot;, and try again.&quot;</span><span class="p">;</span>exit<span class="p">;</span><span class="k">fi</span>
 pwd<span class="p">|</span>egrep <span class="s2">&quot;</span><span class="nv">$nameOfBlog</span>$<span class="s2">&quot;</span><span class="o">||{</span> <span class="nb">echo</span> <span class="s2">&quot;Please go to your Blog folder&quot;</span> <span class="o">&amp;&amp;</span> exit<span class="p">;</span> <span class="o">}</span>
 make html
 <span class="nb">cd</span> <span class="nv">$localRep</span>
