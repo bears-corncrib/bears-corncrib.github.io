@@ -9,17 +9,17 @@
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
-<meta name="keywords" content="RaspberryPi, Cups, wireless printing, bear's corncobs, " />
+<meta name="keywords" content="RaspberryPi, Cups, wireless printing, Bear's Corncobs, " />
 
 <meta property="og:title" content="Wireless printing by Raspberry Pi zero w "/>
 <meta property="og:url" content="/Wireless printing by Raspberry Pi zero w.html" />
-<meta property="og:description" content="This is not techincal, but a note recording my steps to save my old printer. It has usb as the only way to connect with computers to receive printing tasks. Raspberry Pi zero w can just do this job by offering a wireless server from cups" />
+<meta property="og:description" content="This is not techincal, but a note recording my steps to save my old printer for more life time. It has USB as the only way to connect with computers to receive printing tasks. Raspberry Pi zero w can just do this job by offering a wireless service from CUPS." />
 <meta property="og:site_name" content="Tester&#39;s Tricks" />
 <meta property="og:article:author" content="Tao" />
 <meta property="og:article:published_time" content="2019-07-05T20:00:00+08:00" />
 <meta property="og:article:modified_time" content="2019-07-05T00:00:00+08:00" />
 <meta name="twitter:title" content="Wireless printing by Raspberry Pi zero w ">
-<meta name="twitter:description" content="This is not techincal, but a note recording my steps to save my old printer. It has usb as the only way to connect with computers to receive printing tasks. Raspberry Pi zero w can just do this job by offering a wireless server from cups">
+<meta name="twitter:description" content="This is not techincal, but a note recording my steps to save my old printer for more life time. It has USB as the only way to connect with computers to receive printing tasks. Raspberry Pi zero w can just do this job by offering a wireless service from CUPS.">
 
         <title>Wireless printing by Raspberry Pi zero w  · Tester&#39;s Tricks
 </title>
@@ -72,29 +72,39 @@
         <div class="span8 offset2 article-content">
 
             
-            <p>Here is my toy, <a href="https://www.raspberrypi.org/products/raspberry-pi-zero-w/">Raspberry Pi zero w</a>. </p>
+            <p>Here is about my toy, <a href="https://www.raspberrypi.org/products/raspberry-pi-zero-w/">Raspberry Pi zero w</a>. 
+What I want to do is to connect it to the USB port from my old printer, and provice wireless access for computers.</p>
 <h1>Load a small system in a TF card</h1>
 <p>There are a few Operating Systems you can choose for different uses. Raspbian is my choise for this porject, offically supported and light weight. </p>
 <p>Download the image from https://www.raspberrypi.org/downloads/raspbian/. Raspbian Buster Lite has no desktop, but has a fit size for my TF. </p>
-<p>Loading the image into you TF is not difficult, <a href="https://www.raspberrypi.org/documentation/installation/installing-images/README.md">official guide</a> is good. For my case, I used diskutil and dd on my Macbook pro. No need to verbose the steps. </p>
+<p>Loading the image into you TF is not difficult, <a href="https://www.raspberrypi.org/documentation/installation/installing-images/README.md">official guide</a> is good to follow. For my case, I used diskutil and dd on my Macbook pro. No need to verbose the steps. </p>
 <h1>Quick configue</h1>
-<p>My toy will be working as a service silently, it needs to be able automatically camp on wifi and start printing services. There aer a few thing to set before start.</p>
-<p>It will be super easy if you have a Mini HDMI to HDMI cable for screen and USB keyboard, then you just simplly run <a href="https://www.raspberrypi.org/documentation/configuration/raspi-config.md">raspi-config</a> from terminal for basic settings. Let's say if you don't, known as <a href="https://www.raspberrypi.org/documentation/configuration/wireless/headless.md">headless</a>. We will have to at least give the very first configure to wifi and ssh. 
+<p>My toy will be working as a service silently, it needs to be able automatically camp on wifi and start printing services. There are a few thing to set before start.</p>
+<p>It will be super easy if you have a Mini HDMI to HDMI cable for screen and USB keyboard, then you just simplly run <a href="https://www.raspberrypi.org/documentation/configuration/raspi-config.md">raspi-config</a> from terminal for basic settings. Let's say if you don't, known as <a href="https://www.raspberrypi.org/documentation/configuration/wireless/headless.md">headless</a>. We will have to at least give the very first configures to wifi and ssh. 
 <a href="https://www.raspberrypi.org/documentation/configuration/boot_folder.md">Boot folder</a> is in FAT32 format, it won't block you no matter what OS you run.</p>
-<p>Correctly do wifi and ssh abover, we are ready to login. There are two ways to findout IP that assigned for the toy. </p>
+<p>Correctly do wifi and ssh above, we are ready to login. There are two ways to find out IP that assigned for the toy. </p>
 <ol>
 <li>Find out from your Wifi router or use arp -a from MacOS.</li>
 <li>Simulate you toy as a netcard.</li>
 </ol>
-<p>This is a way I got from someone's post, but fail to locate it from guideline.</p>
-<p>Add one line <code>dtoverlay=dwc2</code> in /boot/config.txt</p>
-<p>Attach <code>modules-load=dwc2,g_ether</code> at the tail of the same line in /boot/cmdline.txt</p>
-<p>Reboot, then connect your toy directly to MacOS. By using arp -all, you will see a new local device, like mine <code>raspberrypiprinter.local d2:f5:6d:c3:50:f0 2m13s     2m15s         en90    1</code></p>
+<p>This is a way I got from someone's post, but fail to locate it from official guideline. Two changes only.</p>
+<div class="highlight"><pre><span></span><span class="k">Add</span> <span class="n">one</span> <span class="n">line</span> <span class="o">`</span><span class="n">dtoverlay</span><span class="o">=</span><span class="n">dwc2</span><span class="o">`</span> <span class="k">in</span> <span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">config</span><span class="p">.</span><span class="n">txt</span>
+<span class="n">Attach</span> <span class="o">`</span><span class="n">modules</span><span class="o">-</span><span class="k">load</span><span class="o">=</span><span class="n">dwc2</span><span class="p">,</span><span class="n">g_ether</span><span class="o">`</span> <span class="k">at</span> <span class="n">the</span> <span class="n">tail</span> <span class="k">of</span> <span class="n">the</span> <span class="n">same</span> <span class="n">line</span> <span class="k">in</span> <span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">cmdline</span><span class="p">.</span><span class="n">txt</span>
+</pre></div>
+
+
+<p>Reboot, then connect your toy directly to MacOS. 
+By using arp -all, you will see a new local device, like mine </p>
+<div class="highlight"><pre><span></span><span class="n">raspberrypiprinter</span><span class="p">.</span><span class="k">local</span> <span class="n">d2</span><span class="p">:</span><span class="n">f5</span><span class="p">:</span><span class="mi">6</span><span class="n">d</span><span class="p">:</span><span class="n">c3</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="n">f0</span> <span class="mi">2</span><span class="n">m13s</span>     <span class="mi">2</span><span class="n">m15s</span>         <span class="n">en90</span>    <span class="mi">1</span>
+</pre></div>
+
+
 <p>Then ssh into it <code>ssh pi@raspberrypiprinter.local</code>and use <code>ifconfig</code> to check what is the assigned IP from router.</p>
 <p>The last, run <a href="https://www.raspberrypi.org/documentation/configuration/raspi-config.md">raspi-config</a> from terminal for basic settings.</p>
 <h1>Cups</h1>
 <p>Check out from here to understand what is <a href="https://www.cups.org">CUPS</a></p>
-<p>Install is strait-forward. ssh into you toy</p>
+<p>Install is kind of strait-forward. ssh into you toy, then</p>
+<p><em>TBC: Will do more explanations.</em></p>
 <div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="k">get</span> <span class="k">update</span>
 <span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="k">get</span> <span class="n">install</span> <span class="n">cups</span> 
 <span class="n">sudo</span> <span class="n">usermod</span> <span class="o">-</span><span class="n">a</span> <span class="o">-</span><span class="k">G</span> <span class="n">lpadmin</span> <span class="n">pi</span>
@@ -120,7 +130,7 @@
 <time datetime="2019-07-05T00:00:00+08:00">Jul 5, 2019</time>
 
             <h4>Category</h4>
-            <a class="category-link" href="/categories.html#bears-corncobs-ref">bear's corncobs</a>
+            <a class="category-link" href="/categories.html#bears-corncobs-ref">Bear's Corncobs</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
                 <li><a href="/tags#cups-ref">Cups
