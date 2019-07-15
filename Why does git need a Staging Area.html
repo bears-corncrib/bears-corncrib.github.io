@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="zh_cn">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Tao" />
+
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content="git, Bear's Corncobs, " />
+
+<meta property="og:title" content="Why does git need a Staging Area "/>
+<meta property="og:url" content="/Why does git need a Staging Area.html" />
+<meta property="og:description" content="There is no staging area in git, as least I understand this way and it seems helpful for me to clear a few confusing concepts." />
+<meta property="og:site_name" content="Tester&#39;s Tricks" />
+<meta property="og:article:author" content="Tao" />
+<meta property="og:article:published_time" content="2019-07-10T20:00:00+08:00" />
+<meta property="og:article:modified_time" content="2019-07-10T00:00:00+08:00" />
+<meta name="twitter:title" content="Why does git need a Staging Area ">
+<meta name="twitter:description" content="There is no staging area in git, as least I understand this way and it seems helpful for me to clear a few confusing concepts.">
+
+        <title>Why does git need a Staging Area  · Tester&#39;s Tricks
+</title>
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="/theme/css/pygments.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="/theme/tipuesearch/tipuesearch.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="/theme/css/elegant.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="/theme/css/admonition.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="/theme/css/custom.css" media="screen">
+
+
+
+    </head>
+    <body>
+        <div id="content-sans-footer">
+        <div class="navbar navbar-static-top">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="/"><span class=site-name>Tester's Tricks</span></a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav pull-right top-menu">
+                            <li ><a href="">Home</a></li>
+                            <li ><a href="/categories">Categories</a></li>
+                            <li ><a href="/tags">Tags</a></li>
+                            <li ><a href="/archives">Archives</a></li>
+                            <li><form class="navbar-search" action="/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span1"></div>
+                <div class="span10">
+<article itemscope>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+    <h1><a href="/Why does git need a Staging Area.html"> Why does git need a Staging Area  </a></h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+
+            
+            <h1>What is git</h1>
+<p>git is so wildly used. It is verbose to explain here. Check it out <a href="https://git-scm.com/about">here</a></p>
+<h1>Moving around Areas</h1>
+<p>There are a few areas in git. Working Area, Local Repository, Remote Repository are all strait forward concept. We can move out files around.</p>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="left">Working Area (WA)</th>
+<th align="left">Local Repository(LR)</th>
+<th align="left">Remote Repository(RR)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Working Area</td>
+<td align="left">git add(Movement to Staging Area? no)</td>
+<td align="left">git commit</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Local Repository</td>
+<td align="left">git checkout HEAD; git merge</td>
+<td align="left">git branch;git reset</td>
+<td align="left">git push</td>
+</tr>
+<tr>
+<td align="left">Remote Repository</td>
+<td align="left">git pull,git clone</td>
+<td align="left">git fetch</td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<h1>Staging Area(SA)</h1>
+<p>While <a href="https://git-scm.com/about/staging-area">Staging Area</a> confuzed me. </p>
+<ul>
+<li>Why <code>git checkout</code> means from SA, <code>git checkout HEAD means from LR</code></li>
+<li>Why I can't put something only in SA and get it back to WA, before <code>git commit</code></li>
+</ul>
+<p>SA is also called Index, which is an easier concepte for me. Index can be taken as the pointer in Local Repository, but not a caching funtion.</p>
+<h1>Local Repository (LR)</h1>
+<p>When I forget the curiosity about what is store in Staging Area, but take it as a pointer. A lot of operation become reasonable.</p>
+<ul>
+<li><code>git add</code> means start tracking file by git, but not add the file to SA</li>
+<li><code>git commit</code> means to send file to LR and move the pointer to the it as the latest one.</li>
+<li><code>git reset</code> means to move the pointer to a specific position/historical commit. </li>
+<li><code>git checkout</code> means to override files, which pointer currenlty point, from LA. <code>git checkout HEAD</code> means to move the pointer to HEAD and check it out to WA.</li>
+</ul>
+<h1>How to move the index/pointer</h1>
+<p>There are two concepts about LA, Branches and commits. Here below, it illustrate them as a metrix.</p>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="left">Branch1(master)</th>
+<th align="left">Branch2</th>
+<th align="left">Branch N</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Commit</td>
+<td align="left">SHA-1</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Commit</td>
+<td align="left">SHA-1</td>
+<td align="left">SHA-1</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Commit</td>
+<td align="left">HEAD</td>
+<td align="left">SHA-1</td>
+<td align="left">SHA-1</td>
+</tr>
+<tr>
+<td align="left">Commit</td>
+<td align="left"></td>
+<td align="left">HEAD</td>
+<td align="left">SHA-1</td>
+</tr>
+<tr>
+<td align="left">Commit</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">HEAD</td>
+</tr>
+</tbody>
+</table>
+<p>git index every single commits by a SHA-1 hash. They can be checked by <code>git log</code>. The most latest one is named HEAD. </p>
+<p>It is not necessary to identify your index/pointer by the full lengh of hash. Pointer can be used only if you take more than 4 digits from right and there is no ambiguity. <code>git log --oneline</code> give clear and useful index.</p>
+<p>There can be a few braches, which either is built by <code>git branch</code> or <code>git fetch</code> from an unrelated RR. The very first branch is named master.</p>
+<p>Here is an planground that we can test moving index abount LR.</p>
+<h3>Making a WA</h3>
+<div class="highlight"><pre><span></span>$ mkdir gitTest
+$ <span class="nb">cd</span> gitTest
+$ git init
+Initialized empty Git repository in /private/tmp/gitTest/.git/
+</pre></div>
+
+
+<h3>Making a commit</h3>
+<div class="highlight"><pre><span></span>$ <span class="nb">echo</span> <span class="s2">&quot;111&quot;</span> &gt;&gt;t1.text
+$ ls
+t1.text
+$ git add .
+$ git commit -m <span class="s2">&quot;1 in master&quot;</span>
+<span class="o">[</span>master <span class="o">(</span>root-commit<span class="o">)</span> 56b1732<span class="o">]</span> <span class="m">1</span> in master
+ <span class="m">1</span> file changed, <span class="m">1</span> insertion<span class="o">(</span>+<span class="o">)</span>
+ create mode <span class="m">100644</span> t1.text
+$ git log
+commit 56b17322d958b06c4116e763b9940c14c8fa3a50 <span class="o">(</span>HEAD -&gt; master<span class="o">)</span>
+Author: Tao Tao &lt;tao_tao@apple.com&gt;
+Date:   Sun Jul <span class="m">14</span> <span class="m">12</span>:42:35 <span class="m">2019</span> +0800
+
+    <span class="m">1</span> in master
+$ git log --oneline
+56b1732 <span class="o">(</span>HEAD -&gt; master<span class="o">)</span> <span class="m">1</span> in master
+</pre></div>
+
+
+<p>Here we an illustry the LR as below:</p>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="left">Branch1(master)</th>
+<th align="left">Branch2</th>
+<th align="left">Branch N</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Commit</td>
+<td align="left">56b1732 (HEAD -&gt; master)</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<h3>Making another commit</h3>
+<div class="highlight"><pre><span></span>$ <span class="nb">echo</span> <span class="s2">&quot;222&quot;</span> &gt;&gt;t1.text
+$ git commit -m <span class="s2">&quot;2 in master&quot;</span> -a
+<span class="o">[</span>master 41e433e<span class="o">]</span> <span class="m">2</span> in master
+ <span class="m">1</span> file changed, <span class="m">1</span> insertion<span class="o">(</span>+<span class="o">)</span>
+$ git log
+commit 41e433e9544a4807435786115d94fd7a2e0220c0 <span class="o">(</span>HEAD -&gt; master<span class="o">)</span>
+Author: Tao Tao &lt;tao_tao@apple.com&gt;
+Date:   Sun Jul <span class="m">14</span> <span class="m">12</span>:46:20 <span class="m">2019</span> +0800
+
+    <span class="m">2</span> in master
+
+commit 56b17322d958b06c4116e763b9940c14c8fa3a50
+Author: Tao Tao &lt;tao_tao@apple.com&gt;
+Date:   Sun Jul <span class="m">14</span> <span class="m">12</span>:42:35 <span class="m">2019</span> +0800
+
+    <span class="m">1</span> in master
+$ git log --oneline
+41e433e <span class="o">(</span>HEAD -&gt; master<span class="o">)</span> <span class="m">2</span> in master
+56b1732 <span class="m">1</span> in master
+</pre></div>
+
+
+<p>Here we an illustry the LR as below:</p>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="left">Branch1(master)</th>
+<th align="left">Branch2</th>
+<th align="left">Branch N</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Commit</td>
+<td align="left">56b1732</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Commit</td>
+<td align="left">41e433e (HEAD -&gt; master)</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<h3>Making a brach</h3>
+<div class="highlight"><pre><span></span>$ git branch new1
+$ git branch
+* master
+  new1
+$ git checkout new1
+Switched to branch <span class="s1">&#39;new1&#39;</span>
+$ git branch
+  master
+* new1
+$ git log
+commit 41e433e9544a4807435786115d94fd7a2e0220c0 <span class="o">(</span>HEAD -&gt; new1, master<span class="o">)</span>
+Author: Tao Tao &lt;tao_tao@apple.com&gt;
+Date:   Sun Jul <span class="m">14</span> <span class="m">12</span>:46:20 <span class="m">2019</span> +0800
+
+    <span class="m">2</span> in master
+
+commit 56b17322d958b06c4116e763b9940c14c8fa3a50
+Author: Tao Tao &lt;tao_tao@apple.com&gt;
+Date:   Sun Jul <span class="m">14</span> <span class="m">12</span>:42:35 <span class="m">2019</span> +0800
+
+    <span class="m">1</span> in master
+$ git log --oneline
+41e433e <span class="o">(</span>HEAD -&gt; new1, master<span class="o">)</span> <span class="m">2</span> in master
+56b1732 <span class="m">1</span> in master
+</pre></div>
+
+
+<p>Here we an illustry the LR as below:</p>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="left">Branch1(master)</th>
+<th align="left">Branch2(new1)</th>
+<th align="left">Branch N</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Commit</td>
+<td align="left">56b1732</td>
+<td align="left">56b1732</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Commit</td>
+<td align="left">41e433e (HEAD -&gt; master)</td>
+<td align="left">41e433e (HEAD -&gt; master)</td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<h3>Keep working in new brach</h3>
+<div class="highlight"><pre><span></span><span class="err">$</span> <span class="n">echo</span> <span class="s">&quot;333&quot;</span> <span class="o">&gt;&gt;</span><span class="n">t1</span><span class="p">.</span><span class="n">text</span>
+<span class="err">$</span> <span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s">&quot;3 in new1&quot;</span> <span class="o">-</span><span class="n">a</span>
+<span class="p">[</span><span class="n">new1</span> <span class="n">fa1cd19</span><span class="p">]</span> <span class="mi">3</span> <span class="k">in</span> <span class="n">new1</span>
+ <span class="mi">1</span> <span class="n">file</span> <span class="n">changed</span><span class="p">,</span> <span class="mi">1</span> <span class="n">insertion</span><span class="p">(</span><span class="o">+</span><span class="p">)</span>
+<span class="err">$</span> <span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">oneline</span>
+<span class="n">fa1cd19</span> <span class="p">(</span><span class="n">HEAD</span> <span class="o">-&gt;</span> <span class="n">new1</span><span class="p">)</span> <span class="mi">3</span> <span class="k">in</span> <span class="n">new1</span>
+<span class="mf">41e433</span><span class="n">e</span> <span class="p">(</span><span class="n">master</span><span class="p">)</span> <span class="mi">2</span> <span class="k">in</span> <span class="n">master</span>
+<span class="mi">56</span><span class="n">b1732</span> <span class="mi">1</span> <span class="k">in</span> <span class="n">master</span>
+</pre></div>
+
+
+<p>Here we an illustry the LR as below:</p>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="left">Branch1(master)</th>
+<th align="left">Branch2(new1)</th>
+<th align="left">Branch N</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Commit</td>
+<td align="left">56b1732</td>
+<td align="left">56b1732</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Commit</td>
+<td align="left">41e433e (HEAD -&gt; master)</td>
+<td align="left">41e433e</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Commit</td>
+<td align="left"></td>
+<td align="left">fa1cd19 (HEAD -&gt; new1)</td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<h3>Go back to historical file</h3>
+<div class="highlight"><pre><span></span>$ <span class="nv">git</span> <span class="nv">checkout</span> <span class="mi">56</span><span class="nv">b1732</span>
+<span class="nv">Note</span>: <span class="nv">checking</span> <span class="nv">out</span> <span class="s1">&#39;</span><span class="s">56b1732</span><span class="s1">&#39;</span>.
+
+<span class="nv">You</span> <span class="nv">are</span> <span class="nv">in</span> <span class="s1">&#39;</span><span class="s">detached HEAD</span><span class="s1">&#39;</span> <span class="nv">state</span>. <span class="nv">You</span> <span class="nv">can</span> <span class="nv">look</span> <span class="nv">around</span>, <span class="nv">make</span> <span class="nv">experimental</span>
+<span class="nv">changes</span> <span class="nv">and</span> <span class="nv">commit</span> <span class="nv">them</span>, <span class="nv">and</span> <span class="nv">you</span> <span class="nv">can</span> <span class="nv">discard</span> <span class="nv">any</span> <span class="nv">commits</span> <span class="nv">you</span> <span class="nv">make</span> <span class="nv">in</span> <span class="nv">this</span>
+<span class="nv">state</span> <span class="nv">without</span> <span class="nv">impacting</span> <span class="nv">any</span> <span class="nv">branches</span> <span class="nv">by</span> <span class="nv">performing</span> <span class="nv">another</span> <span class="nv">checkout</span>.
+
+<span class="k">If</span> <span class="nv">you</span> <span class="nv">want</span> <span class="nv">to</span> <span class="nv">create</span> <span class="nv">a</span> <span class="nv">new</span> <span class="nv">branch</span> <span class="nv">to</span> <span class="nv">retain</span> <span class="nv">commits</span> <span class="nv">you</span> <span class="nv">create</span>, <span class="nv">you</span> <span class="nv">may</span>
+<span class="k">do</span> <span class="nv">so</span> <span class="ss">(</span><span class="nv">now</span> <span class="nv">or</span> <span class="nv">later</span><span class="ss">)</span> <span class="nv">by</span> <span class="nv">using</span> <span class="o">-</span><span class="nv">b</span> <span class="nv">with</span> <span class="nv">the</span> <span class="nv">checkout</span> <span class="nv">command</span> <span class="nv">again</span>. <span class="nv">Example</span>:
+
+  <span class="nv">git</span> <span class="nv">checkout</span> <span class="o">-</span><span class="nv">b</span> <span class="o">&lt;</span><span class="nv">new</span><span class="o">-</span><span class="nv">branch</span><span class="o">-</span><span class="nv">name</span><span class="o">&gt;</span>
+
+<span class="nv">HEAD</span> <span class="nv">is</span> <span class="nv">now</span> <span class="nv">at</span> <span class="mi">56</span><span class="nv">b1732</span> <span class="mi">1</span> <span class="nv">in</span> <span class="nv">master</span>
+$ <span class="nv">cat</span> <span class="nv">t1</span>.<span class="nv">text</span> 
+<span class="mi">111</span>
+$ <span class="nv">git</span> <span class="nv">log</span> <span class="o">--</span><span class="nv">oneline</span>
+<span class="mi">56</span><span class="nv">b1732</span> <span class="ss">(</span><span class="nv">HEAD</span><span class="ss">)</span> <span class="mi">1</span> <span class="nv">in</span> <span class="nv">master</span>
+</pre></div>
+
+
+<p>Here we an illustry the LR as below:</p>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="left">Branch1(master)</th>
+<th align="left">Branch2(new1)</th>
+<th align="left">Branch N</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Commit</td>
+<td align="left">56b1732</td>
+<td align="left">56b1732 (HEAD detached)</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Commit</td>
+<td align="left">41e433e (HEAD -&gt; master)</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Commit</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<h3>What happen if we commit current WA</h3>
+<div class="highlight"><pre><span></span>$ <span class="nb">echo</span> <span class="s2">&quot;111???&quot;</span> &gt;&gt;t1.text
+$ git commit -m <span class="s2">&quot;4 in new1&quot;</span> -a
+<span class="o">[</span>detached HEAD cef991e<span class="o">]</span> <span class="m">4</span> in new1
+ <span class="m">1</span> file changed, <span class="m">1</span> insertion<span class="o">(</span>+<span class="o">)</span>
+$ git log --oneline
+cef991e <span class="o">(</span>HEAD<span class="o">)</span> <span class="m">4</span> in new1
+56b1732 <span class="m">1</span> in master
+$ git branch
+* <span class="o">(</span>HEAD detached from 56b1732<span class="o">)</span>
+  master
+  new1
+</pre></div>
+
+
+<p>Here we an illustry the LR as below:</p>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="left">Branch1(master)</th>
+<th align="left">Branch2(new1)</th>
+<th align="left">Branch N(HEAD detached)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Commit</td>
+<td align="left">56b1732</td>
+<td align="left">56b1732</td>
+<td align="left">56b1732</td>
+</tr>
+<tr>
+<td align="left">Commit</td>
+<td align="left">41e433e (HEAD -&gt; master)</td>
+<td align="left">41e433e</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Commit</td>
+<td align="left"></td>
+<td align="left">fa1cd19 (HEAD -&gt; new1)</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Commit</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">cef991e (HEAD)</td>
+</tr>
+</tbody>
+</table>
+<p>It seems we have nothing lost from other branches</p>
+<div class="highlight"><pre><span></span>$ <span class="nv">git</span> <span class="nv">checkout</span> <span class="nv">new1</span>
+<span class="nv">Warning</span>: <span class="nv">you</span> <span class="nv">are</span> <span class="nv">leaving</span> <span class="mi">1</span> <span class="nv">commit</span> <span class="nv">behind</span>, <span class="nv">not</span> <span class="nv">connected</span> <span class="nv">to</span>
+<span class="nv">any</span> <span class="nv">of</span> <span class="nv">your</span> <span class="nv">branches</span>:
+
+  <span class="nv">cef991e</span> <span class="mi">4</span> <span class="nv">in</span> <span class="nv">new1</span>
+
+<span class="k">If</span> <span class="nv">you</span> <span class="nv">want</span> <span class="nv">to</span> <span class="nv">keep</span> <span class="nv">it</span> <span class="nv">by</span> <span class="nv">creating</span> <span class="nv">a</span> <span class="nv">new</span> <span class="nv">branch</span>, <span class="nv">this</span> <span class="nv">may</span> <span class="nv">be</span> <span class="nv">a</span> <span class="nv">good</span> <span class="nv">time</span>
+<span class="nv">to</span> <span class="k">do</span> <span class="nv">so</span> <span class="nv">with</span>:
+
+ <span class="nv">git</span> <span class="nv">branch</span> <span class="o">&lt;</span><span class="nv">new</span><span class="o">-</span><span class="nv">branch</span><span class="o">-</span><span class="nv">name</span><span class="o">&gt;</span> <span class="nv">cef991e</span>
+
+<span class="nv">Switched</span> <span class="nv">to</span> <span class="nv">branch</span> <span class="s1">&#39;</span><span class="s">new1</span><span class="s1">&#39;</span>
+$ <span class="nv">git</span> <span class="nv">log</span> <span class="o">--</span><span class="nv">oneline</span>
+<span class="nv">fa1cd19</span> <span class="ss">(</span><span class="nv">HEAD</span> <span class="o">-&gt;</span> <span class="nv">new1</span><span class="ss">)</span> <span class="mi">3</span> <span class="nv">in</span> <span class="nv">new1</span>
+<span class="mi">41</span><span class="nv">e433e</span> <span class="ss">(</span><span class="nv">master</span><span class="ss">)</span> <span class="mi">2</span> <span class="nv">in</span> <span class="nv">master</span>
+<span class="mi">56</span><span class="nv">b1732</span> <span class="mi">1</span> <span class="nv">in</span> <span class="nv">master</span>
+$ <span class="nv">git</span> <span class="nv">branch</span>
+  <span class="nv">master</span>
+<span class="o">*</span> <span class="nv">new1</span>
+</pre></div>
+
+
+<h3>Keeping detached HEAD in a new branch</h3>
+<div class="highlight"><pre><span></span>$ <span class="nv">git</span> <span class="nv">checkout</span> <span class="nv">cef991e</span>
+<span class="nv">Note</span>: <span class="nv">checking</span> <span class="nv">out</span> <span class="s1">&#39;</span><span class="s">cef991e</span><span class="s1">&#39;</span>.
+
+<span class="nv">You</span> <span class="nv">are</span> <span class="nv">in</span> <span class="s1">&#39;</span><span class="s">detached HEAD</span><span class="s1">&#39;</span> <span class="nv">state</span>. <span class="nv">You</span> <span class="nv">can</span> <span class="nv">look</span> <span class="nv">around</span>, <span class="nv">make</span> <span class="nv">experimental</span>
+<span class="nv">changes</span> <span class="nv">and</span> <span class="nv">commit</span> <span class="nv">them</span>, <span class="nv">and</span> <span class="nv">you</span> <span class="nv">can</span> <span class="nv">discard</span> <span class="nv">any</span> <span class="nv">commits</span> <span class="nv">you</span> <span class="nv">make</span> <span class="nv">in</span> <span class="nv">this</span>
+<span class="nv">state</span> <span class="nv">without</span> <span class="nv">impacting</span> <span class="nv">any</span> <span class="nv">branches</span> <span class="nv">by</span> <span class="nv">performing</span> <span class="nv">another</span> <span class="nv">checkout</span>.
+
+<span class="k">If</span> <span class="nv">you</span> <span class="nv">want</span> <span class="nv">to</span> <span class="nv">create</span> <span class="nv">a</span> <span class="nv">new</span> <span class="nv">branch</span> <span class="nv">to</span> <span class="nv">retain</span> <span class="nv">commits</span> <span class="nv">you</span> <span class="nv">create</span>, <span class="nv">you</span> <span class="nv">may</span>
+<span class="k">do</span> <span class="nv">so</span> <span class="ss">(</span><span class="nv">now</span> <span class="nv">or</span> <span class="nv">later</span><span class="ss">)</span> <span class="nv">by</span> <span class="nv">using</span> <span class="o">-</span><span class="nv">b</span> <span class="nv">with</span> <span class="nv">the</span> <span class="nv">checkout</span> <span class="nv">command</span> <span class="nv">again</span>. <span class="nv">Example</span>:
+
+  <span class="nv">git</span> <span class="nv">checkout</span> <span class="o">-</span><span class="nv">b</span> <span class="o">&lt;</span><span class="nv">new</span><span class="o">-</span><span class="nv">branch</span><span class="o">-</span><span class="nv">name</span><span class="o">&gt;</span>
+
+<span class="nv">HEAD</span> <span class="nv">is</span> <span class="nv">now</span> <span class="nv">at</span> <span class="nv">cef991e</span> <span class="mi">4</span> <span class="nv">in</span> <span class="nv">new1</span>
+$ <span class="nv">git</span> <span class="nv">branch</span>
+<span class="o">*</span> <span class="ss">(</span><span class="nv">HEAD</span> <span class="nv">detached</span> <span class="nv">at</span> <span class="nv">cef991e</span><span class="ss">)</span>
+  <span class="nv">master</span>
+  <span class="nv">new1</span>
+$ <span class="nv">cat</span> <span class="nv">t1</span>.<span class="nv">text</span> 
+<span class="mi">111</span>
+<span class="mi">111</span>???
+$ <span class="nv">git</span> <span class="nv">branch</span> <span class="nv">new2</span>
+$ <span class="nv">git</span> <span class="nv">branch</span>
+<span class="o">*</span> <span class="ss">(</span><span class="nv">HEAD</span> <span class="nv">detached</span> <span class="nv">at</span> <span class="nv">cef991e</span><span class="ss">)</span>
+  <span class="nv">master</span>
+  <span class="nv">new1</span>
+  <span class="nv">new2</span>
+$ <span class="nv">git</span> <span class="nv">checkout</span> <span class="nv">new2</span>
+<span class="nv">Switched</span> <span class="nv">to</span> <span class="nv">branch</span> <span class="s1">&#39;</span><span class="s">new2</span><span class="s1">&#39;</span>
+$ <span class="nv">git</span> <span class="nv">log</span> <span class="o">--</span><span class="nv">oneline</span>
+<span class="nv">cef991e</span> <span class="ss">(</span><span class="nv">HEAD</span> <span class="o">-&gt;</span> <span class="nv">new2</span><span class="ss">)</span> <span class="mi">4</span> <span class="nv">in</span> <span class="nv">new1</span>
+<span class="mi">56</span><span class="nv">b1732</span> <span class="mi">1</span> <span class="nv">in</span> <span class="nv">master</span>
+</pre></div>
+
+
+<p>Here we an illustry the LR as below:</p>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="left">Branch1(master)</th>
+<th align="left">Branch2(new1)</th>
+<th align="left">Branch 3(new2)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Commit</td>
+<td align="left">56b1732</td>
+<td align="left">56b1732</td>
+<td align="left">56b1732</td>
+</tr>
+<tr>
+<td align="left">Commit</td>
+<td align="left">41e433e (HEAD -&gt; master)</td>
+<td align="left">41e433e</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Commit</td>
+<td align="left"></td>
+<td align="left">fa1cd19 (HEAD -&gt; new1)</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Commit</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">cef991e (HEAD -&gt; new2)</td>
+</tr>
+</tbody>
+</table>
+<p>Remove branch new2</p>
+<p>$ git checkout new1
+Switched to branch 'new1'
+$ git branch -d new2
+$ git log --oneline
+fa1cd19 (HEAD -&gt; new1) 3 in new1
+41e433e (master) 2 in master
+56b1732 1 in master</p>
+<h3>Adding new files in current branch</h3>
+<div class="highlight"><pre><span></span>$ git branch
+  master
+* new1
+$ git log --oneline
+fa1cd19 <span class="o">(</span>HEAD -&gt; new1<span class="o">)</span> <span class="m">3</span> in new1
+41e433e <span class="o">(</span>master<span class="o">)</span> <span class="m">2</span> in master
+56b1732 <span class="m">1</span> in master
+$ ls
+t1.text
+$ cat t1.text 
+<span class="m">111</span>
+<span class="m">222</span>
+<span class="m">333</span>
+$ <span class="nb">echo</span> <span class="s2">&quot;111&quot;</span>&gt;&gt;t2.txt
+$ git add .
+$ git commit -m <span class="s2">&quot;new file t2&quot;</span>
+<span class="o">[</span>new1 87fe783<span class="o">]</span> new file t2
+ <span class="m">1</span> file changed, <span class="m">1</span> insertion<span class="o">(</span>+<span class="o">)</span>
+ create mode <span class="m">100644</span> t2.txt
+$ git log --oneline
+87fe783 <span class="o">(</span>HEAD -&gt; new1<span class="o">)</span> new file t2
+fa1cd19 <span class="m">3</span> in new1
+41e433e <span class="o">(</span>master<span class="o">)</span> <span class="m">2</span> in master
+56b1732 <span class="m">1</span> in master
+</pre></div>
+
+
+<p>Here we an illustry the LR as below:</p>
+<div class="highlight"><pre><span></span><span class="o">|</span><span class="n">Branch1</span><span class="p">(</span><span class="n">master</span><span class="p">)</span><span class="o">|</span><span class="n">Branch2</span><span class="p">(</span><span class="n">new1</span><span class="p">)</span><span class="o">|</span><span class="n">Branch</span> <span class="n">N</span><span class="o">|</span>
+</pre></div>
+
+
+<p>---|---|---|---
+Commit |56b1732 |56b1732
+Commit |41e433e (HEAD -&gt; master)|41e433e
+Commit||fa1cd19
+Commit||87fe783 (HEAD -&gt; new1)</p>
+<h3>Going back to master and move new file to it</h3>
+<div class="highlight"><pre><span></span>$ <span class="nv">git</span> <span class="nv">checkout</span> <span class="nv">master</span>
+<span class="nv">Switched</span> <span class="nv">to</span> <span class="nv">branch</span> <span class="s1">&#39;</span><span class="s">master</span><span class="s1">&#39;</span>
+$ <span class="nv">ls</span>
+<span class="nv">t1</span>.<span class="nv">text</span>
+$ <span class="nv">cat</span> <span class="nv">t1</span>.<span class="nv">text</span> 
+<span class="mi">111</span>
+<span class="mi">222</span>
+$ <span class="nv">git</span> <span class="nv">reset</span> <span class="nv">new1</span>
+<span class="nv">Unstaged</span> <span class="nv">changes</span> <span class="nv">after</span> <span class="nv">reset</span>:
+<span class="nv">M</span>   <span class="nv">t1</span>.<span class="nv">text</span>
+<span class="nv">D</span>   <span class="nv">t2</span>.<span class="nv">txt</span>
+$ <span class="nv">git</span> <span class="nv">checkout</span> <span class="nv">t2</span>.<span class="nv">txt</span>
+$ <span class="nv">ls</span>
+<span class="nv">t1</span>.<span class="nv">text</span> <span class="nv">t2</span>.<span class="nv">txt</span>
+$ <span class="nv">git</span> <span class="nv">log</span> <span class="o">--</span><span class="nv">oneline</span>
+<span class="mi">87</span><span class="nv">fe783</span> <span class="ss">(</span><span class="nv">HEAD</span> <span class="o">-&gt;</span> <span class="nv">master</span>, <span class="nv">new1</span><span class="ss">)</span> <span class="nv">new</span> <span class="nv">file</span> <span class="nv">t2</span>
+<span class="nv">fa1cd19</span> <span class="mi">3</span> <span class="nv">in</span> <span class="nv">new1</span>
+<span class="mi">41</span><span class="nv">e433e</span> <span class="mi">2</span> <span class="nv">in</span> <span class="nv">master</span>
+<span class="mi">56</span><span class="nv">b1732</span> <span class="mi">1</span> <span class="nv">in</span> <span class="nv">master</span>
+$ <span class="nv">git</span> <span class="nv">branch</span>
+<span class="o">*</span> <span class="nv">master</span>
+  <span class="nv">new1</span>
+$ <span class="nv">cat</span> <span class="nv">t1</span>.<span class="nv">text</span> 
+<span class="mi">111</span>
+<span class="mi">222</span>
+$ <span class="nv">git</span> <span class="nv">status</span>
+<span class="nv">On</span> <span class="nv">branch</span> <span class="nv">master</span>
+<span class="nv">Changes</span> <span class="nv">not</span> <span class="nv">staged</span> <span class="k">for</span> <span class="nv">commit</span>:
+  <span class="ss">(</span><span class="nv">use</span> <span class="s2">&quot;</span><span class="s">git add &lt;file&gt;...</span><span class="s2">&quot;</span> <span class="nv">to</span> <span class="nv">update</span> <span class="nv">what</span> <span class="nv">will</span> <span class="nv">be</span> <span class="nv">committed</span><span class="ss">)</span>
+  <span class="ss">(</span><span class="nv">use</span> <span class="s2">&quot;</span><span class="s">git checkout -- &lt;file&gt;...</span><span class="s2">&quot;</span> <span class="nv">to</span> <span class="nv">discard</span> <span class="nv">changes</span> <span class="nv">in</span> <span class="nv">working</span> <span class="nv">directory</span><span class="ss">)</span>
+
+    <span class="nv">modified</span>:   <span class="nv">t1</span>.<span class="nv">text</span>
+
+<span class="nv">no</span> <span class="nv">changes</span> <span class="nv">added</span> <span class="nv">to</span> <span class="nv">commit</span> <span class="ss">(</span><span class="nv">use</span> <span class="s2">&quot;</span><span class="s">git add</span><span class="s2">&quot;</span> <span class="nv">and</span><span class="o">/</span><span class="nv">or</span> <span class="s2">&quot;</span><span class="s">git commit -a</span><span class="s2">&quot;</span><span class="ss">)</span>
+$ <span class="nv">git</span> <span class="nv">add</span> .
+$ <span class="nv">git</span> <span class="nv">status</span>
+<span class="nv">On</span> <span class="nv">branch</span> <span class="nv">master</span>
+<span class="nv">Changes</span> <span class="nv">to</span> <span class="nv">be</span> <span class="nv">committed</span>:
+  <span class="ss">(</span><span class="nv">use</span> <span class="s2">&quot;</span><span class="s">git reset HEAD &lt;file&gt;...</span><span class="s2">&quot;</span> <span class="nv">to</span> <span class="nv">unstage</span><span class="ss">)</span>
+
+    <span class="nv">modified</span>:   <span class="nv">t1</span>.<span class="nv">text</span>
+
+
+$ <span class="nv">git</span> <span class="nv">commit</span> <span class="o">-</span><span class="nv">m</span> <span class="s2">&quot;</span><span class="s">new file t2 in master</span><span class="s2">&quot;</span>
+[<span class="nv">master</span> <span class="mi">9218660</span>] <span class="nv">new</span> <span class="nv">file</span> <span class="nv">t2</span> <span class="nv">in</span> <span class="nv">master</span>
+ <span class="mi">1</span> <span class="nv">file</span> <span class="nv">changed</span>, <span class="mi">1</span> <span class="nv">deletion</span><span class="ss">(</span><span class="o">-</span><span class="ss">)</span>
+$ <span class="nv">git</span> <span class="nv">log</span> <span class="o">--</span><span class="nv">oneline</span>
+<span class="mi">9218660</span> <span class="ss">(</span><span class="nv">HEAD</span> <span class="o">-&gt;</span> <span class="nv">master</span><span class="ss">)</span> <span class="nv">new</span> <span class="nv">file</span> <span class="nv">t2</span> <span class="nv">in</span> <span class="nv">master</span>
+<span class="mi">87</span><span class="nv">fe783</span> <span class="ss">(</span><span class="nv">new1</span><span class="ss">)</span> <span class="nv">new</span> <span class="nv">file</span> <span class="nv">t2</span>
+<span class="nv">fa1cd19</span> <span class="mi">3</span> <span class="nv">in</span> <span class="nv">new1</span>
+<span class="mi">41</span><span class="nv">e433e</span> <span class="mi">2</span> <span class="nv">in</span> <span class="nv">master</span>
+<span class="mi">56</span><span class="nv">b1732</span> <span class="mi">1</span> <span class="nv">in</span> <span class="nv">master</span>
+</pre></div>
+
+
+<p><code>t2.txt</code> is right now in master, but <code>t1.txt</code> stay no change.
+We can also merge changes in <code>t1.txt</code> from branch <code>new1</code>. It is not realted to moving pointer, so I don't talk here. </p>
+<p>Here we an illustry the LR as below:</p>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="left">Branch1(master)</th>
+<th align="left">Branch2(new1)</th>
+<th align="left">Branch N</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Commit</td>
+<td align="left">56b1732</td>
+<td align="left">56b1732</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Commit</td>
+<td align="left">41e433e</td>
+<td align="left">41e433e</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Commit</td>
+<td align="left"></td>
+<td align="left">fa1cd19</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Commit</td>
+<td align="left"></td>
+<td align="left">87fe783 (HEAD -&gt; new1)</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Commit</td>
+<td align="left">9218660 (HEAD -&gt; master)</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<h3>What if we pull an unrelated RR here?</h3>
+<div class="highlight"><pre><span></span><span class="err">$</span> <span class="n">ls</span> <span class="p">.</span><span class="n">git</span>
+<span class="n">COMMIT_EDITMSG</span>  <span class="n">ORIG_HEAD</span>   <span class="n">config</span>      <span class="n">hooks</span>       <span class="n">info</span>        <span class="n">objects</span>
+<span class="n">HEAD</span>        <span class="n">branches</span>    <span class="n">description</span> <span class="n">index</span>       <span class="n">logs</span>        <span class="n">refs</span>
+
+<span class="err">$</span> <span class="n">git</span> <span class="n">remote</span> <span class="n">add</span> <span class="n">xxx</span> <span class="nl">https</span><span class="p">:</span><span class="c1">//github.com/testers-tricks/testers-tricks.github.io</span>
+<span class="err">$</span> <span class="n">ls</span> <span class="p">.</span><span class="n">git</span>
+<span class="n">COMMIT_EDITMSG</span>  <span class="n">ORIG_HEAD</span>   <span class="n">config</span>      <span class="n">hooks</span>       <span class="n">info</span>        <span class="n">objects</span>
+<span class="n">HEAD</span>        <span class="n">branches</span>    <span class="n">description</span> <span class="n">index</span>       <span class="n">logs</span>        <span class="n">refs</span>
+
+<span class="err">$</span> <span class="n">git</span> <span class="n">pull</span> <span class="n">xxx</span>
+<span class="nl">warning</span><span class="p">:</span> <span class="n">no</span> <span class="n">common</span> <span class="n">commits</span>
+<span class="nl">remote</span><span class="p">:</span> <span class="n">Enumerating</span> <span class="nl">objects</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span> <span class="n">done</span><span class="p">.</span>
+<span class="nl">remote</span><span class="p">:</span> <span class="n">Counting</span> <span class="nl">objects</span><span class="p">:</span> <span class="mi">100</span><span class="o">%</span> <span class="p">(</span><span class="mi">15</span><span class="o">/</span><span class="mi">15</span><span class="p">),</span> <span class="n">done</span><span class="p">.</span>
+<span class="nl">remote</span><span class="p">:</span> <span class="n">Compressing</span> <span class="nl">objects</span><span class="p">:</span> <span class="mi">100</span><span class="o">%</span> <span class="p">(</span><span class="mi">10</span><span class="o">/</span><span class="mi">10</span><span class="p">),</span> <span class="n">done</span><span class="p">.</span>
+<span class="nl">remote</span><span class="p">:</span> <span class="n">Total</span> <span class="mi">15</span> <span class="p">(</span><span class="n">delta</span> <span class="mi">1</span><span class="p">),</span> <span class="n">reused</span> <span class="mi">9</span> <span class="p">(</span><span class="n">delta</span> <span class="mi">1</span><span class="p">),</span> <span class="n">pack</span><span class="o">-</span><span class="n">reused</span> <span class="mi">0</span>
+<span class="n">Unpacking</span> <span class="nl">objects</span><span class="p">:</span> <span class="mi">100</span><span class="o">%</span> <span class="p">(</span><span class="mi">15</span><span class="o">/</span><span class="mi">15</span><span class="p">),</span> <span class="n">done</span><span class="p">.</span>
+<span class="n">From</span> <span class="nl">https</span><span class="p">:</span><span class="c1">//github.com/testers-tricks/testers-tricks.github.io</span>
+ <span class="o">*</span> <span class="p">[</span><span class="n">new</span> <span class="n">branch</span><span class="p">]</span>      <span class="n">master</span>     <span class="o">-&gt;</span> <span class="n">xxx</span><span class="o">/</span><span class="n">master</span>
+<span class="n">You</span> <span class="n">asked</span> <span class="n">to</span> <span class="n">pull</span> <span class="n">from</span> <span class="n">the</span> <span class="n">remote</span> <span class="err">&#39;</span><span class="n">xxx</span><span class="err">&#39;</span><span class="p">,</span> <span class="n">but</span> <span class="n">did</span> <span class="n">not</span> <span class="n">specify</span>
+<span class="n">a</span> <span class="n">branch</span><span class="p">.</span> <span class="n">Because</span> <span class="n">this</span> <span class="n">is</span> <span class="n">not</span> <span class="n">the</span> <span class="k">default</span> <span class="n">configured</span> <span class="n">remote</span>
+<span class="k">for</span> <span class="n">your</span> <span class="n">current</span> <span class="n">branch</span><span class="p">,</span> <span class="n">you</span> <span class="n">must</span> <span class="n">specify</span> <span class="n">a</span> <span class="n">branch</span> <span class="n">on</span> <span class="n">the</span> <span class="n">command</span> <span class="n">line</span><span class="p">.</span>
+<span class="p">(</span><span class="err">$</span> <span class="n">ls</span>
+<span class="n">t1</span><span class="p">.</span><span class="n">text</span> <span class="n">t2</span><span class="p">.</span><span class="n">txt</span>
+<span class="err">$</span> <span class="n">git</span> <span class="n">branch</span>
+<span class="o">*</span> <span class="n">master</span>
+  <span class="n">new1</span>
+<span class="err">$</span> <span class="n">ls</span> <span class="p">.</span><span class="n">git</span>
+<span class="n">COMMIT_EDITMSG</span>  <span class="n">HEAD</span>        <span class="n">branches</span>    <span class="n">description</span> <span class="n">index</span>       <span class="n">logs</span>        <span class="n">refs</span>
+<span class="n">FETCH_HEAD</span>  <span class="n">ORIG_HEAD</span>   <span class="n">config</span>      <span class="n">hooks</span>       <span class="n">info</span>        <span class="n">objects</span>
+</pre></div>
+
+
+<p>There is no new branch, but a two new heads, named FETCH_HEAD and ORIG_HEAD. </p>
+<div class="highlight"><pre><span></span>$ <span class="nv">git</span> <span class="nv">checkout</span> <span class="nv">FETCH_HEAD</span>
+<span class="nv">Note</span>: <span class="nv">checking</span> <span class="nv">out</span> <span class="s1">&#39;</span><span class="s">FETCH_HEAD</span><span class="s1">&#39;</span>.
+
+<span class="nv">You</span> <span class="nv">are</span> <span class="nv">in</span> <span class="s1">&#39;</span><span class="s">detached HEAD</span><span class="s1">&#39;</span> <span class="nv">state</span>. <span class="nv">You</span> <span class="nv">can</span> <span class="nv">look</span> <span class="nv">around</span>, <span class="nv">make</span> <span class="nv">experimental</span>
+<span class="nv">changes</span> <span class="nv">and</span> <span class="nv">commit</span> <span class="nv">them</span>, <span class="nv">and</span> <span class="nv">you</span> <span class="nv">can</span> <span class="nv">discard</span> <span class="nv">any</span> <span class="nv">commits</span> <span class="nv">you</span> <span class="nv">make</span> <span class="nv">in</span> <span class="nv">this</span>
+<span class="nv">state</span> <span class="nv">without</span> <span class="nv">impacting</span> <span class="nv">any</span> <span class="nv">branches</span> <span class="nv">by</span> <span class="nv">performing</span> <span class="nv">another</span> <span class="nv">checkout</span>.
+
+<span class="k">If</span> <span class="nv">you</span> <span class="nv">want</span> <span class="nv">to</span> <span class="nv">create</span> <span class="nv">a</span> <span class="nv">new</span> <span class="nv">branch</span> <span class="nv">to</span> <span class="nv">retain</span> <span class="nv">commits</span> <span class="nv">you</span> <span class="nv">create</span>, <span class="nv">you</span> <span class="nv">may</span>
+<span class="k">do</span> <span class="nv">so</span> <span class="ss">(</span><span class="nv">now</span> <span class="nv">or</span> <span class="nv">later</span><span class="ss">)</span> <span class="nv">by</span> <span class="nv">using</span> <span class="o">-</span><span class="nv">b</span> <span class="nv">with</span> <span class="nv">the</span> <span class="nv">checkout</span> <span class="nv">command</span> <span class="nv">again</span>. <span class="nv">Example</span>:
+
+  <span class="nv">git</span> <span class="nv">checkout</span> <span class="o">-</span><span class="nv">b</span> <span class="o">&lt;</span><span class="nv">new</span><span class="o">-</span><span class="nv">branch</span><span class="o">-</span><span class="nv">name</span><span class="o">&gt;</span>
+
+<span class="nv">HEAD</span> <span class="nv">is</span> <span class="nv">now</span> <span class="nv">at</span> <span class="nv">a47ef20</span> <span class="nv">merge</span> <span class="nv">test</span>
+$ <span class="nv">ls</span>
+<span class="nv">README</span>.<span class="nv">en</span>.<span class="nv">md</span>    <span class="nv">README</span>.<span class="nv">md</span>   <span class="nv">index</span>.<span class="nv">html</span>
+$ <span class="nv">git</span> <span class="nv">branch</span>
+<span class="o">*</span> <span class="ss">(</span><span class="nv">HEAD</span> <span class="nv">detached</span> <span class="nv">at</span> <span class="nv">FETCH_HEAD</span><span class="ss">)</span>
+  <span class="nv">master</span>
+  <span class="nv">new1</span>
+$ <span class="nv">git</span> <span class="nv">status</span>
+<span class="nv">HEAD</span> <span class="nv">detached</span> <span class="nv">at</span> <span class="nv">FETCH_HEAD</span>
+<span class="nv">nothing</span> <span class="nv">to</span> <span class="nv">commit</span>, <span class="nv">working</span> <span class="nv">tree</span> <span class="nv">clean</span>
+$ <span class="nv">git</span> <span class="nv">log</span> <span class="o">--</span><span class="nv">oneline</span>
+<span class="nv">a47ef20</span> <span class="ss">(</span><span class="nv">HEAD</span>, <span class="nv">xxx</span><span class="o">/</span><span class="nv">master</span><span class="ss">)</span> <span class="nv">merge</span> <span class="nv">test</span>
+<span class="mi">78</span><span class="nv">a7f21</span> <span class="nv">Initial</span> <span class="nv">commit</span>
+<span class="mi">77</span><span class="nv">d03d4</span> <span class="nv">Create</span> <span class="nv">index</span>.<span class="nv">html</span>
+<span class="mi">5159440</span> <span class="nv">Initial</span> <span class="nv">commit</span>
+<span class="mi">7</span><span class="nv">a16d16</span> <span class="nv">Initial</span> <span class="nv">commit</span>
+</pre></div>
+
+
+<p>All the historical commits from RR are here. Then we can move the index and checkout file we need or merge it and commit.</p>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="left">Branch1(master)</th>
+<th align="left">Branch2(new1)</th>
+<th align="left">Branch N(detached HEAD)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Commit</td>
+<td align="left">56b1732</td>
+<td align="left">56b1732</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Commit</td>
+<td align="left">41e433e</td>
+<td align="left">41e433e</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Commit</td>
+<td align="left"></td>
+<td align="left">fa1cd19</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Commit</td>
+<td align="left"></td>
+<td align="left">87fe783 (HEAD -&gt; new1)</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Commit</td>
+<td align="left">9218660 (HEAD -&gt; master)</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Commit</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">7a16d16</td>
+</tr>
+<tr>
+<td align="left">Commit</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">5159440</td>
+</tr>
+<tr>
+<td align="left">Commit</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">77d03d4</td>
+</tr>
+<tr>
+<td align="left">Commit</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">78a7f21</td>
+</tr>
+<tr>
+<td align="left">Commit</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">a47ef20(HEAD, xxx/master)</td>
+</tr>
+</tbody>
+</table>
+<h1>Here is my cheatsheet withg no Staging operations</h1>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="left">Working Area (WA)</th>
+<th align="left">Local Repository(LR)</th>
+<th align="left">Remote Repository(RR)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Working Area</td>
+<td align="left">mkdir,git init;git status</td>
+<td align="left">git commit</td>
+<td align="left">No way to send directly from WA</td>
+</tr>
+<tr>
+<td align="left">Local Repository</td>
+<td align="left">git checkout; git merge</td>
+<td align="left">git branch;git reset;git log</td>
+<td align="left">git push</td>
+</tr>
+<tr>
+<td align="left">Remote Repository</td>
+<td align="left">git pull,git clone</td>
+<td align="left">git fetch</td>
+<td align="left">operate in remote system/web</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="MyCheatsheet" src="./pictures/Git cheatsheet.png"></p>
+            <div>
+</div>
+
+            
+            
+            <hr/>
+        </div>
+        <section>
+        <div class="span2" style="float:right;font-size:0.9em;">
+            <h4>Published</h4>
+            <time itemprop="dateCreated" datetime="2019-07-10T20:00:00+08:00">Jul 10, 2019</time>
+
+<h4>Last Updated</h4>
+<time datetime="2019-07-10T00:00:00+08:00">Jul 10, 2019</time>
+
+            <h4>Category</h4>
+            <a class="category-link" href="/categories.html#bears-corncobs-ref">Bear's Corncobs</a>
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article">
+                <li><a href="/tags#git-ref">git
+                    <span>1</span>
+</a></li>
+            </ul>
+<h4>Contact</h4>
+    <a href="#" title="My You can add links in your config file Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-you can add links in your config file sidebar-social-links"></i></a>
+    <a href="#" title="My Another social link Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-another social link sidebar-social-links"></i></a>
+        </div>
+        </section>
+</div>
+</article>
+                </div>
+                <div class="span1"></div>
+            </div>
+        </div>
+        <div id="push"></div>
+    </div>
+<footer>
+<div id="footer">
+    <ul class="footer-content">
+        <li class="elegant-power">Powered by <a href="http://getpelican.com/" title="Pelican Home Page">Pelican</a>. Theme: <a href="https://github.com/Pelican-Elegant/elegant/" title="Theme Elegant Home Page">Elegant</a></li>
+    </ul>
+</div>
+</footer>            <script src="//code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    
+    </body>
+    <!-- Theme: Elegant built for Pelican
+    License : MIT -->
+</html>
