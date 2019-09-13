@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="zh_cn">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Tao" />
+
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content="3GPP, LTE, UMTS, 3GPP, " />
+
+<meta property="og:title" content="IPv6 Address configuration in 3GPP "/>
+<meta property="og:url" content="/ipv6 in 3gpp.html" />
+<meta property="og:description" content="IPv6 address configuration is somewhat different from the IPv4 address configuration procedure. The address of an IPv6 node is allocated by stateless autoconfiguration from GGSN or PGW." />
+<meta property="og:site_name" content="Tester&#39;s Tricks" />
+<meta property="og:article:author" content="Tao" />
+<meta property="og:article:published_time" content="2019-07-26T10:00:00+08:00" />
+<meta property="og:article:modified_time" content="2019-07-26T00:00:00+08:00" />
+<meta name="twitter:title" content="IPv6 Address configuration in 3GPP ">
+<meta name="twitter:description" content="IPv6 address configuration is somewhat different from the IPv4 address configuration procedure. The address of an IPv6 node is allocated by stateless autoconfiguration from GGSN or PGW.">
+
+        <title>IPv6 Address configuration in 3GPP  · Tester&#39;s Tricks
+</title>
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="/theme/css/pygments.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="/theme/tipuesearch/tipuesearch.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="/theme/css/elegant.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="/theme/css/admonition.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="/theme/css/custom.css" media="screen">
+
+
+
+    </head>
+    <body>
+        <div id="content-sans-footer">
+        <div class="navbar navbar-static-top">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="/"><span class=site-name>Tester's Tricks</span></a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav pull-right top-menu">
+                            <li ><a href="">Home</a></li>
+                            <li ><a href="/categories">Categories</a></li>
+                            <li ><a href="/tags">Tags</a></li>
+                            <li ><a href="/archives">Archives</a></li>
+                            <li><form class="navbar-search" action="/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span1"></div>
+                <div class="span10">
+<article itemscope>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+    <h1><a href="/ipv6 in 3gpp.html"> IPv6 Address configuration in 3GPP  </a></h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+
+            
+            <h1>NAS message that contains IP address for UE</h1>
+<p>Mobile device, or call it UE or MS, obtain an ip address from PS core network, SGSN or SGW, by NAS procedure Activate PDP Context. Ip address can be seen from the Accpts message, either Attach Accept or Activate PDP Context Accept. It can also been assigned from MME in downlind request messages, like  ACTIVATE_DEFAULT_EPS_BEARER_CONTEXT_REQUEST.</p>
+<p>Here below are two example NAS messages that contains IP addresss. </p>
+<blockquote>
+<p>Structure/Struct-Item name    Values  Info  <br>
+ENAS_AirMessage   EPS bearer identity : 6       <br>
+      Protocol Discriminator : ENAS AIRMESSAGE PROTOCOL DISCRIMINATOR ESM (2)       <br>
+      Procedure transaction identity : 1    <br>
+      Message Type : (0xc1)     <br>
+<strong>   ACTIVATE_DEFAULT_EPS_BEARER_CONTEXT_REQUEST   </strong>       <br>
+               EPS QoS | EPS quality of service     <br>
+      Length : 1    <br>
+      QCI : 5       <br>
+               Access point name | Access point name    <br>
+      00010111 Access point name length of contents : 23    <br>
+      APN: ims.MNC011.MCC460.GPRS   <br>
+               PDN Address | PDN Address    <br>
+      Length of PDN address contents : 9    <br>
+      00000--- Spare : 0    <br>
+      PDN type value : IPv6 (2)     <br>
+      PDN IPv6: 0:1:0:1:6:23:214:100    <br>
+               APN-AMBR | APN aggregate maximum bit rate    <br>
+      01011110 APN aggregate maximum bit rate IEI : 0x5e    <br>
+      00000100 Length of APN aggregate maximum bit rate contents : 4    <br>
+      11111110 APN-AMBR for downlink : 8640 kbps    <br>
+      11000101 APN-AMBR for uplink : 4992 kbps      <br>
+      00001110 APN-AMBR for downlink (extended) : 10000 kbps    <br>
+      00000000 APN-AMBR for uplink (extended) : 4992 kbps(Use the value indicated by the APN-AMBR for uplink in octet 4)    <br>
+               ESM cause | ESM cause    <br>
+      01011000 ESM cause IEI : 0x58     <br>
+      00110011 ESM_Cause : PDN_TYPE_IPV6_ONLY_ALLOWED (51)      <br>
+               Protocol configuration options | Protocol configuration options      <br>
+      00100111 Protocol configuration options IEI : 39      <br>
+      00111010 Protocol config. options length of contents : 58     <br>
+      1------- Ext : 1      <br>
+      -0000--- Spare : 0    <br>
+      -----000 Configuration Protocol: PPP for use with IP PDP type or IP PDN type : 0      <br>
+      00000000 Protocol ID 1 : 3    <br>
+      00000011      <br>
+      00010000 Length of Protocol ID 1 contents : 16    <br>
+      00000000 Protocol ID 1 contents : 0   <br>
+      00000000 Protocol ID 1 contents : 0   <br>
+      00000000 Protocol ID 1 contents : 0   <br>
+      00000000 Protocol ID 1 contents : 0   <br>
+      00000000 Protocol ID 1 contents : 0   <br>
+      00000000 Protocol ID 1 contents : 0   <br>
+      00000000 Protocol ID 1 contents : 0   <br>
+      00000000 Protocol ID 1 contents : 0   <br>
+      00000000 Protocol ID 1 contents : 0   <br>
+      00000000 Protocol ID 1 contents : 0   <br>
+      00000000 Protocol ID 1 contents : 0   <br>
+      00000000 Protocol ID 1 contents : 0   <br>
+      00000000 Protocol ID 1 contents : 0   <br>
+      00000000 Protocol ID 1 contents : 0   <br>
+      00000000 Protocol ID 1 contents : 0   <br>
+      00000000 Protocol ID 1 contents : 0   <br>
+      00000000 Protocol ID 2 : 1    <br>
+      00000001      <br>
+      00010000 Length of Protocol ID 2 contents : 16    <br>
+      00100100 Protocol ID 2 contents : 36      <br>
+      00001110 Protocol ID 2 contents : 14      <br>
+      00000000 Protocol ID 2 contents : 0   <br>
+      01100110 Protocol ID 2 contents : 102     <br>
+      00010000 Protocol ID 2 contents : 16      <br>
+      00000000 Protocol ID 2 contents : 0   <br>
+      00000000 Protocol ID 2 contents : 0   <br>
+      00000000 Protocol ID 2 contents : 0   <br>
+      00000000 Protocol ID 2 contents : 0   <br>
+      00000000 Protocol ID 2 contents : 0   <br>
+      00000000 Protocol ID 2 contents : 0   <br>
+      00000000 Protocol ID 2 contents : 0   <br>
+      00000000 Protocol ID 2 contents : 0   <br>
+      00000000 Protocol ID 2 contents : 0   <br>
+      00000000 Protocol ID 2 contents : 0   <br>
+      00001000 Protocol ID 2 contents : 8   <br>
+      00000000 Protocol ID 3 : 1    <br>
+      00000001      <br>
+      00010000 Length of Protocol ID 3 contents : 16    <br>
+      00100100 Protocol ID 3 contents : 36      <br>
+      00001110 Protocol ID 3 contents : 14      <br>
+      00000000 Protocol ID 3 contents : 0   <br>
+      01100110 Protocol ID 3 contents : 102     <br>
+      00010000 Protocol ID 3 contents : 16      <br>
+      00000000 Protocol ID 3 contents : 0   <br>
+      00000000 Protocol ID 3 contents : 0   <br>
+      00000000 Protocol ID 3 contents : 0   <br>
+      00000000 Protocol ID 3 contents : 0   <br>
+      00000000 Protocol ID 3 contents : 0   <br>
+      00000000 Protocol ID 3 contents : 0   <br>
+      00000000 Protocol ID 3 contents : 0   <br>
+      00000000 Protocol ID 3 contents : 0   <br>
+      00000000 Protocol ID 3 contents : 0   <br>
+      00000000 Protocol ID 3 contents : 0   <br>
+      00011000 Protocol ID 3 contents : 24      <br>
+Raw_Message         <br>
+  length  107   <br>
+  message 0x6201C101051703696D73064D4E43303131064D434334363004475052530902000100010617D6645E04FEC50E005833273A8000031000000000000000000000000000000000000110240E0066100000000000000000000008000110240E0066100000000000000000000018      <br>
+This following example has both ipv4 and ipv6 address, dual stack. 
+Clearly we can see that ipv4 is straight plan context showing the ip address, while ipv6 is not. </p>
+<p>ENAS_AirMessage   Security Header Type : SECURITY TYPE NONE (0) <br>
+      Protocol Discriminator : ENAS AIRMESSAGE PROTOCOL DISCRIMINATOR EMM (7)   <br>
+      Message Type: (0x42)  <br>
+<strong>  ENAS ATTACH ACCEPT  </strong>    <br>
+               Spare half octet | Spare half octet  <br>
+      0000---- Spare Half Octet : 0 <br>
+               EPS Attach Result | EPS Attach Result<br>
+      ----0--- spare : 0<br>
+      -----010 Attach Result is  : COMBINED_EPS_IMSI_ATTACH : 2 <br>
+               T3412 value | GPRS Timer <br>
+      010----- Unit: value is incremented in multiples of decihours : 2 <br>
+      ---01001 Timer value : 9 decihours<br>
+               TAI List | Tracking Area Identity List 
+      00000110 Length of Tracking Area Identity List IE contents : 6<br>
+      0------- spare : 0<br>
+      -10----- Type of TAI = ONE_PLMN_CONSECUTIVE_TAC : 2 
+      ---00000 Number of Elements in TAI : 0<br>
+      Mobile Country Code(MCC) : 460<br>
+      Mobile Network Code(MNC) : 01 <br>
+      Tracking Area Code(TAC) : 10f6<br>
+               ESM Message Container | ESM Message Container<br>
+      00000000 ESM Message Container Length  : 145  <br>
+      10010001  <br>
+      ........  ESM Message Container : 0x5233C10106190533676E6574064D4E43303031064D434334363004475052530D03000100020B775DD80A33B1A95D010030100B921F7196FEFE7449FFFF00C5006C003203823401085E04FEFEC56C2741808021100301001081067B7B7B7B83067B7B7B7C000D047B7B7B7B0003102408800010100001000000000000000800031024088000101000020000000000000008<br>
+      EPS bearer identity : 5   <br>
+      Protocol Discriminator : ENAS AIRMESSAGE PROTOCOL DISCRIMINATOR ESM (2)   <br>
+      Procedure transaction identity : 51   <br>
+      Message Type : (0xc1) <br>
+<strong>   ACTIVATE_DEFAULT_EPS_BEARER_CONTEXT_REQUEST   </strong>   <br>
+               EPS QoS | EPS quality of service <br>
+      Length : 1<br>
+      QCI : 6   <br>
+               Access point name | Access point name<br>
+      00011001 Access point name length of contents : 25<br>
+      APN: 3gnet.MNC001.MCC460.GPRS <br>
+               PDN Address | PDN Address<br>
+      Length of PDN address contents : 13   <br>
+      00000--- Spare : 0<br>
+      PDN type value : IPv4v6 (3)   <br>
+      PDN IPv6: 0:1:0:2:11:119:93:216 
+      PDN IPv4: 10.51.177.169 
+               Transaction identifier | Transaction identifier  <br>
+      01011101 Linked TI IEI : 0x5d <br>
+      00000001 Length of Linked TI IE : 1 
+      0------- TI flag : The message is sent from the side that originates the TI 
+      -000---- TI value : 0x0 (0) 
+      ----0000 spare<br>
+               Negotiated QoS | Quality of service  <br>
+      00110000 Quality of service IEI : 48  <br>
+      00010000 Quality of service length of contents : 16 
+      00------ spare : 0<br>
+      --001--- Delay class 1 : 1<br>
+      -----011 Reliability class: Unacknowledged GTP and LLC; Acknowledged RLC, Protected data : 3  <br>
+      1001---- Peak throughput: Up to 256 000 octet/s : 9 
+      ----0--- spare : 0<br>
+      -----010 Precedence class: Normal priority : 2<br>
+      000----- spare : 0<br>
+      ---11111 Mean throughput: Best effort : 31<br>
+      011----- Traffic class: Interactive class : 3 <br>
+      ---10--- Delivery order: Without delivery order ('no') : 2<br>
+      -----001 Delivery of erroneous SDUs: No detect ('-') : 1  <br>
+      10010110 Maximum SDU size: 1500 octets<br>
+      11111110 Maximum bit rate for uplink : 8640 kbps (254)<br>
+      11111110 The value is specified in "Maximum bit rate for downlink (extended)" Octet : 254 <br>
+      0111---- Residual Bit Error Rate (BER): 1<em>10^(-5) : 7 <br>
+      ----0100 SDU error ratio: 1</em>10^(-4) : 4 
+      010010-- Transfer delay : 300 ms (18) <br>
+      ------01 Traffic handling priority: Priority level 1 : 1  <br>
+      11111111 Guaranteed bit rate for uplink: 0kbps : 255  <br>
+      11111111 Guaranteed bit rate for downlink: 0kbps : 255<br>
+      000----- spare : 0<br>
+      ---0---- Signallin Indication: Not optimised for signalling traffic : 0 
+      ----0000 Source Statistics Descriptor: unknown : 0<br>
+      11000101 The maximum bit rate for downlink (extended) : 197 
+               The network shall map this value not explicitly defined onto one of the values defined in this version of the protocol.  <br>
+               The network shall return a negotiated value which is explicitly defined in this version of the protocol. <br>
+      00000000 Use the value indicated by the Guaranteed bit rate for downlink in octet 13 : 0  <br>
+      01101100 The maximum bit rate for uplink (extended) : 108 <br>
+               The network shall map this value not explicitly defined onto one of the values defined in this version of the protocol.  <br>
+               The network shall return a negotiated value which is explicitly defined in this version of the protocol. <br>
+      00000000 Use the value indicated by the Guaranteed bit rate for uplink in octet 12 : 0<br>
+               Negotiated LLC SAPI | LLC service access point identifier<br>
+      00110010 LLC service access point identifier IEI : 50 <br>
+      0000---- spare : 0<br>
+      ----0011 LLC SAPI value: SAPI 3 : 3 
+               Radio priority | Radio Priority  <br>
+      1000---- Radio priority IEI : 8 
+      ----0--- spare : 0<br>
+      -----010 priority level 2 : 2 <br>
+               Packet flow Identifier | Packet Flow Identifier  <br>
+      00110100 Packet Flow Identifier IEI : 52  <br>
+      00000001 Packet Flow Identifier length of contents : 1<br>
+      0------- Spare : 0<br>
+      -0001000 Packet Flow Identifier value: dynamically assigned : 8 
+               APN-AMBR | APN aggregate maximum bit rate<br>
+      01011110 APN aggregate maximum bit rate IEI : 0x5e<br>
+      00000100 Length of APN aggregate maximum bit rate contents : 4<br>
+      11111110 APN-AMBR for downlink : 8640 kbps<br>
+      11111110 APN-AMBR for uplink : 8640 kbps  <br>
+      11000101 APN-AMBR for downlink (extended) : 150 Mbps  <br>
+      01101100 APN-AMBR for uplink (extended) : 50 Mbps <br>
+               Protocol configuration options | Protocol configuration options  <br>
+      00100111 Protocol configuration options IEI : 39  <br>
+      01000001 Protocol config. options length of contents : 65 <br>
+      1------- Ext : 1  <br>
+      -0000--- Spare : 0<br>
+      -----000 Configuration Protocol: PPP for use with IP PDP type or IP PDN type : 0  <br>
+      10000000 Protocol ID 1 : 32801<br>
+      00100001  <br>
+      00010000 Length of Protocol ID 1 contents : 16<br>
+      00000011 Protocol ID 1 contents : 3 
+      00000001 Protocol ID 1 contents : 1 
+      00000000 Protocol ID 1 contents : 0 
+      00010000 Protocol ID 1 contents : 16  <br>
+      10000001 Protocol ID 1 contents : 129 <br>
+      00000110 Protocol ID 1 contents : 6 
+      01111011 Protocol ID 1 contents : 123 <br>
+      01111011 Protocol ID 1 contents : 123 <br>
+      01111011 Protocol ID 1 contents : 123 <br>
+      01111011 Protocol ID 1 contents : 123 <br>
+      10000011 Protocol ID 1 contents : 131 <br>
+      00000110 Protocol ID 1 contents : 6 
+      01111011 Protocol ID 1 contents : 123 <br>
+      01111011 Protocol ID 1 contents : 123 <br>
+      01111011 Protocol ID 1 contents : 123 <br>
+      01111100 Protocol ID 1 contents : 124 <br>
+      00000000 Protocol ID 2 : 13 
+      00001101  <br>
+      00000100 Length of Protocol ID 2 contents : 4 <br>
+      01111011 Protocol ID 2 contents : 123 <br>
+      01111011 Protocol ID 2 contents : 123 <br>
+      01111011 Protocol ID 2 contents : 123 <br>
+      01111011 Protocol ID 2 contents : 123 <br>
+      00000000 Protocol ID 3 : 3<br>
+      00000011  <br>
+      00010000 Length of Protocol ID 3 contents : 16<br>
+      00100100 Protocol ID 3 contents : 36  <br>
+      00001000 Protocol ID 3 contents : 8 
+      10000000 Protocol ID 3 contents : 128 <br>
+      00000000 Protocol ID 3 contents : 0 
+      00010000 Protocol ID 3 contents : 16  <br>
+      00010000 Protocol ID 3 contents : 16  <br>
+      00000000 Protocol ID 3 contents : 0 
+      00000001 Protocol ID 3 contents : 1 
+      00000000 Protocol ID 3 contents : 0 
+      00000000 Protocol ID 3 contents : 0 
+      00000000 Protocol ID 3 contents : 0 
+      00000000 Protocol ID 3 contents : 0 
+      00000000 Protocol ID 3 contents : 0 
+      00000000 Protocol ID 3 contents : 0 
+      00000000 Protocol ID 3 contents : 0 
+      00001000 Protocol ID 3 contents : 8 
+      00000000 Protocol ID 4 : 3<br>
+      00000011  <br>
+      00010000 Length of Protocol ID 4 contents : 16<br>
+      00100100 Protocol ID 4 contents : 36  <br>
+      00001000 Protocol ID 4 contents : 8 
+      10000000 Protocol ID 4 contents : 128 <br>
+      00000000 Protocol ID 4 contents : 0 
+      00010000 Protocol ID 4 contents : 16  <br>
+      00010000 Protocol ID 4 contents : 16  <br>
+      00000000 Protocol ID 4 contents : 0 
+      00000010 Protocol ID 4 contents : 2 
+      00000000 Protocol ID 4 contents : 0 
+      00000000 Protocol ID 4 contents : 0 
+      00000000 Protocol ID 4 contents : 0 
+      00000000 Protocol ID 4 contents : 0 
+      00000000 Protocol ID 4 contents : 0 
+      00000000 Protocol ID 4 contents : 0 
+      00000000 Protocol ID 4 contents : 0 
+      00001000 Protocol ID 4 contents : 8 
+      ESM Message Container End <br>
+               GUTI | EPS Mobile Identity 
+      01010000 EPS Mobile Identity IEI : 80 <br>
+      00001011 EPS Mobile Identity Length  : 11 <br>
+      ----0--- Odd Even Indicator : 0 
+      -----110 Identity Type is GUTI : 6<br>
+      Mobile Country Code(MCC) : 460<br>
+      Mobile Network Code(MNC) : 01 <br>
+      MME Group Id : 23043  <br>
+      MME Code : 8  <br>
+      M-TMSI : 0xcc9d50c4 
+               Location Area Identification | Location area identification  <br>
+      00010011 Location area identification IEI : 19<br>
+      0110---- Mobile country code, digit 2 <br>
+      ----0100 Mobile country code, digit 1 <br>
+      1111---- spare (two digit MNC)<br>
+      ----0000 Mobile country code, digit 3 <br>
+      0001---- Mobile network code, digit 2 <br>
+      ----0000 Mobile network code, digit 1 <br>
+      ........ Mobile country code : 460<br>
+      ........ Mobile network code : 01 <br>
+      10100000 LAC, Location area code : 160<br>
+      00111010 LAC, Location area code (continued) : 58 <br>
+      ........ LAC, Location area code value : 41018 (0xa03a) 
+               MS identity | Mobile identity<br>
+      00100011 Mobile identity IEI : 35 <br>
+      00000101 Mobile identity length of contents : 5 
+      1111---- Identity digit 1 : 15<br>
+      ----0--- odd/even indic: even number of identity digits and also when the TMSI/P-TMSI is used : 0 <br>
+      -----100 Type of identity : TMSI/P-TMSI : 4 
+      1010---- Identity digit   3 (most significant bits) : 10  <br>
+      ----1010 Identity digit   2 : 10  <br>
+      0011---- Identity digit   5 :  3  <br>
+      ----0101 Identity digit   4 :  5  <br>
+      0001---- Identity digit   7 :  1  <br>
+      ----1100 Identity digit   6 : 12  <br>
+      0100---- Identity digit   9 :  4  <br>
+      ----0100 Identity digit   8 (least significant bits) :  4 <br>
+      ........ Identity digit value : 0xAA351C44<br>
+Raw_Message     <br>
+  length  184 
+  message 0x07420249064064F01010F600915233C10106190533676E6574064D4E43303031064D434334363004475052530D03000100020B775DD80A33B1A95D010030100B921F7196FEFE7449FFFF00C5006C003203823401085E04FEFEC56C2741808021100301001081067B7B7B7B83067B7B7B7C000D047B7B7B7B0003102408800010100001000000000000000800031024088000101000020000000000000008500BF664F0105A0308CC9D50C41364F010A03A2305F4AA351C44<br>
+</p>
+</blockquote>
+<h1>IPv6 address configuration is somewhat different</h1>
+<p>In case people don't understand the phrases like prifix, interface identifier, link_local, etc. Here is some info in a short page. https://networklessons.com/ipv6/ipv6-address-types</p>
+<p>Defined in <a href="https://portal.3gpp.org/desktopmodules/Specifications/SpecificationDetails.aspx?specificationId=758#">23060</a>, in chapter 9.2.1.1, PDN IPv6: 0:1:0:2:11:119:93:216 is actually the interface identifier, which is enclose in the messages shows above as example. <code>PDN IPv6: 0:1:0:2:11:119:93:216 =  1:2:b77:5dd8</code>. The UE shall use this interface identifier to build its link-local address and may also use it for building its full IPv6 address, as <code>fe80::1:2:b77:5dd8</code>. While the local link address is not the final address for this node. UE need to send Router Solicitation message to GGSN|PGW for prefix . In Router Advertisement message, GGSN|PGW assign prefix, 64bits. <a href="https://tools.ietf.org/html/rfc4862">RFC 4862</a> is the detailed spec about IPv6 Stateless Address Autoconfiguration. </p>
+<p>RS message</p>
+<div class="highlight"><pre><span></span><span class="n">Internet</span> <span class="n">Protocol</span> <span class="n">Version</span> <span class="mi">6</span><span class="p">,</span> <span class="nl">Src</span><span class="p">:</span> <span class="n">fe80</span><span class="o">::</span><span class="mi">1</span><span class="o">:</span><span class="mi">2</span><span class="o">:</span><span class="nl">b77</span><span class="p">:</span><span class="mi">5</span><span class="n">dd8</span><span class="p">,</span> <span class="nl">Dst</span><span class="p">:</span> <span class="n">ff02</span><span class="o">::</span><span class="mi">2</span>
+    <span class="mo">0110</span> <span class="p">....</span> <span class="o">=</span> <span class="nl">Version</span><span class="p">:</span> <span class="mi">6</span>
+    <span class="p">....</span> <span class="mo">0000</span> <span class="mo">0000</span> <span class="p">....</span> <span class="p">....</span> <span class="p">....</span> <span class="p">....</span> <span class="p">....</span> <span class="o">=</span> <span class="n">Traffic</span> <span class="kt">Class</span><span class="o">:</span> <span class="mh">0x00</span> <span class="p">(</span><span class="nl">DSCP</span><span class="p">:</span> <span class="n">CS0</span><span class="p">,</span> <span class="nl">ECN</span><span class="p">:</span> <span class="n">Not</span><span class="o">-</span><span class="n">ECT</span><span class="p">)</span>
+        <span class="p">....</span> <span class="mo">0000</span> <span class="mf">00.</span><span class="p">.</span> <span class="p">....</span> <span class="p">....</span> <span class="p">....</span> <span class="p">....</span> <span class="p">....</span> <span class="o">=</span> <span class="n">Differentiated</span> <span class="n">Services</span> <span class="nl">Codepoint</span><span class="p">:</span> <span class="n">Default</span> <span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="p">....</span> <span class="p">....</span> <span class="p">.</span><span class="mf">.00</span> <span class="p">....</span> <span class="p">....</span> <span class="p">....</span> <span class="p">....</span> <span class="p">....</span> <span class="o">=</span> <span class="n">Explicit</span> <span class="n">Congestion</span> <span class="nl">Notification</span><span class="p">:</span> <span class="n">Not</span> <span class="n">ECN</span><span class="o">-</span><span class="n">Capable</span> <span class="n">Transport</span> <span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="p">....</span> <span class="p">....</span> <span class="p">....</span> <span class="mi">1111</span> <span class="mo">0001</span> <span class="mi">1011</span> <span class="mo">0010</span> <span class="mi">1001</span> <span class="o">=</span> <span class="n">Flow</span> <span class="nl">Label</span><span class="p">:</span> <span class="mh">0xf1b29</span>
+    <span class="n">Payload</span> <span class="nl">Length</span><span class="p">:</span> <span class="mi">8</span>
+    <span class="n">Next</span> <span class="nl">Header</span><span class="p">:</span> <span class="n">ICMPv6</span> <span class="p">(</span><span class="mi">58</span><span class="p">)</span>
+    <span class="n">Hop</span> <span class="nl">Limit</span><span class="p">:</span> <span class="mi">255</span>
+    <span class="nl">Source</span><span class="p">:</span> <span class="n">fe80</span><span class="o">::</span><span class="mi">1</span><span class="o">:</span><span class="mi">2</span><span class="o">:</span><span class="nl">b77</span><span class="p">:</span><span class="mi">5</span><span class="n">dd8</span>
+    <span class="nl">Destination</span><span class="p">:</span> <span class="n">ff02</span><span class="o">::</span><span class="mi">2</span>
+<span class="n">Internet</span> <span class="n">Control</span> <span class="n">Message</span> <span class="n">Protocol</span> <span class="n">v6</span>
+    <span class="nl">Type</span><span class="p">:</span> <span class="n">Router</span> <span class="n">Solicitation</span> <span class="p">(</span><span class="mi">133</span><span class="p">)</span>
+    <span class="nl">Code</span><span class="p">:</span> <span class="mi">0</span>
+    <span class="nl">Checksum</span><span class="p">:</span> <span class="mh">0x13e5</span> <span class="p">[</span><span class="n">correct</span><span class="p">]</span>
+    <span class="p">[</span><span class="n">Checksum</span> <span class="nl">Status</span><span class="p">:</span> <span class="n">Good</span><span class="p">]</span>
+    <span class="nl">Reserved</span><span class="p">:</span> <span class="mo">00000000</span>
+</pre></div>
+
+
+<p>RA message</p>
+<div class="highlight"><pre><span></span><span class="n">Internet</span> <span class="n">Protocol</span> <span class="n">Version</span> <span class="mi">6</span><span class="p">,</span> <span class="nl">Src</span><span class="p">:</span> <span class="n">fe80</span><span class="o">::</span><span class="mi">5</span><span class="p">,</span> <span class="nl">Dst</span><span class="p">:</span> <span class="n">fe80</span><span class="o">::</span><span class="mi">1</span><span class="o">:</span><span class="mi">2</span><span class="o">:</span><span class="nl">b77</span><span class="p">:</span><span class="mi">5</span><span class="n">dd8</span>
+    <span class="mo">0110</span> <span class="p">....</span> <span class="o">=</span> <span class="nl">Version</span><span class="p">:</span> <span class="mi">6</span>
+    <span class="p">....</span> <span class="mo">0000</span> <span class="mo">0000</span> <span class="p">....</span> <span class="p">....</span> <span class="p">....</span> <span class="p">....</span> <span class="p">....</span> <span class="o">=</span> <span class="n">Traffic</span> <span class="kt">Class</span><span class="o">:</span> <span class="mh">0x00</span> <span class="p">(</span><span class="nl">DSCP</span><span class="p">:</span> <span class="n">CS0</span><span class="p">,</span> <span class="nl">ECN</span><span class="p">:</span> <span class="n">Not</span><span class="o">-</span><span class="n">ECT</span><span class="p">)</span>
+        <span class="p">....</span> <span class="mo">0000</span> <span class="mf">00.</span><span class="p">.</span> <span class="p">....</span> <span class="p">....</span> <span class="p">....</span> <span class="p">....</span> <span class="p">....</span> <span class="o">=</span> <span class="n">Differentiated</span> <span class="n">Services</span> <span class="nl">Codepoint</span><span class="p">:</span> <span class="n">Default</span> <span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="p">....</span> <span class="p">....</span> <span class="p">.</span><span class="mf">.00</span> <span class="p">....</span> <span class="p">....</span> <span class="p">....</span> <span class="p">....</span> <span class="p">....</span> <span class="o">=</span> <span class="n">Explicit</span> <span class="n">Congestion</span> <span class="nl">Notification</span><span class="p">:</span> <span class="n">Not</span> <span class="n">ECN</span><span class="o">-</span><span class="n">Capable</span> <span class="n">Transport</span> <span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="p">....</span> <span class="p">....</span> <span class="p">....</span> <span class="mo">0000</span> <span class="mo">0000</span> <span class="mo">0000</span> <span class="mo">0000</span> <span class="mo">0000</span> <span class="o">=</span> <span class="n">Flow</span> <span class="nl">Label</span><span class="p">:</span> <span class="mh">0x00000</span>
+    <span class="n">Payload</span> <span class="nl">Length</span><span class="p">:</span> <span class="mi">48</span>
+    <span class="n">Next</span> <span class="nl">Header</span><span class="p">:</span> <span class="n">ICMPv6</span> <span class="p">(</span><span class="mi">58</span><span class="p">)</span>
+    <span class="n">Hop</span> <span class="nl">Limit</span><span class="p">:</span> <span class="mi">255</span>
+    <span class="nl">Source</span><span class="p">:</span> <span class="n">fe80</span><span class="o">::</span><span class="mi">5</span>
+    <span class="nl">Destination</span><span class="p">:</span> <span class="n">fe80</span><span class="o">::</span><span class="mi">1</span><span class="o">:</span><span class="mi">2</span><span class="o">:</span><span class="nl">b77</span><span class="p">:</span><span class="mi">5</span><span class="n">dd8</span>
+<span class="n">Internet</span> <span class="n">Control</span> <span class="n">Message</span> <span class="n">Protocol</span> <span class="n">v6</span>
+    <span class="nl">Type</span><span class="p">:</span> <span class="n">Router</span> <span class="n">Advertisement</span> <span class="p">(</span><span class="mi">134</span><span class="p">)</span>
+    <span class="nl">Code</span><span class="p">:</span> <span class="mi">0</span>
+    <span class="nl">Checksum</span><span class="p">:</span> <span class="mh">0x0d99</span> <span class="p">[</span><span class="n">correct</span><span class="p">]</span>
+    <span class="p">[</span><span class="n">Checksum</span> <span class="nl">Status</span><span class="p">:</span> <span class="n">Good</span><span class="p">]</span>
+    <span class="n">Cur</span> <span class="n">hop</span> <span class="nl">limit</span><span class="p">:</span> <span class="mi">0</span>
+    <span class="nl">Flags</span><span class="p">:</span> <span class="mh">0x40</span><span class="p">,</span> <span class="n">Other</span> <span class="n">configuration</span><span class="p">,</span> <span class="n">Prf</span> <span class="p">(</span><span class="n">Default</span> <span class="n">Router</span> <span class="n">Preference</span><span class="p">)</span><span class="o">:</span> <span class="n">Medium</span>
+    <span class="n">Router</span> <span class="n">lifetime</span> <span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">:</span> <span class="mi">65535</span>
+    <span class="n">Reachable</span> <span class="n">time</span> <span class="p">(</span><span class="n">ms</span><span class="p">)</span><span class="o">:</span> <span class="mi">0</span>
+    <span class="n">Retrans</span> <span class="n">timer</span> <span class="p">(</span><span class="n">ms</span><span class="p">)</span><span class="o">:</span> <span class="mi">0</span>
+    <span class="n">ICMPv6</span> <span class="n">Option</span> <span class="p">(</span><span class="n">Prefix</span> <span class="nl">information</span> <span class="p">:</span> <span class="mi">2408</span><span class="o">:</span><span class="mf">84e1</span><span class="o">:</span><span class="mi">20</span><span class="o">:</span><span class="mi">1915</span><span class="o">::/</span><span class="mi">64</span><span class="p">)</span>
+        <span class="nl">Type</span><span class="p">:</span> <span class="n">Prefix</span> <span class="n">information</span> <span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+        <span class="nl">Length</span><span class="p">:</span> <span class="mi">4</span> <span class="p">(</span><span class="mi">32</span> <span class="n">bytes</span><span class="p">)</span>
+        <span class="n">Prefix</span> <span class="nl">Length</span><span class="p">:</span> <span class="mi">64</span>
+        <span class="nl">Flag</span><span class="p">:</span> <span class="mh">0x40</span><span class="p">,</span> <span class="n">Autonomous</span> <span class="n">address</span><span class="o">-</span><span class="n">configuration</span> <span class="n">flag</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+        <span class="n">Valid</span> <span class="nl">Lifetime</span><span class="p">:</span> <span class="n">Infinity</span> <span class="p">(</span><span class="mi">4294967295</span><span class="p">)</span>
+        <span class="n">Preferred</span> <span class="nl">Lifetime</span><span class="p">:</span> <span class="n">Infinity</span> <span class="p">(</span><span class="mi">4294967295</span><span class="p">)</span>
+        <span class="n">Reserved</span>
+        <span class="nl">Prefix</span><span class="p">:</span> <span class="mi">2408</span><span class="o">:</span><span class="mf">84e1</span><span class="o">:</span><span class="mi">20</span><span class="o">:</span><span class="mi">1915</span><span class="o">::</span>
+</pre></div>
+
+
+<blockquote>
+<p>After the MS has received the Router Advertisement message, it constructs its full IPv6 address by concatenating the interface identifier received in step 3, or a locally generated interface identifier, and the prefix received in the Router Advertisement. If the Router Advertisement contains more than one prefix option, the MS shall only consider the first one and silently discard the others.</p>
+<p>NOTE 3:   The MS can at any time change the interface identifier used to generate full IPv6 addresses, without involving the network, i.e. without updating the PDP context in the SGSN and the GGSN.</p>
+<p>Because any prefix that the GGSN advertises in a PDP context is unique within the scope of the prefix (i.e. site-local or global), there is no need for the MS to perform Duplicate Address Detection for this IPv6 address. Therefore, the GGSN shall silently discard Neighbor Solicitation messages that the MS may send to perform Duplicate Address Detection. It is possible for the MS to perform Neighbor Unreachability Detection towards the GGSN, as defined in RFC 4861 [98]; therefore if the GGSN receives a Neighbor Solicitation as part of this procedure, the GGSN shall provide a Neighbor Advertisement as described in RFC 4862 [99].</p>
+</blockquote>
+<p>In Chapter 5.6  UE support of IPv6 of <a href="https://portal.3gpp.org/desktopmodules/Specifications/SpecificationDetails.aspx?specificationId=818">23221</a>, it refers to some guidline about how UE generate interface identifier locally. </p>
+<p><a href="https://tools.ietf.org/html/rfc4941#page-10">RFC 4941</a> defines the Privacy Extensions for Stateless Address Autoconfiguration in IPv6</p>
+            <div>
+</div>
+
+            
+            
+            <hr/>
+        </div>
+        <section>
+        <div class="span2" style="float:right;font-size:0.9em;">
+            <h4>Published</h4>
+            <time itemprop="dateCreated" datetime="2019-07-26T10:00:00+08:00">Jul 26, 2019</time>
+
+<h4>Last Updated</h4>
+<time datetime="2019-07-26T00:00:00+08:00">Jul 26, 2019</time>
+
+            <h4>Category</h4>
+            <a class="category-link" href="/categories.html#3gpp-ref">3GPP</a>
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article">
+                <li><a href="/tags#3gpp-ref">3GPP
+                    <span>1</span>
+</a></li>
+                <li><a href="/tags#lte-ref">LTE
+                    <span>1</span>
+</a></li>
+                <li><a href="/tags#umts-ref">UMTS
+                    <span>1</span>
+</a></li>
+            </ul>
+<h4>Contact</h4>
+    <a href="#" title="My You can add links in your config file Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-you can add links in your config file sidebar-social-links"></i></a>
+    <a href="#" title="My Another social link Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-another social link sidebar-social-links"></i></a>
+        </div>
+        </section>
+</div>
+</article>
+                </div>
+                <div class="span1"></div>
+            </div>
+        </div>
+        <div id="push"></div>
+    </div>
+<footer>
+<div id="footer">
+    <ul class="footer-content">
+        <li class="elegant-power">Powered by <a href="http://getpelican.com/" title="Pelican Home Page">Pelican</a>. Theme: <a href="https://github.com/Pelican-Elegant/elegant/" title="Theme Elegant Home Page">Elegant</a></li>
+    </ul>
+</div>
+</footer>            <script src="//code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    
+    </body>
+    <!-- Theme: Elegant built for Pelican
+    License : MIT -->
+</html>
