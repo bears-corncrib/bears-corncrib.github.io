@@ -13,13 +13,13 @@
 
 <meta property="og:title" content="Basic Python vs Bash "/>
 <meta property="og:url" content="/Basic Python vs Bash.html" />
-<meta property="og:description" content="It is shame that this is my third time to warm up my knowledge about using Python. Coding is not part of my job, while I only use it sometimes when I need to. I can still remember that it was 5 years ago that I use Python to write some code to practice OFDM. Bash, apk, expect, perl are right now the latest scripting language I have just used to help some of my job. Here in this post, I will just leave some reminders for myself on some basic syntax. I wish it will help when next I need to learn Python again." />
+<meta property="og:description" content="It is shame that this is my third time to warm up my knowledge about using Python. Coding is not part of my job, while I only use it sometimes when I need to. I can still remember that it was 5 years ago that I use Python to write some code to practice the fomular of OFDM and the modulation procedures. Bash, apk, perl are right now the latest scripting language I have just used to help some of my work. Here in this post, I will just leave some notes side by side as reminders for myself on some basic syntax. I wish it will help when next I need to use any one of them." />
 <meta property="og:site_name" content="Tester&#39;s Tricks" />
 <meta property="og:article:author" content="Tao" />
 <meta property="og:article:published_time" content="2019-11-08T00:00:00+08:00" />
 <meta property="og:article:modified_time" content="2019-11-18T00:00:00+08:00" />
 <meta name="twitter:title" content="Basic Python vs Bash ">
-<meta name="twitter:description" content="It is shame that this is my third time to warm up my knowledge about using Python. Coding is not part of my job, while I only use it sometimes when I need to. I can still remember that it was 5 years ago that I use Python to write some code to practice OFDM. Bash, apk, expect, perl are right now the latest scripting language I have just used to help some of my job. Here in this post, I will just leave some reminders for myself on some basic syntax. I wish it will help when next I need to learn Python again.">
+<meta name="twitter:description" content="It is shame that this is my third time to warm up my knowledge about using Python. Coding is not part of my job, while I only use it sometimes when I need to. I can still remember that it was 5 years ago that I use Python to write some code to practice the fomular of OFDM and the modulation procedures. Bash, apk, perl are right now the latest scripting language I have just used to help some of my work. Here in this post, I will just leave some notes side by side as reminders for myself on some basic syntax. I wish it will help when next I need to use any one of them.">
 
         <title>Basic Python vs Bash  · Tester&#39;s Tricks
 </title>
@@ -89,19 +89,33 @@
 <td align="left">end with <code>enter</code></td>
 <td align="left">end with <code>enter</code>or <code>;</code></td>
 <td align="left">end with <code>enter</code>or <code>;</code></td>
-<td align="left">end with <code>enter</code>or <code>;</code></td>
+<td align="left">end with<code>;</code></td>
 </tr>
 <tr>
-<td align="left">One-line comments</td>
+<td align="left">Single-line comments</td>
 <td align="left">start the line with <code>//</code></td>
 <td align="left">start the line with <code>#</code></td>
 <td align="left"></td>
-<td align="left"></td>
+<td align="left">start the line with <code>#</code></td>
 </tr>
 <tr>
-<td align="left">Multi-line comments</td>
+<td align="left">Multiline comments</td>
+<td align="left"><code>'''</code>do the same as<code>"""</code><br> <code>'''</code><br><code>Comments</code><br><code>Comments</code><br><code>Comments</code><br><code>'''</code></td>
+<td align="left">Use <a href="https://en.wikipedia.org/wiki/Here_document">"Here Document"</a></td>
 <td align="left"></td>
-<td align="left"></td>
+<td align="left">POD(Plain Old Documentations) <br><code>=pod 注释</code><br><code>Comments</code><br><code>Comments</code><br><code>Comments</code><br><code>=cut</code></td>
+</tr>
+<tr>
+<td align="left">Use of Print in console</td>
+<td align="left"><code>print ("Hello World"</code>)</td>
+<td align="left"><code>echo "Hello World"</code><br><code>printf "Hello World\n"</code>note: printf needs \n to start new line</td>
+<td align="left"><code>print "Hello, World!"</code></td>
+<td align="left"><code>print "Hello, World!\n"</code>note: print needs \n to start new line</td>
+</tr>
+<tr>
+<td align="left">Math</td>
+<td align="left"><code>a=1</code><br><code>c=a+3</code>c=4<br><code>a+=1</code>a=2<br><code>d=a++</code>error<br><code>d=a+1</code>a=2,d=3</td>
+<td align="left"><code>a=1</code><br><code>let c=${a}+3</code>c=4<br><code>let a++</code>a=2<br><code>let d=a++</code>a=3,d=2<br><code>let d=++a</code>a=4,d=4</td>
 <td align="left"></td>
 <td align="left"></td>
 </tr>
@@ -120,11 +134,136 @@
 </thead>
 <tbody>
 <tr>
-<td align="left">variables</td>
-<td align="left">No claim</td>
-<td align="left">No claim</td>
-<td align="left">No claim</td>
-<td align="left">No claim</td>
+<td align="left">Declare</td>
+<td align="left"><code>a = 10</code><br><code>a, b = 0, 1</code></td>
+<td align="left"><code>a = 10</code></td>
+<td align="left"><code>a = 10</code></td>
+<td align="left"><code>$a = 10</code></td>
+</tr>
+<tr>
+<td align="left">Use of Variables</td>
+<td align="left"><code>b = a</code></td>
+<td align="left"><code>b = $a</code></td>
+<td align="left"><code>b = a</code></td>
+<td align="left"><code>$b = $a</code></td>
+</tr>
+</tbody>
+</table>
+<h2>String</h2>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="left">Python</th>
+<th align="left">Bash</th>
+<th align="left">awk</th>
+<th align="left">Perl</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2>Collection types</h2>
+<table>
+<thead>
+<tr>
+<th align="left">Array/List</th>
+<th align="left">Python</th>
+<th align="left">Bash</th>
+<th align="left">awk</th>
+<th align="left">Perl</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Declare</td>
+<td align="left">List:<code>list_name=[value0, value1, value2, value3]</code></td>
+<td align="left"><code>array_name=(value0 value1 value2 value3)</code></td>
+<td align="left"></td>
+<td align="left"><code>@array_name=(value0, value1, value2, value3);</code><br><code>@array = qw/Value1 Value2 Value3/;</code> note: multilines work the same as space<br><code>@var_10 = (1..10);</code> or <code>@var_abc = (a..z);</code></td>
+</tr>
+<tr>
+<td align="left">Use element from Collection types</td>
+<td align="left"><code>list_name=[0]</code></td>
+<td align="left"><code>${array_name[0]}</code></td>
+<td align="left"><code>array_name[0]</code></td>
+<td align="left"><code>array_name[0]</code></td>
+</tr>
+<tr>
+<td align="left">Lenth of Array</td>
+<td align="left"><code>len(list_name)</code></td>
+<td align="left"><code>${#array_name[@]}</code><br><code>${#array_name[*]}</code></td>
+<td align="left"><code>length(array_name)</code></td>
+<td align="left"><code>$size = @array_name</code>note：Perl count the number of index, but not the actuall number of elements.</td>
+</tr>
+<tr>
+<td align="left">Appending elements</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Inserting elements</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Delete elements</td>
+<td align="left"><code>del list[0]</code></td>
+<td align="left"><code>{}</code>is not needed to unset element: <code>unset array_name[0]</code></td>
+<td align="left"><code>delete array_name[0]</code></td>
+<td align="left"><code>delete array_name[0]</code>or <code>undef array_name[0]</code>note: Lenth of the array doesn't change, as index is not reordered.<br><code>splise @array_name,slipelements,length</code>note: by this funtion, index is reordered too</td>
+</tr>
+<tr>
+<td align="left">Replacing elements</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Duplicate Array</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th align="left">Dict/Hash</th>
+<th align="left">Python</th>
+<th align="left">Bash</th>
+<th align="left">awk</th>
+<th align="left">Perl</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Declare</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"><code>%hash=('a'=&gt;1,'b'=&gt;2)</code></td>
+</tr>
+<tr>
+<td align="left">Use element from dist</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"><code>$hash{'a'}</code></td>
 </tr>
 </tbody>
 </table>
