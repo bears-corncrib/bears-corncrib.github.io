@@ -78,86 +78,180 @@
 <tr>
 <th align="left"></th>
 <th align="left">Python</th>
+<th align="left">Perl</th>
 <th align="left">Bash</th>
 <th align="left">awk</th>
-<th align="left">Perl</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left">Lines</td>
 <td align="left">end with <code>enter</code></td>
-<td align="left">end with <code>enter</code>or <code>;</code></td>
-<td align="left">end with <code>enter</code>or <code>;</code></td>
 <td align="left">end with<code>;</code></td>
+<td align="left">optional <code>;</code></td>
+<td align="left">optional <code>;</code></td>
 </tr>
 <tr>
 <td align="left">Single-line comments</td>
 <td align="left">start the line with <code>//</code></td>
 <td align="left">start the line with <code>#</code></td>
-<td align="left"></td>
 <td align="left">start the line with <code>#</code></td>
+<td align="left">If ran awk from file begin with <code>#! /usr/bin/awk -f</code>, then comments lead by <code>#</code></td>
 </tr>
 <tr>
 <td align="left">Multiline comments</td>
-<td align="left"><code>'''</code>do the same as<code>"""</code><br> <code>'''</code><br><code>Comments</code><br><code>Comments</code><br><code>Comments</code><br><code>'''</code></td>
-<td align="left">Use <a href="https://en.wikipedia.org/wiki/Here_document">"Here Document"</a></td>
-<td align="left"></td>
+<td align="left">triple quotation:<code>'''</code>do the same as<code>"""</code><br> <code>'''</code><br><code>Comments</code><br><code>Comments</code><br><code>Comments</code><br><code>'''</code></td>
 <td align="left">POD(Plain Old Documentations) <br><code>=pod 注释</code><br><code>Comments</code><br><code>Comments</code><br><code>Comments</code><br><code>=cut</code></td>
+<td align="left">Use <a href="https://en.wikipedia.org/wiki/Here_document">"Here Document"</a></td>
+<td align="left">Not supported, while "0 function", <code>0{comments}</code>, is a workaround, but not recomanded.</td>
 </tr>
 <tr>
 <td align="left">Use of Print in console</td>
 <td align="left"><code>print ("Hello World"</code>)</td>
-<td align="left"><code>echo "Hello World"</code><br><code>printf "Hello World\n"</code>note: printf needs \n to start new line</td>
+<td align="left"><code>print "Hello, World!\n"</code>note: print needs \n to start new line<br>Escate<code>\</code> works only in double quotation mark<code>"\n"</code>, not single quotation mark <code>''</code></td>
+<td align="left"><code>echo "Hello World"</code><br>Escate<code>\</code> works only with <code>echo -e</code><br><code>printf "Hello World\n"</code>note: printf needs \n to start new line. It doesn't start new line by default.</td>
 <td align="left"><code>print "Hello, World!"</code></td>
-<td align="left"><code>print "Hello, World!\n"</code>note: print needs \n to start new line</td>
 </tr>
 <tr>
-<td align="left">Math</td>
-<td align="left"><code>a=1</code><br><code>c=a+3</code>c=4<br><code>a+=1</code>a=2<br><code>d=a++</code>error<br><code>d=a+1</code>a=2,d=3</td>
-<td align="left"><code>a=1</code><br><code>let c=${a}+3</code>c=4<br><code>let a++</code>a=2<br><code>let d=a++</code>a=3,d=2<br><code>let d=++a</code>a=4,d=4</td>
+<td align="left">Basic Math</td>
+<td align="left">Python doesn't support <code>++</code><br><code>a=1</code><br><code>c=a+3</code>c=4<br><code>a+=1</code>a=2<br><code>d=a++</code>error<br><code>d=a+1</code>a=2,d=3</td>
+<td align="left"><code>a=1</code><br><code>$c=$a+3</code>c=4<br><code>$a++</code>a=2<br><code>$d=$a++</code>a=3,d=2<br><code>$b=$++a</code>a=3,b=0, it don't make sense.</td>
+<td align="left">Bash uses the annoying <code>let</code>to make cauculation.<br><code>a=1</code><br><code>let c=${a}+3</code>c=4<br><code>let a++</code>a=2<br><code>let d=a++</code>a=3,d=2<br><code>let d=++a</code>a=4,d=4<br> Interesting, <code>echo $a+1</code>, or <code>echo ($a+1)</code> don't return math result, while it works by this way to quote an element from array, like<code>${array_name[$a+1]}</code>or<code>${array_name[($a+1)]}</code></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">##Variables</td>
+<td align="left"></td>
+<td align="left"></td>
 <td align="left"></td>
 <td align="left"></td>
 </tr>
-</tbody>
-</table>
-<h2>Variables</h2>
-<table>
-<thead>
 <tr>
-<th align="left"></th>
-<th align="left">Python</th>
-<th align="left">Bash</th>
-<th align="left">awk</th>
-<th align="left">Perl</th>
+<td align="left"></td>
+<td align="left">Python</td>
+<td align="left">Perl</td>
+<td align="left">Bash</td>
+<td align="left">awk</td>
 </tr>
-</thead>
-<tbody>
+<tr>
+<td align="left">:---</td>
+<td align="left">:---</td>
+<td align="left">:---</td>
+<td align="left">:---</td>
+<td align="left">:---</td>
+</tr>
 <tr>
 <td align="left">Declare</td>
 <td align="left"><code>a = 10</code><br><code>a, b = 0, 1</code></td>
-<td align="left"><code>a = 10</code></td>
-<td align="left"><code>a = 10</code></td>
 <td align="left"><code>$a = 10</code></td>
+<td align="left"><code>a = 10</code></td>
+<td align="left"><code>a = 10</code></td>
 </tr>
 <tr>
 <td align="left">Use of Variables</td>
 <td align="left"><code>b = a</code></td>
+<td align="left"><code>$b = $a</code></td>
 <td align="left"><code>b = $a</code></td>
 <td align="left"><code>b = a</code></td>
-<td align="left"><code>$b = $a</code></td>
+</tr>
+<tr>
+<td align="left">Special Variables</td>
+<td align="left"><code>__name__</code><br><code>__main__</code><br><code>__doc__</code><br><a href="http://www.exampleprogramming.com/specialvars.html">To read more</a></td>
+<td align="left"><code>$0</code>==<code>$PROGRAM_NAME</code><br><code>__FILE__</code> name of current script.<br><code>$_</code>=<code>$ARG</code><br><code>$.</code>=<code>$NR</code><br>Perl script is hard to read, one of the reason is the complexity of special variables.  <a href="https://www.tutorialspoint.com/perl/perl_special_variables.htm">To read more</a><br><br></td>
+<td align="left"><code>$#</code> number of arguments<br><code>$0</code> current script<br><code>$1</code>,<code>$2</code>...<code>$n</code>arguments<br><code>$*</code>and <code>$@</code> can be used to transfer arguments. "$*"transfer arguments as "$1 $2 … $n";"$@"transfer arguments as "$1" "$2" … "$n"。<br> <code>$?</code>shows the error of last line, 0 means suceess。</td>
+<td align="left"><code>$0</code>current line, that has been passed to awk<br><code>$1</code>,<code>$2</code>...<code>$n</code>fileds that seperated by <code>$IFS</code></td>
+</tr>
+<tr>
+<td align="left">Getting Variable value from Shell</td>
+<td align="left">I don't see a way to put some Python scripts in Bash, using "Here document". <br>Python uses os module to interact with OS enviroment.</td>
+<td align="left">Perl can be part of Bash script using <code>perl -e 'What ever perl scripts in multiple lines'</code><br><em>To be Added</em></td>
+<td align="left">Let me put a note about using <a href="https://en.wikipedia.org/wiki/Expect"><code>Expect</code></a> inline of Bash.<br><code>expect -c 'what ever expect scripts in multiple lines'</code>"single-double quotation mark" is used to access Bash variables like <code>'"bashVar"'</code> in this method.<br><code>expect &lt;&lt;EOF</code> which is actually <a href="https://en.wikipedia.org/wiki/Here_document">"Here Document"</a>. Luckly, bash Variables are accesable by simply use <code>$varNamefromBash</code> in this method. <br>It doesn't means method 2 is better than method 1. I did see some difficult hanlding differnet problems. I will update some example in *note 2</td>
+<td align="left">awk can be part of Bash by using <br><code>awk '/optional matching conditions/BEGIN{What ever awk scripts in multiple lines}</code><br><code>{What ever awk scripts in multiple lines}</code><br><code>END{What ever awk scripts in multiple lines}'</code>. <br>Here is the way how awk get value from Bash.<br><code>"'$bashVar_name'"</code>"double-sigle quotation marks" can get bash variables. <br>I don't find a good way to directly access array, while a workaround is to make the array into a string, with predefined seperator. "double-single-double/penta quotation marks" can be used, like <code>"'"${a[*]}"'"</code>,see *note 1 as an example. <br><code>split("'"${bashArray_name}"'",awkArray_name,",")</code>note: comma is used as separator of funtion <code>split</code>. Make sure using a specital character that won't exist in any lf the elements of the array. awk actuall consider the <code>${bashArray_name}</code> as a string, then funtioan <code>split</code> work to rebuild it into array, named <code>awkArray_name</code></td>
 </tr>
 </tbody>
 </table>
+<h4>note 1: About Getting var from Shell by awk</h4>
+<div class="highlight"><pre><span></span>$ <span class="nv">a</span><span class="o">=(</span>Hello Good Nice Well<span class="o">)</span> 
+$ awk <span class="s1">&#39;BEGIN{print &quot;&#39;</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">a</span><span class="p">[*]</span><span class="si">}</span><span class="s2">&quot;</span><span class="s1">&#39;&quot;}&#39;</span>
+Hello Good Nice Well
+$ awk <span class="s1">&#39;BEGIN{print &quot;&#39;</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">a</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span><span class="s1">&#39;&quot;}&#39;</span> <span class="c1"># ${a[@]} doesn&#39;t work equally as ${a[*]}</span>
+awk: non-terminated string Hello... at <span class="nb">source</span> line <span class="m">1</span>
+ context is
+     &gt;&gt;&gt;  <span class="o">&lt;&lt;&lt;</span> 
+awk: giving up
+ <span class="nb">source</span> line number <span class="m">2</span>
+$ awk <span class="s1">&#39;BEGIN{split(&quot;&#39;</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">a</span><span class="p">[*]</span><span class="si">}</span><span class="s2">&quot;</span><span class="s1">&#39;&quot;,test);print test[4]}&#39;</span>
+Well
+</pre></div>
+
+
+<h4>note 2: About using Expect in Bash script.</h4>
+<p>Here the problem I saw was that to use Windows paht format in expect, so I can automatically do some ssh script from Windows openssh servier(runs powershell or cmd console). 
+The path I put in a bash var is <code>$UTSHome="C:\Program Files (x86)\Qualcomm\QUTS\Support\python"</code> , The challenge is to transfer the escape sign <code>\</code>. After some painful test, here are the final solutions.</p>
+<ul>
+<li>Using Expect &lt;&lt;EOF, when <code>$UTSHome="C:\\\Program Files (x86)\\\Qualcomm\\\QUTS\\\Support\\\python"</code>
+    Good tries</li>
+</ul>
+<p><code>send "dir '$QUTSHome' \r\r"</code></p>
+<p><code>send "dir \"${winPATHs[@]}\" \r\r"</code></p>
+<div class="highlight"><pre><span></span><span class="n">Failed</span> <span class="n">tries</span>
+</pre></div>
+
+
+<p><code>send "dir '"$QUTSHome"' \r\r"</code></p>
+<ul>
+<li>
+<p>Using Expect &lt;&lt;EOF, when <code>$UTSHome="C:\Program Files (x86)\Qualcomm\QUTS\Support\python"</code></p>
+<p>Failed tries, </p>
+</li>
+</ul>
+<p><code>send "dir \"$QUTSHome\"\r\r"</code></p>
+<p><code>send "dir $QUTSHome \r\r"</code></p>
+<p><code>send "dir '$QUTSHome' \r\r"</code></p>
+<p><code>send "dir $QUTSHome \r\r"</code></p>
+<p><code>send "dir '"$QUTSHome"' \r\r"</code></p>
+<ul>
+<li>
+<p>Using Expect -c ', all the bash var needs single quotation mark, when <code>$UTSHome="C:\\\Program Files (x86)\\\Qualcomm\\\QUTS\\\Support\\\python"</code></p>
+<p>Good tries</p>
+</li>
+</ul>
+<p><code>send "dir '"$QUTSHome"' \r\r"</code> This only work when there is no space in the path. </p>
+<p><code>send "dir \"'"${winPATHs[@]}"'\" \r\r"</code>, This is good even with space, as quotation mark are moved out side of the var.</p>
+<p>Fail tries</p>
+<p><code>send "dir \"$QUTSHome\" \r\r"</code></p>
+<p><code>send "dir '$QUTSHome' \r\r"</code></p>
+<p><code>send "dir '\"$QUTSHome\"' \r\r"</code></p>
+<ul>
+<li>
+<p>Using Expect -c ', all the bash var needs single quotation mark, when <code>$UTSHome="C:\Program Files (x86)\Qualcomm\QUTS\Support\python"</code></p>
+<p>Failed tries</p>
+</li>
+</ul>
+<p><code>send "dir '"$QUTSHome"' \r\r"</code></p>
+<p><code>send "dir \"$QUTSHome\" \r\r"</code></p>
+<p><code>send "dir '$QUTSHome' \r\r"</code></p>
+<p><code>send "dir '\"$QUTSHome\"' \r\r"</code></p>
+<!-- <expect EOF> will disable the funtion of <interact>. While if there is no <expect EOF>, while loop will be ignored. This is a reason to change <expect <<EOF> into <expect -c>      
+new problem by using <expect -c> is that shell varables can't be involked. On the contrary, if use <expect <<EOF>, expect varables can't be used. By using "expect <<\EOF", expect varables can be used,but while loop still doesn't work. What a confusing prolem. 
+Solution: By using three quotation marks to solve, shell variable work with <expect -c> . Perfect. -->
+
+<p>The test shows that both ways have finally worked to transfer string with escape sign &lt;1&gt; to expect. The last, I wont to mention that 
+Using Expect &lt;&lt;EOF, variables are in the same form as expect variables. This make expect hard to use for loop, like   <br>
+<code>for {set i 0} {$i&lt;4} {incr i} {
+        puts "$i"
+}</code>, because <code>$i</code> is translated as bash variable, which make for loop fail.
+Using Expect -c ‘’ don't have this problem, as the bash variables must use single quotation marks to differenciate expect variables.
+Which way to use, it depenses on if you need expect variables. </p>
 <h2>String</h2>
 <table>
 <thead>
 <tr>
 <th align="left"></th>
 <th align="left">Python</th>
+<th align="left">Perl</th>
 <th align="left">Bash</th>
 <th align="left">awk</th>
-<th align="left">Perl</th>
 </tr>
 </thead>
 <tbody>
@@ -170,38 +264,81 @@
 </tr>
 </tbody>
 </table>
+<p>To Be Added.
+I have not yet got chance to started this chapater, but I have a very intersting topic:How we can quickly remove the redantant spaces at both sides of the a string but keep space in the middle no change. Here are some methord I got from web but not all of the perfectly solve this question. </p>
+<p>Perfact solutions</p>
+<div class="highlight"><pre><span></span>$ <span class="nb">echo</span> <span class="s2">&quot;      adcd   hijk      &quot;</span><span class="p">|</span> python -c <span class="s2">&quot;s=raw_input();print(s.strip())&quot;</span>
+adcd   hijk
+
+$ <span class="nb">echo</span> <span class="s2">&quot;      adcd   hijk      &quot;</span><span class="p">|</span>sed -e <span class="s1">&#39;s/^[ ]*//g&#39;</span> <span class="p">|</span> sed -e <span class="s1">&#39;s/[ ]*$//g&#39;</span>
+adcd   hijk
+
+$ <span class="nb">echo</span> <span class="s2">&quot;      adcd   hijk      &quot;</span><span class="p">|</span>awk <span class="s1">&#39;{sub(/^ */, &quot;&quot;);sub(/ *$/, &quot;&quot;)}1&#39;</span>
+adcd   hijk
+
+$ <span class="nb">echo</span> <span class="s2">&quot;      adcd   hijk      &quot;</span><span class="p">|</span>grep -o <span class="s2">&quot;[^ ]\+\( \+[^ ]\+\)*&quot;</span>
+adcd   hijk
+&lt;!--    https://www.cnblogs.com/pekkle/p/6568844.html
+https://blog.csdn.net/Jerry_1126/article/details/86726719    
+https://www.cnblogs.com/Dev0ps/p/10696575.html--&gt;
+</pre></div>
+
+
+<p>Work, but not perfact.</p>
+<div class="highlight"><pre><span></span>$ <span class="nb">echo</span> <span class="s2">&quot;      adcd   hijk      &quot;</span><span class="p">|</span>awk <span class="s1">&#39;$1=$1&#39;</span>
+adcd hijk
+
+$ <span class="nv">test</span><span class="o">=</span> <span class="s2">&quot;      adcd   hijk      &quot;</span>
+-bash:       adcd   hijk      : <span class="nb">command</span> not found
+$ <span class="nb">echo</span> <span class="nv">$test</span>
+adfa lskdj
+
+$ <span class="nb">eval</span> <span class="nb">echo</span> <span class="s2">&quot;      adcd   hijk      &quot;</span>
+adcd hijk
+</pre></div>
+
+
+<p>Not working on Mac</p>
+<div class="highlight"><pre><span></span>$ <span class="nb">echo</span> <span class="s2">&quot;      adcd   hijk      &quot;</span><span class="p">|</span>sed -r <span class="s1">&#39;s/^[ \t]+(.*)[ \t]+$//g&#39;</span>
+sed: illegal option -- r
+usage: sed script <span class="o">[</span>-Ealn<span class="o">]</span> <span class="o">[</span>-i extension<span class="o">]</span> <span class="o">[</span>file ...<span class="o">]</span>
+   sed <span class="o">[</span>-Ealn<span class="o">]</span> <span class="o">[</span>-i extension<span class="o">]</span> <span class="o">[</span>-e script<span class="o">]</span> ... <span class="o">[</span>-f script_file<span class="o">]</span> ... <span class="o">[</span>file ...<span class="o">]</span>
+</pre></div>
+
+
 <h2>Collection types</h2>
+<h3>Array or matrix</h3>
 <table>
 <thead>
 <tr>
 <th align="left">Array/List</th>
 <th align="left">Python</th>
+<th align="left">Perl</th>
 <th align="left">Bash</th>
 <th align="left">awk</th>
-<th align="left">Perl</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left">Declare</td>
 <td align="left">List:<code>list_name=[value0, value1, value2, value3]</code></td>
+<td align="left"><code>@array_name=(value0, value1, value2, value3);</code><br><code>@array = qw/Value1 Value2 Value3/;</code> note: multilines work the same as space<br><code>@var_10 = (1..10);</code> or <code>@var_abc = (a..z);</code></td>
 <td align="left"><code>array_name=(value0 value1 value2 value3)</code></td>
 <td align="left"></td>
-<td align="left"><code>@array_name=(value0, value1, value2, value3);</code><br><code>@array = qw/Value1 Value2 Value3/;</code> note: multilines work the same as space<br><code>@var_10 = (1..10);</code> or <code>@var_abc = (a..z);</code></td>
 </tr>
 <tr>
 <td align="left">Use element from Collection types</td>
 <td align="left"><code>list_name=[0]</code></td>
-<td align="left"><code>${array_name[0]}</code></td>
 <td align="left"><code>array_name[0]</code></td>
+<td align="left"><code>${array_name[0]}</code></td>
 <td align="left"><code>array_name[0]</code></td>
 </tr>
 <tr>
 <td align="left">Lenth of Array</td>
 <td align="left"><code>len(list_name)</code></td>
+<td align="left"><code>$size = @array_name</code>note：Perl count the number of index, but not the actuall number of elements.</td>
 <td align="left"><code>${#array_name[@]}</code><br><code>${#array_name[*]}</code></td>
 <td align="left"><code>length(array_name)</code></td>
-<td align="left"><code>$size = @array_name</code>note：Perl count the number of index, but not the actuall number of elements.</td>
 </tr>
 <tr>
 <td align="left">Appending elements</td>
@@ -220,9 +357,9 @@
 <tr>
 <td align="left">Delete elements</td>
 <td align="left"><code>del list[0]</code></td>
+<td align="left"><code>delete array_name[0]</code>or <code>undef array_name[0]</code>note: Lenth of the array doesn't change, as index is not reordered.<br><code>splise @array_name,slipelements,length</code>note: by this funtion, index is reordered too</td>
 <td align="left"><code>{}</code>is not needed to unset element: <code>unset array_name[0]</code></td>
 <td align="left"><code>delete array_name[0]</code></td>
-<td align="left"><code>delete array_name[0]</code>or <code>undef array_name[0]</code>note: Lenth of the array doesn't change, as index is not reordered.<br><code>splise @array_name,slipelements,length</code>note: by this funtion, index is reordered too</td>
 </tr>
 <tr>
 <td align="left">Replacing elements</td>
@@ -233,40 +370,90 @@
 </tr>
 <tr>
 <td align="left">Duplicate Array</td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left"><code>newList=list_name</code></td>
+<td align="left"><code>@newArrayName=@array_name</code></td>
+<td align="left">Note 1 for more detail<br><code>$ a=(Hello Good Nice Well)</code><br><code>$ ddd=("${a[@]}")</code><br><code>$ cccc=(${a[*]})</code><br><code>$ dddd=(${a[@]})</code></td>
 <td align="left"></td>
 </tr>
 </tbody>
 </table>
+<p>Note 1: About duplicating Bash array</p>
+<div class="highlight"><pre><span></span>$ <span class="nv">a</span><span class="o">=</span><span class="ss">(</span><span class="nv">Hello</span> <span class="nv">Good</span> <span class="nv">Nice</span> <span class="nv">Well</span><span class="ss">)</span> 
+$ <span class="nv">echo</span> <span class="mh">$a</span>
+<span class="nv">Hello</span> #<span class="nv">Only</span> <span class="nv">print</span> <span class="nv">the</span> <span class="nv">first</span> <span class="nv">element</span>, <span class="nv">it</span> <span class="nv">equals</span> <span class="nv">echo</span> ${<span class="nv">a</span>[<span class="mi">0</span>]}
+$ <span class="nv">echo</span> ${<span class="nv">a</span>[<span class="o">*</span>]}
+<span class="nv">Hello</span> <span class="nv">Good</span> <span class="nv">Nice</span> <span class="nv">Well</span> #<span class="nv">Eveny</span> <span class="nv">elements</span> <span class="nv">are</span> <span class="nv">printed</span>
+$ <span class="nv">echo</span> ${<span class="nv">a</span>[@]}
+<span class="nv">Hello</span> <span class="nv">Good</span> <span class="nv">Nice</span> <span class="nv">Well</span> #<span class="nv">Eveny</span> <span class="nv">elements</span> <span class="nv">are</span> <span class="nv">printed</span>, <span class="nv">Same</span> <span class="nv">as</span> <span class="nv">above</span>
+$ <span class="nv">b</span><span class="o">=</span><span class="mh">$a</span>
+$ <span class="nv">echo</span> ${<span class="nv">b</span>[<span class="o">*</span>]}
+<span class="nv">Hello</span>   #<span class="nv">b</span> <span class="nv">only</span> <span class="nv">get</span> <span class="nv">the</span> <span class="nv">first</span> <span class="nv">element</span>
+$ <span class="nv">echo</span> ${<span class="nv">b</span>[@]}
+<span class="nv">Hello</span>   #<span class="nv">b</span> <span class="nv">only</span> <span class="nv">get</span> <span class="nv">the</span> <span class="nv">first</span> <span class="nv">element</span>, <span class="nv">Same</span> <span class="nv">as</span> <span class="nv">above</span>
+$ <span class="nv">c</span><span class="o">=</span>${<span class="nv">a</span>[<span class="o">*</span>]}
+$ <span class="nv">echo</span> ${<span class="nv">c</span>} # <span class="nv">This</span> <span class="nv">equals</span> <span class="nv">echo</span> ${<span class="nv">c</span>[<span class="mi">0</span>]}
+<span class="nv">Hello</span> <span class="nv">Good</span> <span class="nv">Nice</span> <span class="nv">Well</span>
+$ <span class="nv">echo</span> ${<span class="nv">c</span>[<span class="mi">1</span>]} # <span class="nv">Here</span> <span class="nv">in</span> <span class="k">next</span> <span class="nv">line</span>, <span class="nv">nothing</span> <span class="nv">is</span> <span class="nv">printed</span>. <span class="nv">Means</span> <span class="nv">c</span> <span class="nv">is</span> <span class="nv">actually</span> <span class="nv">a</span> <span class="nv">string</span>, <span class="nv">but</span> <span class="nv">not</span> <span class="nv">an</span> <span class="nv">array</span>.
+
+$ <span class="nv">d</span><span class="o">=</span>${<span class="nv">a</span>[@]}
+$ <span class="nv">echo</span> ${<span class="nv">d</span>} # <span class="nv">This</span> <span class="nv">equals</span> <span class="nv">echo</span> ${<span class="nv">d</span>[<span class="mi">0</span>]}
+<span class="nv">Hello</span> <span class="nv">Good</span> <span class="nv">Nice</span> <span class="nv">Well</span>
+$ <span class="nv">echo</span> ${<span class="nv">d</span>[<span class="mi">1</span>]} # <span class="nv">Here</span> <span class="nv">in</span> <span class="k">next</span> <span class="nv">line</span>, <span class="nv">nothing</span> <span class="nv">is</span> <span class="nv">printed</span>. <span class="nv">Means</span> <span class="nv">d</span> <span class="nv">is</span> <span class="nv">actually</span> <span class="nv">a</span> <span class="nv">string</span>, <span class="nv">but</span> <span class="nv">not</span> <span class="nv">an</span> <span class="nv">array</span>.
+
+$ <span class="nv">cc</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">${a[*]}</span><span class="s2">&quot;</span>
+$ <span class="nv">echo</span> ${<span class="nv">cc</span>}
+<span class="nv">Hello</span> <span class="nv">Good</span> <span class="nv">Nice</span> <span class="nv">Well</span>
+$ <span class="nv">echo</span> ${<span class="nv">cc</span>[<span class="mi">1</span>]} # <span class="nv">Here</span> <span class="nv">in</span> <span class="k">next</span> <span class="nv">line</span>, <span class="nv">nothing</span> <span class="nv">is</span> <span class="nv">printed</span>. <span class="nv">Means</span> <span class="nv">cc</span> <span class="nv">is</span> <span class="nv">actually</span> <span class="nv">a</span> <span class="nv">string</span>, <span class="nv">but</span> <span class="nv">not</span> <span class="nv">an</span> <span class="nv">array</span>.
+
+$ <span class="nv">dd</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">${a[@]}</span><span class="s2">&quot;</span>
+$ <span class="nv">echo</span> ${<span class="nv">dd</span>}
+<span class="nv">Hello</span> <span class="nv">Good</span> <span class="nv">Nice</span> <span class="nv">Well</span>
+$ <span class="nv">echo</span> ${<span class="nv">dd</span>[<span class="mi">1</span>]} # <span class="nv">Here</span> <span class="nv">in</span> <span class="k">next</span> <span class="nv">line</span>, <span class="nv">nothing</span> <span class="nv">is</span> <span class="nv">printed</span>. <span class="nv">Means</span> <span class="nv">dd</span> <span class="nv">is</span> <span class="nv">actually</span> <span class="nv">a</span> <span class="nv">string</span>, <span class="nv">but</span> <span class="nv">not</span> <span class="nv">an</span> <span class="nv">array</span>.
+
+$ <span class="nv">ccc</span><span class="o">=</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">${a[*]}</span><span class="s2">&quot;</span><span class="ss">)</span>
+$ <span class="nv">echo</span> ${<span class="nv">ccc</span>[<span class="mi">1</span>]} # <span class="nv">Here</span> <span class="nv">in</span> <span class="k">next</span> <span class="nv">line</span>, <span class="nv">nothing</span> <span class="nv">is</span> <span class="nv">printed</span>. <span class="nv">Means</span> <span class="nv">ccc</span> <span class="nv">is</span> <span class="nv">actually</span> <span class="nv">a</span> <span class="nv">string</span>, <span class="nv">but</span> <span class="nv">not</span> <span class="nv">an</span> <span class="nv">array</span>.
+
+$ <span class="nv">ddd</span><span class="o">=</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">${a[@]}</span><span class="s2">&quot;</span><span class="ss">)</span>
+$ <span class="nv">echo</span> ${<span class="nv">ddd</span>[<span class="mi">1</span>]} # <span class="nv">Finally</span>, <span class="nv">we</span> <span class="nv">sussessfuly</span> <span class="nv">duplicate</span> <span class="nv">array</span> <span class="nv">a</span>. <span class="nv">And</span> <span class="nv">this</span> <span class="nv">shows</span> <span class="nv">how</span> @ <span class="nv">is</span> <span class="nv">used</span> <span class="nv">differenlty</span> <span class="nv">fro</span> <span class="o">*</span> <span class="ss">(</span><span class="nv">see</span> <span class="nv">test</span> <span class="nv">above</span> <span class="k">next</span>, <span class="nv">value</span> <span class="nv">of</span> <span class="nv">ccc</span><span class="ss">)</span>
+<span class="nv">Good</span>
+$ <span class="nv">cccc</span><span class="o">=</span><span class="ss">(</span>${<span class="nv">a</span>[<span class="o">*</span>]}<span class="ss">)</span>
+$ <span class="nv">echo</span> ${<span class="nv">cccc</span>[<span class="mi">1</span>]} # <span class="nv">Here</span> <span class="nv">is</span> <span class="nv">another</span> <span class="nv">way</span> <span class="nv">to</span> <span class="nv">duplicate</span> <span class="nv">array</span> <span class="nv">a</span>
+<span class="nv">Good</span>
+$ <span class="nv">dddd</span><span class="o">=</span><span class="ss">(</span>${<span class="nv">a</span>[@]}<span class="ss">)</span>
+$ <span class="nv">echo</span> ${<span class="nv">dddd</span>[<span class="mi">1</span>]} # <span class="nv">Here</span> <span class="nv">is</span> <span class="nv">another</span> <span class="nv">way</span> <span class="nv">to</span> <span class="nv">duplicate</span> <span class="nv">array</span> <span class="nv">a</span>, <span class="nv">same</span> <span class="nv">as</span> <span class="nv">above</span>
+<span class="nv">Good</span>
+</pre></div>
+
+
+<h3>Dictionary or Hash</h3>
 <table>
 <thead>
 <tr>
 <th align="left">Dict/Hash</th>
 <th align="left">Python</th>
+<th align="left">Perl</th>
 <th align="left">Bash</th>
 <th align="left">awk</th>
-<th align="left">Perl</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left">Declare</td>
 <td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
 <td align="left"><code>%hash=('a'=&gt;1,'b'=&gt;2)</code></td>
+<td align="left"></td>
+<td align="left"></td>
 </tr>
 <tr>
 <td align="left">Use element from dist</td>
 <td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
 <td align="left"><code>$hash{'a'}</code></td>
+<td align="left"></td>
+<td align="left"></td>
 </tr>
 </tbody>
 </table>
+<h3>Other unique colletion types.</h3>
 <h2>Flow Control</h2>
 <h3>condition</h3>
 <table>
@@ -274,22 +461,155 @@
 <tr>
 <th align="left"></th>
 <th align="left">Python</th>
+<th align="left">Perl</th>
 <th align="left">Bash</th>
 <th align="left">awk</th>
-<th align="left">Perl</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">conditions</td>
-<td align="left">end with colon;eg:<code>if age &gt;= 18:</code></td>
-<td align="left">No claim</td>
-<td align="left">No claim</td>
-<td align="left">No claim</td>
+<td align="left">Conditions</td>
+<td align="left">Conditions need no parentheses <code>()</code>, but need to end with colon;eg:<code>if age &gt;= 18:</code></td>
+<td align="left"></td>
+<td align="left">Condition need <code>(())</code>, which normally used for numerical conditions;<br>or<code>[]</code>, which is used for string or logic, same as <code>test</code>, <code>-z</code>test if string is zero length<code>-n</code>test if string exist;<br> or<code>[[]]</code> if use Regular Expression<br><code>then</code>and<code>fi</code> are used to level up block</td>
+<td align="left">Condition need parentheses <code>()</code>, then <code>{}</code> is used to level up block</td>
+</tr>
+<tr>
+<td align="left">if,else</td>
+<td align="left">if CONDITION:<br>else:</td>
+<td align="left"></td>
+<td align="left">if CONDITION<br>then<br> <code>optional TAB</code>STATMENTS<br>else<br><code>optional TAB</code>STATMENTS<br>fi</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">elseif</td>
+<td align="left">elif CONDITION</td>
+<td align="left">elsif</td>
+<td align="left">elif CONDITION<br>then</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">?</td>
+<td align="left"></td>
+<td align="left">$VAR=CONDITION?VALUE_A:VALUE_A;</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<h3>Loop</h3>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="left">Python</th>
+<th align="left">Perl</th>
+<th align="left">Bash</th>
+<th align="left">awk</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">case</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">case VAR in <br>RegEx)<br> <code>optional TAB</code>STATMENTS;;<br>RegEx)<br> <code>optional TAB</code>STATMENTS;;<br>esac</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">switch</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">For</td>
+<td align="left">for VAR in ARRAY:<br><code>TAB</code>STATMENTS<br>This is a way to get index from ARRAY<code>for i in range(len(ARRAY))</code></td>
+<td align="left"></td>
+<td align="left">for VAR in ARRAY<br>do<br> <code>optional TAB</code>STATMENTS<br>done<br>There is another way to use for loop:<br> <code>for ((i=0; i&lt;${#ARRAY_NAME[@]}; i++))</code>works exactly as <code>for i in "${!ARRAY_NAME[@]}</code> Here <code>!</code>is used to get index of array</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">while</td>
+<td align="left">1.Normal case:<br>while CONDITION:<br><code>TAB</code>STATMENTs<br>2.Python support <code>while...else</code>:<br>while CONDITION:<br><code>TAB</code>STATMENTs<br>else:<br><code>TAB</code>STATMENTs<br></td>
+<td align="left"></td>
+<td align="left">while CONDITION<br>do<br> <code>optional TAB</code>STATMENTS<br>done</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">until</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">until CONDITION<br>do<br> <code>optional TAB</code>STATMENTS<br>done</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Break</td>
+<td align="left">break or continue</td>
+<td align="left"></td>
+<td align="left">break or continue</td>
+<td align="left"></td>
 </tr>
 </tbody>
 </table>
 <h2>Regular Expression</h2>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="left">Python</th>
+<th align="left">Perl</th>
+<th align="left">Bash</th>
+<th align="left">awk</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Usablity</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">Can be used:<br>in condition expression<code>[[]]</code>, by <code>=~</code> match left from right<br><code>case</code>, in each conditons in front of <code>)</code><br></td>
+<td align="left">Use in <code>//</code>or if condition by using <code>~</code>or<code>match</code> fucntion</td>
+</tr>
+</tbody>
+</table>
+<h2>Funtion and arguments transfer</h2>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="left">Python</th>
+<th align="left">Perl</th>
+<th align="left">Bash</th>
+<th align="left">awk</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Claim</td>
+<td align="left"></td>
+<td align="left">sub funtion_name{<br><code>optionalTAB</code>statements;<br>}<br><code>@_</code> all the arguments;<br><code>$_[0]</code>the first argument</td>
+<td align="left">funtiona_name(){<br><code>optionalTAB</code>statements<br>}<br><code>$@</code> all the arguments;<br><code>$1</code>the first argument<br> Only Value of Args are transfered</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Private variables</td>
+<td align="left"></td>
+<td align="left"><code>my variable_name</code><br><code>local variable_name</code>, by this way, varaible_name can be used in sub block in this funtion.</td>
+<td align="left"><code>local variable_name</code></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Invoke</td>
+<td align="left"></td>
+<td align="left">funtiona_name();</td>
+<td align="left">funtiona_name()</td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<h2>Quote or alias</h2>
             <div>
 </div>
 

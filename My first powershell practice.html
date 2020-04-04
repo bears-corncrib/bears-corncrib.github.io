@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh_cn">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Tao" />
+
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content="powershell, Window10, opemSSH, Blog, Bear's Corncobs, " />
+
+<meta property="og:title" content="My first powershell practice "/>
+<meta property="og:url" content="/My first powershell practice.html" />
+<meta property="og:description" content="In the past 5+ years, I haven&#39;t been using Windows which was my daily OS. Working with MacOS, I have getten used to the Terminal which mostly run bash. These days, I have to use Windows for some specific 5G testing tool which only runs on Windows. Both Parallels and Virtual box are used to run Windown as a VM. What bothered me is that I frequently switch back fand forth between host OS and VM. The Termial and CMD runs a lot in differnt. It doesn&#39;t deserve that much of effort just when I need to go a single CMD for Windows. Here are some notes I would make as reminder how I have learn in such practice." />
+<meta property="og:site_name" content="Tester&#39;s Tricks" />
+<meta property="og:article:author" content="Tao" />
+<meta property="og:article:published_time" content="2020-03-12T20:00:00+08:00" />
+<meta property="og:article:modified_time" content="2020-03-12T00:00:00+08:00" />
+<meta name="twitter:title" content="My first powershell practice ">
+<meta name="twitter:description" content="In the past 5+ years, I haven&#39;t been using Windows which was my daily OS. Working with MacOS, I have getten used to the Terminal which mostly run bash. These days, I have to use Windows for some specific 5G testing tool which only runs on Windows. Both Parallels and Virtual box are used to run Windown as a VM. What bothered me is that I frequently switch back fand forth between host OS and VM. The Termial and CMD runs a lot in differnt. It doesn&#39;t deserve that much of effort just when I need to go a single CMD for Windows. Here are some notes I would make as reminder how I have learn in such practice.">
+
+        <title>My first powershell practice  · Tester&#39;s Tricks
+</title>
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="/theme/css/pygments.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="/theme/tipuesearch/tipuesearch.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="/theme/css/elegant.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="/theme/css/admonition.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="/theme/css/custom.css" media="screen">
+
+
+
+    </head>
+    <body>
+        <div id="content-sans-footer">
+        <div class="navbar navbar-static-top">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="/"><span class=site-name>Tester's Tricks</span></a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav pull-right top-menu">
+                            <li ><a href="">Home</a></li>
+                            <li ><a href="/categories">Categories</a></li>
+                            <li ><a href="/tags">Tags</a></li>
+                            <li ><a href="/archives">Archives</a></li>
+                            <li><form class="navbar-search" action="/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span1"></div>
+                <div class="span10">
+<article itemscope>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+    <h1><a href="/My first powershell practice.html"> My first powershell practice  </a></h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+
+            
+            <h1>How to run a basic command for windows from MacOS by one click</h1>
+<p>Yes, this topci is about cross system running for VM. 
+There must be be some way provided by either parallels or VirtualBox to help: VboxManage is a tool availbe for Virtual box(I will study it later when needed), but I don't see similar from parallels desktop version. I don't want to pay extra money to test parallels pro, which has a funtion to quickly enable ssh. 
+I have parallels desktop version, and I know that VM can communicate with hostOS through network connection, just like two PC in a local netwrok. I should be albe to build up my own ssh enviroment. </p>
+<h3>Windows10 has openSSH already availbe</h3>
+<p>Learn it from internet, people like the way that Microsoft have it in build. Just need some little effort to active it. 
+It can be intalled from "add an optional feature". There are soooo many options that people spend time click around for custmizaitons, while searching is a good way. Here "add an optional feature" can be quickly reached if you search it from dock. 
+Then, you will need to go for "servcies" to active <code>sshd</code> and <code>ssd-agent</code>. Good, now I can reach this VM from Mac Terminal by <code>ssh username@ip</code></p>
+<h3>Powershell make installation even easier</h3>
+<p>I plan to share this way how I start to use ssh, but my colleges are all using MacOS for long. To make it clear, I have to take a lot of screenshots. 
+Powershell helps here. First of all, powershell is availabel by defaul, I just find it by searching powershell. <a href="https://docs.microsoft.com/en-us/powershell/scripting/components/ise/introducing-the-windows-powershell-ise?view=powershell-7">Windows PowerShell ISE</a> is a much easier way to start with. </p>
+<p><code>Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0</code> install openSSH
+<code>Get-WindowsCapability -Online|? Name -like 'Open*'</code>Checking insallation result.
+<code>Set-Service -Name sshd -StartupType 'Automatic'</code> Make the service run automatically. 
+<code>Set-Service -Name ssh-agent -StartupType 'Automatic'</code>Make the service run automatically.
+<code>Start-Service -Name sshd</code> start the service
+<code>start-Service -Name ssh-agent</code>
+<code>Get-NetFirewallRule -Name *ssh*</code> Double check if the firewall allows ssh to go through. It should be good by default</p>
+<p>Just a few lines, I don't have to search and click all around windows and menus. cool 
+It is installed by default in <code>C:\ProgramData\ssh</code>, <a href="https://docs.microsoft.com/en-us/windows-server/administration/openssh/openssh_overview">files and useage</a></p>
+<p>Note, above I just install openSSH servcie, NOT client. I am using MacOS as cliet, VM runs openSSH as service.</p>
+<h1>Passwordless SSH</h1>
+<p>Passwordless will help a lot when I want to make <a href="https://support.apple.com/guide/automator/welcome/mac">Automator</a> quick service. I don't conern much about securiy as both the host and VM are in the same machine, I just need to make them work smoothly together. </p>
+<h3>Client side, My hostOS in Mac</h3>
+<p><code>ls $HOME/.ssh</code> to see if I have alredy own a keypair. If not, use <code>ssh-keygen</code>. the out put in this folder are "id_rsa.pub" and "id_rsa". Easy, and done.</p>
+<h3>Service side, MY VM in Windows10</h3>
+<p>Use whatever way to copy "id_rsa.pub" to "C:\Users|YourUsername.ssh\", and rename the file to "authorized_keys"</p>
+<p>The last, wo enable passwordless. Run "PowerShell" as administrator, make sure run as administrator, otherwise the config file won't let you to save. <code>Start-Process powershell -Verb runAs</code> By using this way, your running Powershell will open a new powershwell which is as administator.
+Run <code>notepad C:\ProgramData\ssh\sshd_config</code> and commont out the last two lines by adding # sign in the very front.</p>
+<div class="highlight"><pre><span></span><span class="o">#</span><span class="k">Match</span> <span class="k">Group</span> <span class="n">administrators</span>
+<span class="o">#</span>       <span class="n">AuthorizedKeysFile</span> <span class="n">__PROGRAMDATA__</span><span class="o">/</span><span class="n">ssh</span><span class="o">/</span><span class="n">administrators_authorized_keys</span>
+</pre></div>
+
+
+<p>Restart sshd service to make the change to be effect.</p>
+<h2>Test run</h2>
+<p><code>ssh YourUsername@ipOfVM</code>. You have done it if you are not asked for password.</p>
+<h1>finally, here are my final automator scripts</h1>
+<p>It is simple, I just right click a folder of interest, select the automator service to run.
+Prerequiests, the folder of the inerest are shared by MacOS, which means Windows has access of the subfolders.
+The automator translate the path into windows format then run scripts from Windows as the scripts need library from Windows. 
+Here I have some difficulty to solve, <code>osascript</code> call Terminal and run a bash script, but in the bash script, I can't put windows command to quote bash variables. For example, if I want to use <code>/usr/bin/ssh tao@10.211.55.4 "dir"</code>. I had tried to use EOF way to add windows command, but not able to use quotation marks either. 
+<code>osascript</code> limits my use of quotation marks, which means I can't use quotation mark to quote bash variable freely. I need to run this simple file as a stand alone bash script to aovid the confliction with osascript. 
+Here is my oringinal solution, but not so good.</p>
+<div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">poSIX_path</span> <span class="k">in</span> <span class="s">&quot;$@&quot;</span><span class="err">``</span>
+<span class="k">do</span>
+    <span class="n">temp1</span><span class="o">=</span><span class="err">$</span><span class="p">{</span><span class="n">poSIX_path</span><span class="c1">//\\ / }</span>
+    <span class="n">temp2</span><span class="o">=</span><span class="err">$</span><span class="p">{</span><span class="n">temp1</span><span class="c1">//\//\\}</span>
+    <span class="cp">#echo $temp2|pbcopy</span>
+    <span class="k">case</span> <span class="err">$</span><span class="n">temp2</span> <span class="k">in</span>
+    <span class="o">*</span><span class="n">CrashReporter</span><span class="o">*</span><span class="p">)</span>
+        <span class="n">temp3</span><span class="o">=</span><span class="s">&quot;X:&quot;</span><span class="err">$</span><span class="p">{</span><span class="n">temp2</span><span class="err">#</span><span class="o">*</span><span class="n">CrashReporter</span><span class="p">};;</span>
+    <span class="o">*</span><span class="n">Radar</span><span class="err">\</span> <span class="n">Logs</span><span class="o">*</span><span class="p">)</span>
+        <span class="n">temp3</span><span class="o">=</span><span class="s">&quot;W:&quot;</span><span class="err">$</span><span class="p">{</span><span class="n">temp2</span><span class="err">#</span><span class="o">*</span><span class="n">Radar</span><span class="err">\</span> <span class="n">Logs</span><span class="p">};;</span>
+    <span class="o">*</span><span class="p">)</span>
+        <span class="n">temp3</span><span class="o">=</span><span class="s">&quot;Given path is not supported&quot;</span><span class="p">;;</span>
+    <span class="n">esac</span>
+    <span class="n">echo</span> <span class="err">$</span><span class="n">temp3</span><span class="o">|</span><span class="n">pbcopy</span>
+    <span class="n">osascript</span> <span class="o">-</span><span class="n">e</span> <span class="err">&#39;</span><span class="n">tell</span> <span class="n">application</span> <span class="s">&quot;Terminal&quot;</span> <span class="n">to</span> <span class="k">do</span> <span class="n">script</span> <span class="s">&quot;/usr/bin/ssh tao@10.211.55.4 &lt;&lt; EOF</span>
+<span class="n">dir</span>
+<span class="n">cd</span>
+<span class="n">EOF</span><span class="s">&quot;&#39;</span>
+    <span class="cp">#open /Users/scabbard/Applications\ \(Parallels\)/\{3e397001-53ca-4a16-8e1a-ef5e837b8a76\}\ Applications.localized/命令提示符.app</span>
+<span class="n">done</span>
+</pre></div>
+
+
+<p>Here is my optimized solution. To solve the problem mentioned above, I move all of the bash script funtion in a standalone script, but only keep enviroment settings here in automatoer service. Doing so, I don't bother the use of quotation mark and other people can freely redefine enviroment per their use cases. Here <code>export</code> needs to be highlighted, it is used to put these variables in evnromnet of bash, otherwise bash script can't use them.
+These variables can also be added to the end of <code>$HOME/.bash_profile</code>, if you don't use automator but Terminal instead. </p>
+<div class="highlight"><pre><span></span>    <span class="k">for</span> <span class="n">f</span> <span class="k">in</span> <span class="s">&quot;$@&quot;</span>
+<span class="k">do</span>
+    <span class="n">tt</span><span class="o">=</span><span class="s">&quot;${f//\ /[[:space:]]}&quot;</span>
+    <span class="n">osascript</span> <span class="o">-</span><span class="n">e</span> <span class="err">&#39;</span><span class="n">tell</span> <span class="n">application</span> <span class="s">&quot;Terminal&quot;</span> <span class="n">to</span> <span class="k">do</span> <span class="n">script</span> <span class="s">&quot;</span>
+<span class="n">export</span> <span class="n">VMip</span><span class="o">=</span><span class="mf">10.211.55.4</span><span class="p">;</span>
+<span class="n">export</span> <span class="n">VMsshP</span><span class="o">=</span><span class="mi">22</span>
+<span class="n">export</span> <span class="n">VMusername</span><span class="o">=</span><span class="n">tao</span>
+<span class="n">export</span> <span class="n">VMpassword</span><span class="o">=</span><span class="n">tao</span>
+<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">coffee</span> <span class="o">-</span><span class="n">q</span> <span class="err">&#39;$</span><span class="n">tt</span><span class="err">&#39;</span><span class="p">;</span><span class="s">&quot;&#39;</span>
+<span class="n">done</span>
+</pre></div>
+
+
+<h1>Quick notes about Terminal and CMD or powershell</h1>
+<p>Funtions|MacOS Terminal|Windows CMD|PowerShell
+:---|:--|:---|:---|:---
+Path levels|Use <code>/</code>|use <code>\</code>|User <code>\</code>
+argment indicator|<code>-</code>|<code>/</code>|<code>/</code>
+Escape|<code>\</code>|??|??
+List files|<code>ls</code>|<code>dir</code>|<code>dir</code>
+Show current path|<code>pwd</code>|<code>cd</code>|<code>cd</code>
+Write and read clipboard|pbcopy,pbpaste<br><code>pbcopy &lt; ~/.ssh/id_rsa.pub</code> This is often used to transfer pub key using clipboard|<code>clip</code>,I don't find a way to read from clipboard|<code>Set-Clipboard``Get-Clipboard</code></p>
+            <div>
+</div>
+
+            
+            
+            <hr/>
+        </div>
+        <section>
+        <div class="span2" style="float:right;font-size:0.9em;">
+            <h4>Published</h4>
+            <time itemprop="dateCreated" datetime="2020-03-12T20:00:00+08:00">Mar 12, 2020</time>
+
+<h4>Last Updated</h4>
+<time datetime="2020-03-12T00:00:00+08:00">Mar 12, 2020</time>
+
+            <h4>Category</h4>
+            <a class="category-link" href="/categories.html#bears-corncobs-ref">Bear's Corncobs</a>
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article">
+                <li><a href="/tags#blog-ref">Blog
+                    <span>2</span>
+</a></li>
+                <li><a href="/tags#opemssh-ref">opemSSH
+                    <span>1</span>
+</a></li>
+                <li><a href="/tags#powershell-ref">powershell
+                    <span>1</span>
+</a></li>
+                <li><a href="/tags#window10-ref">Window10
+                    <span>1</span>
+</a></li>
+            </ul>
+<h4>Contact</h4>
+    <a href="#" title="My You can add links in your config file Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-you can add links in your config file sidebar-social-links"></i></a>
+    <a href="#" title="My Another social link Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-another social link sidebar-social-links"></i></a>
+        </div>
+        </section>
+</div>
+</article>
+                </div>
+                <div class="span1"></div>
+            </div>
+        </div>
+        <div id="push"></div>
+    </div>
+<footer>
+<div id="footer">
+    <ul class="footer-content">
+        <li class="elegant-power">Powered by <a href="http://getpelican.com/" title="Pelican Home Page">Pelican</a>. Theme: <a href="https://github.com/Pelican-Elegant/elegant/" title="Theme Elegant Home Page">Elegant</a></li>
+    </ul>
+</div>
+</footer>            <script src="//code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    
+    </body>
+    <!-- Theme: Elegant built for Pelican
+    License : MIT -->
+</html>
