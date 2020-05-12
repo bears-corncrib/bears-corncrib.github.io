@@ -123,14 +123,14 @@
 <h2>unbuffered, by default</h2>
 <p>Open two terminals.
 In terminal one, we make a named pipe and start to read from it. Consider terminal one as stdout.</p>
-<div class="highlight"><pre><span></span><span class="n">mkfifo</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">testfifo</span>
-<span class="n">cat</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">testfifo</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">mkfifo /tmp/testfifo</span>
+<span class="err">cat /tmp/testfifo</span>
+</code></pre></div>
 
 
 <p>In ternimal two, we can redirect some form of output into it, like stdin. <code>egrep "" -n</code> is used to add line numbers, so we can check the progress of the printing.</p>
-<div class="highlight"><pre><span></span><span class="n">cat</span> <span class="n">XXX</span><span class="p">.</span><span class="n">txt</span><span class="o">|</span><span class="n">egrep</span> <span class="ss">&quot;&quot;</span> <span class="o">-</span><span class="n">n</span><span class="o">|</span><span class="n">tee</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">testfifo</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">cat XXX.txt|egrep &quot;&quot; -n|tee /tmp/testfifo</span>
+</code></pre></div>
 
 
 <p>Observation: </p>
@@ -144,10 +144,10 @@ In terminal one, we make a named pipe and start to read from it. Consider termin
 <p>We can change the named pipe to have some buffer, by assigned it a <a href="https://en.wikipedia.org/wiki/File_descriptor">fd</a>. </p>
 <p>Open two terminals.
 In terminal one, we make a named pipe and start to read from it.</p>
-<div class="highlight"><pre><span></span><span class="nv">mkfifo</span> <span class="o">/</span><span class="nv">tmp</span><span class="o">/</span><span class="nv">fifobuf</span>
-<span class="k">exec</span> <span class="mi">7</span><span class="o">&lt;&gt;/</span><span class="nv">tmp</span><span class="o">/</span><span class="nv">fifobuf</span>  #<span class="nv">You</span> <span class="nv">can</span> <span class="nv">pick</span> <span class="nv">any</span> <span class="nv">number</span> <span class="nv">greater</span> <span class="nv">than</span> <span class="mi">3</span> <span class="nv">and</span> <span class="nv">less</span> <span class="nv">than</span> <span class="mi">10</span>.
-<span class="nv">cat</span> <span class="o">/</span><span class="nv">tmp</span><span class="o">/</span><span class="nv">fifobuf</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">mkfifo /tmp/fifobuf</span>
+<span class="err">exec 7&lt;&gt;/tmp/fifobuf  #You can pick any number greater than 3 and less than 10.</span>
+<span class="err">cat /tmp/fifobuf</span>
+</code></pre></div>
 
 
 <p>In ternimal two, we can redirect some form of output into it. <br>
@@ -158,15 +158,15 @@ In terminal one, we make a named pipe and start to read from it.</p>
 <li>Buffered: If we start task in terminal two and stop piping by Ctrl+C, then start task in terminal one to read from this named pipe, there are some lines. These lines can only be <code>cat</code> for one time, buffered in pipe.</li>
 </ol>
 <p>We can check how big the buffer size is. Just start terminal two and wait until it stop printing, then copy&amp;paste the prints in a text file. The last, check the file size. My result is 8192byte. This value varies from different OS. On Mac, it can be check by</p>
-<div class="highlight"><pre><span></span><span class="n">ulimit</span> <span class="o">-</span><span class="n">a</span><span class="o">|</span><span class="n">grep</span> <span class="ss">&quot;stack size&quot;</span>
-<span class="n">stack</span> <span class="k">size</span>              <span class="p">(</span><span class="n">kbytes</span><span class="p">,</span> <span class="o">-</span><span class="n">s</span><span class="p">)</span> <span class="mi">8192</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">ulimit -a|grep &quot;stack size&quot;</span>
+<span class="err">stack size              (kbytes, -s) 8192</span>
+</code></pre></div>
 
 
 <p>Peopel may ask if the buffer is introduced by egrep? No, it can be tested quickly by removing the egrep expression in the middle. The only differce is that the prints will always be completed lines, and when you check the size by copy&amp;paste in text file, it should be slightly smaller than 8192, because line-buffered is applied instead by default when you stdout to a TTY.</p>
 <p>Having grep expression in the middle will always introduce fully-buffered print. It can be change by doing <code>egrep --line-buffered "" -n</code>. The pipe line will not show you uncompleted line at the last of the print.</p>
-<div class="highlight"><pre><span></span><span class="n">cat</span> <span class="n">XXX</span><span class="p">.</span><span class="n">txt</span><span class="o">|</span><span class="n">egrep</span> <span class="c1">--line-buffered &quot;&quot; -n|tee /tmp/fifubuf</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">cat XXX.txt|egrep --line-buffered &quot;&quot; -n|tee /tmp/fifubuf</span>
+</code></pre></div>
 
 
 <h2>line-buffered mode, question unsolved</h2>

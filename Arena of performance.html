@@ -75,149 +75,149 @@
             <h1>First, count the total number of the log lines and understand the basic time consumption of cat and grep</h1>
 <p><code>cat /tmp/testlog.txt |grep "" -n</code>, it shows 892889 lines</p>
 <p>Base performace that used by cat.</p>
-<div class="highlight"><pre><span></span><span class="nv">time</span> <span class="nv">cat</span> <span class="o">/</span><span class="nv">tmp</span><span class="o">/</span><span class="nv">testlog</span>.<span class="nv">txt</span>
-... # <span class="nv">I</span> <span class="nv">conceal</span> <span class="nv">the</span> <span class="nv">output</span> <span class="nv">of</span> <span class="nv">log</span> <span class="nv">lines</span>, <span class="nv">as</span> <span class="nv">they</span> <span class="nv">are</span> <span class="nv">not</span> <span class="nv">useful</span> <span class="nv">to</span> <span class="k">show</span>. 
-<span class="nv">real</span>    <span class="mi">0</span><span class="nv">m5</span>.<span class="mi">844</span><span class="nv">s</span>
-<span class="nv">user</span>    <span class="mi">0</span><span class="nv">m0</span>.<span class="mi">003</span><span class="nv">s</span>
-<span class="nv">sys</span>     <span class="mi">0</span><span class="nv">m0</span>.<span class="mi">860</span><span class="nv">s</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">time cat /tmp/testlog.txt</span>
+<span class="err">... # I conceal the output of log lines, as they are not useful to show. </span>
+<span class="err">real    0m5.844s</span>
+<span class="err">user    0m0.003s</span>
+<span class="err">sys     0m0.860s</span>
+</code></pre></div>
 
 
 <p>grep actually takes some time, here records the time consumed by it. </p>
-<div class="highlight"><pre><span></span><span class="nv">time</span> <span class="nv">cat</span> <span class="o">/</span><span class="nv">tmp</span><span class="o">/</span><span class="nv">testlog</span>.<span class="nv">txt</span> <span class="o">|</span><span class="nv">grep</span> <span class="s2">&quot;&quot;</span>
-... # <span class="nv">I</span> <span class="nv">conceal</span> <span class="nv">the</span> <span class="nv">output</span> <span class="nv">of</span> <span class="nv">log</span> <span class="nv">lines</span>, <span class="nv">as</span> <span class="nv">they</span> <span class="nv">are</span> <span class="nv">not</span> <span class="nv">useful</span> <span class="nv">to</span> <span class="k">show</span>. 
-<span class="nv">real</span>    <span class="mi">0</span><span class="nv">m6</span>.<span class="mi">837</span><span class="nv">s</span>
-<span class="nv">user</span>    <span class="mi">0</span><span class="nv">m0</span>.<span class="mi">929</span><span class="nv">s</span>
-<span class="nv">sys</span>     <span class="mi">0</span><span class="nv">m1</span>.<span class="mi">618</span><span class="nv">s</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">time cat /tmp/testlog.txt |grep &quot;&quot;</span>
+<span class="err">... # I conceal the output of log lines, as they are not useful to show. </span>
+<span class="err">real    0m6.837s</span>
+<span class="err">user    0m0.929s</span>
+<span class="err">sys     0m1.618s</span>
+</code></pre></div>
 
 
 <p>Adding -n introduce a little more time.</p>
-<div class="highlight"><pre><span></span><span class="nv">time</span> <span class="nv">cat</span> <span class="o">/</span><span class="nv">tmp</span><span class="o">/</span><span class="nv">testlog</span>.<span class="nv">txt</span> <span class="o">|</span><span class="nv">grep</span> <span class="s2">&quot;&quot;</span> <span class="o">-</span><span class="nv">n</span>
-... # <span class="nv">I</span> <span class="nv">conceal</span> <span class="nv">the</span> <span class="nv">output</span> <span class="nv">of</span> <span class="nv">log</span> <span class="nv">lines</span>, <span class="nv">as</span> <span class="nv">they</span> <span class="nv">are</span> <span class="nv">not</span> <span class="nv">useful</span> <span class="nv">to</span> <span class="k">show</span>. 
-<span class="nv">Here</span> <span class="nv">I</span> 
-<span class="nv">real</span>    <span class="mi">0</span><span class="nv">m7</span>.<span class="mi">051</span><span class="nv">s</span>
-<span class="nv">user</span>    <span class="mi">0</span><span class="nv">m1</span>.<span class="mi">135</span><span class="nv">s</span>
-<span class="nv">sys</span>     <span class="mi">0</span><span class="nv">m1</span>.<span class="mi">529</span><span class="nv">s</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">time cat /tmp/testlog.txt |grep &quot;&quot; -n</span>
+<span class="err">... # I conceal the output of log lines, as they are not useful to show. </span>
+<span class="err">Here I </span>
+<span class="err">real    0m7.051s</span>
+<span class="err">user    0m1.135s</span>
+<span class="err">sys     0m1.529s</span>
+</code></pre></div>
 
 
 <h1>How good bash loop can do?</h1>
 <p>Here is the overall structure of my test scripts. As I will use all three of them as part of Bash, so I claim at the first line as <code>#!/bin/bash</code></p>
-<div class="highlight"><pre><span></span><span class="mi">1</span> #<span class="o">!/</span><span class="nv">bin</span><span class="o">/</span><span class="nv">bash</span>
-<span class="mi">2</span> <span class="k">while</span> <span class="nv">getopts</span> <span class="s2">&quot;</span><span class="s">a:p:b:</span><span class="s2">&quot;</span> <span class="nv">opt</span><span class="c1">;</span>
-<span class="mi">3</span> <span class="k">do</span>
-<span class="mi">4</span>     <span class="nv">case</span> $<span class="nv">opt</span> <span class="nv">in</span>
-<span class="mi">5</span>     <span class="nv">b</span><span class="ss">)</span> #<span class="nv">User</span> <span class="nv">arg</span> <span class="o">-</span><span class="nv">b</span> <span class="nv">to</span> <span class="nv">go</span> <span class="nv">this</span> <span class="nv">branch</span> <span class="nv">to</span> <span class="nv">test</span> <span class="nv">bash</span>
-<span class="mi">6</span>     <span class="k">while</span> <span class="nv">read</span> <span class="nv">line</span>
-<span class="mi">7</span>     <span class="k">do</span>
-<span class="mi">8</span>         <span class="nv">echo</span> $<span class="nv">line</span> 
-<span class="mi">9</span>         #<span class="nv">printf</span> <span class="s2">&quot;</span><span class="s">$line</span><span class="se">\n</span><span class="s2">&quot;</span>
-<span class="mi">10</span>     <span class="nv">done</span><span class="c1">;;</span>
-<span class="mi">11</span>     <span class="nv">a</span><span class="ss">)</span> #<span class="nv">User</span> <span class="nv">arg</span> <span class="o">-</span><span class="nv">a</span> <span class="nv">to</span> <span class="nv">go</span> <span class="nv">this</span> <span class="nv">branch</span> <span class="nv">to</span> <span class="nv">test</span> <span class="nv">awk</span>
-<span class="mi">12</span>     <span class="nv">awk</span> <span class="s1">&#39;</span><span class="s">{print $0}</span><span class="s1">&#39;</span>
-<span class="mi">13</span>     <span class="c1">;;</span>
-<span class="mi">14</span>     <span class="nv">p</span><span class="ss">)</span> #<span class="nv">User</span> <span class="nv">arg</span> <span class="o">-</span><span class="nv">p</span> <span class="nv">to</span> <span class="nv">go</span> <span class="nv">this</span> <span class="nv">branch</span> <span class="nv">to</span> <span class="nv">test</span> <span class="nv">perl</span>
-<span class="mi">15</span>     <span class="nv">perl</span> <span class="o">-</span><span class="nv">e</span><span class="s1">&#39;</span>
-<span class="mi">16</span>         <span class="k">while</span> <span class="ss">(</span><span class="o">&lt;&gt;</span><span class="ss">)</span>{
-<span class="mi">17</span>         <span class="nv">print</span> $<span class="nv">_</span>}
-<span class="mi">18</span>     <span class="s1">&#39;</span>
-<span class="mi">19</span>     <span class="c1">;;</span>
-<span class="mi">20</span>     <span class="nv">esac</span>
-<span class="mi">21</span>     <span class="nv">done</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">1 #!/bin/bash</span>
+<span class="err">2 while getopts &quot;a:p:b:&quot; opt;</span>
+<span class="err">3 do</span>
+<span class="err">4     case $opt in</span>
+<span class="err">5     b) #User arg -b to go this branch to test bash</span>
+<span class="err">6     while read line</span>
+<span class="err">7     do</span>
+<span class="err">8         echo $line </span>
+<span class="err">9         #printf &quot;$line\n&quot;</span>
+<span class="err">10     done;;</span>
+<span class="err">11     a) #User arg -a to go this branch to test awk</span>
+<span class="err">12     awk &#39;{print $0}&#39;</span>
+<span class="err">13     ;;</span>
+<span class="err">14     p) #User arg -p to go this branch to test perl</span>
+<span class="err">15     perl -e&#39;</span>
+<span class="err">16         while (&lt;&gt;){</span>
+<span class="err">17         print $_}</span>
+<span class="err">18     &#39;</span>
+<span class="err">19     ;;</span>
+<span class="err">20     esac</span>
+<span class="err">21     done</span>
+</code></pre></div>
 
 
 <p>The first test, I only want to Bash to get pipe input and directly print out. No work maching or regular expression matching.</p>
-<div class="highlight"><pre><span></span><span class="nv">time</span> <span class="nv">cat</span> <span class="o">/</span><span class="nv">tmp</span><span class="o">/</span><span class="nv">testlog</span>.<span class="nv">txt</span> <span class="o">|</span>.<span class="o">/</span><span class="nv">arena</span>.<span class="nv">sh</span> <span class="o">-</span><span class="nv">b</span> <span class="nv">argHolder</span>
-... # <span class="nv">I</span> <span class="nv">conceal</span> <span class="nv">the</span> <span class="nv">output</span> <span class="nv">of</span> <span class="nv">log</span> <span class="nv">lines</span>, <span class="nv">as</span> <span class="nv">they</span> <span class="nv">are</span> <span class="nv">not</span> <span class="nv">useful</span> <span class="nv">to</span> <span class="k">show</span>. 
-<span class="nv">real</span>    <span class="mi">7</span><span class="nv">m46</span>.<span class="mi">246</span><span class="nv">s</span>
-<span class="nv">user</span>    <span class="mi">3</span><span class="nv">m52</span>.<span class="mi">114</span><span class="nv">s</span>
-<span class="nv">sys</span>     <span class="mi">5</span><span class="nv">m32</span>.<span class="mi">192</span><span class="nv">s</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">time cat /tmp/testlog.txt |./arena.sh -b argHolder</span>
+<span class="err">... # I conceal the output of log lines, as they are not useful to show. </span>
+<span class="err">real    7m46.246s</span>
+<span class="err">user    3m52.114s</span>
+<span class="err">sys     5m32.192s</span>
+</code></pre></div>
 
 
 <p>Then try printf</p>
-<div class="highlight"><pre><span></span><span class="mi">1</span> #<span class="o">!/</span><span class="nv">bin</span><span class="o">/</span><span class="nv">bash</span>
-<span class="mi">2</span> <span class="k">while</span> <span class="nv">getopts</span> <span class="s2">&quot;</span><span class="s">a:p:b:</span><span class="s2">&quot;</span> <span class="nv">opt</span><span class="c1">;</span>
-<span class="mi">3</span> <span class="k">do</span>
-<span class="mi">4</span>     <span class="nv">case</span> $<span class="nv">opt</span> <span class="nv">in</span>
-<span class="mi">5</span>     <span class="nv">b</span><span class="ss">)</span> 
-<span class="mi">6</span>     <span class="k">while</span> <span class="nv">read</span> <span class="nv">line</span>
-<span class="mi">7</span>     <span class="k">do</span>
-<span class="mi">8</span>         #<span class="nv">echo</span> $<span class="nv">line</span> 
-<span class="mi">9</span>         <span class="nv">printf</span> <span class="s2">&quot;</span><span class="s">$line</span><span class="se">\n</span><span class="s2">&quot;</span>
-<span class="mi">10</span>     <span class="nv">done</span><span class="c1">;;</span>
-<span class="mi">11</span>     <span class="nv">a</span><span class="ss">)</span>
-<span class="mi">12</span>     <span class="nv">awk</span> <span class="s1">&#39;</span><span class="s">{print $0}</span><span class="s1">&#39;</span>
-<span class="mi">13</span>     <span class="c1">;;</span>
-<span class="mi">14</span>     <span class="nv">p</span><span class="ss">)</span>
-<span class="mi">15</span>     <span class="nv">perl</span> <span class="o">-</span><span class="nv">e</span><span class="s1">&#39;</span>
-<span class="mi">16</span>         <span class="k">while</span> <span class="ss">(</span><span class="o">&lt;&gt;</span><span class="ss">)</span>{
-<span class="mi">17</span>         <span class="nv">print</span> $<span class="nv">_</span>}
-<span class="mi">18</span>     <span class="s1">&#39;</span>
-<span class="mi">19</span>     <span class="c1">;;</span>
-<span class="mi">20</span>     <span class="nv">esac</span>
-<span class="mi">21</span>     <span class="nv">done</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">1 #!/bin/bash</span>
+<span class="err">2 while getopts &quot;a:p:b:&quot; opt;</span>
+<span class="err">3 do</span>
+<span class="err">4     case $opt in</span>
+<span class="err">5     b) </span>
+<span class="err">6     while read line</span>
+<span class="err">7     do</span>
+<span class="err">8         #echo $line </span>
+<span class="err">9         printf &quot;$line\n&quot;</span>
+<span class="err">10     done;;</span>
+<span class="err">11     a)</span>
+<span class="err">12     awk &#39;{print $0}&#39;</span>
+<span class="err">13     ;;</span>
+<span class="err">14     p)</span>
+<span class="err">15     perl -e&#39;</span>
+<span class="err">16         while (&lt;&gt;){</span>
+<span class="err">17         print $_}</span>
+<span class="err">18     &#39;</span>
+<span class="err">19     ;;</span>
+<span class="err">20     esac</span>
+<span class="err">21     done</span>
+</code></pre></div>
 
 
 <p>It doesn't seem to improve much.</p>
-<div class="highlight"><pre><span></span><span class="nv">time</span> <span class="nv">cat</span> <span class="o">/</span><span class="nv">tmp</span><span class="o">/</span><span class="nv">testlog</span>.<span class="nv">txt</span> <span class="o">|</span>.<span class="o">/</span><span class="nv">arena</span>.<span class="nv">sh</span> <span class="o">-</span><span class="nv">b</span> <span class="nv">argHolder</span>
-... # <span class="nv">I</span> <span class="nv">conceal</span> <span class="nv">the</span> <span class="nv">output</span> <span class="nv">of</span> <span class="nv">log</span> <span class="nv">lines</span>, <span class="nv">as</span> <span class="nv">they</span> <span class="nv">are</span> <span class="nv">not</span> <span class="nv">useful</span> <span class="nv">to</span> <span class="k">show</span>. 
-<span class="nv">real</span>    <span class="mi">6</span><span class="nv">m36</span>.<span class="mi">344</span><span class="nv">s</span>
-<span class="nv">user</span>    <span class="mi">1</span><span class="nv">m54</span>.<span class="mi">662</span><span class="nv">s</span>
-<span class="nv">sys</span>     <span class="mi">4</span><span class="nv">m23</span>.<span class="mi">008</span><span class="nv">s</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">time cat /tmp/testlog.txt |./arena.sh -b argHolder</span>
+<span class="err">... # I conceal the output of log lines, as they are not useful to show. </span>
+<span class="err">real    6m36.344s</span>
+<span class="err">user    1m54.662s</span>
+<span class="err">sys     4m23.008s</span>
+</code></pre></div>
 
 
 <p>Run arena.sh in current shell. Still slow, but improve a little bit.</p>
 <p>note: The first dote after pipi sign is equevolant to <code>source</code>, </p>
-<div class="highlight"><pre><span></span><span class="nv">time</span> <span class="nv">cat</span> <span class="o">/</span><span class="nv">tmp</span><span class="o">/</span><span class="nv">testlog</span>.<span class="nv">txt</span> <span class="o">|</span>. .<span class="o">/</span><span class="nv">arena</span>.<span class="nv">sh</span> <span class="o">-</span><span class="nv">b</span> <span class="nv">argHolder</span>
-... # <span class="nv">I</span> <span class="nv">conceal</span> <span class="nv">the</span> <span class="nv">output</span> <span class="nv">of</span> <span class="nv">log</span> <span class="nv">lines</span>, <span class="nv">as</span> <span class="nv">they</span> <span class="nv">are</span> <span class="nv">not</span> <span class="nv">useful</span> <span class="nv">to</span> <span class="k">show</span>. 
-<span class="nv">real</span>    <span class="mi">5</span><span class="nv">m16</span>.<span class="mi">064</span><span class="nv">s</span>
-<span class="nv">user</span>    <span class="mi">2</span><span class="nv">m6</span>.<span class="mi">884</span><span class="nv">s</span>
-<span class="nv">sys</span>     <span class="mi">4</span><span class="nv">m56</span>.<span class="mi">311</span><span class="nv">s</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">time cat /tmp/testlog.txt |. ./arena.sh -b argHolder</span>
+<span class="err">... # I conceal the output of log lines, as they are not useful to show. </span>
+<span class="err">real    5m16.064s</span>
+<span class="err">user    2m6.884s</span>
+<span class="err">sys     4m56.311s</span>
+</code></pre></div>
 
 
 <p>Here is the version I ran with.</p>
-<div class="highlight"><pre><span></span><span class="n">bash</span> <span class="o">-</span><span class="k">version</span>
-<span class="n">GNU</span> <span class="n">bash</span><span class="p">,</span> <span class="k">version</span> <span class="mi">3</span><span class="p">.</span><span class="mi">2</span><span class="p">.</span><span class="mi">57</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">-</span><span class="n">release</span> <span class="p">(</span><span class="n">x86_64</span><span class="o">-</span><span class="n">apple</span><span class="o">-</span><span class="n">darwin18</span><span class="p">)</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">bash -version</span>
+<span class="err">GNU bash, version 3.2.57(1)-release (x86_64-apple-darwin18)</span>
+</code></pre></div>
 
 
 <h1>How good awk can do the read and print job?</h1>
 <p>awk can do much faster than bash, while slower than grep.</p>
-<div class="highlight"><pre><span></span><span class="nv">time</span> <span class="nv">cat</span> <span class="o">/</span><span class="nv">tmp</span><span class="o">/</span><span class="nv">testlog</span>.<span class="nv">txt</span> <span class="o">|</span>.<span class="o">/</span><span class="nv">arena</span>.<span class="nv">sh</span> <span class="o">-</span><span class="nv">a</span> <span class="nv">argHolder</span>
-... # <span class="nv">I</span> <span class="nv">conceal</span> <span class="nv">the</span> <span class="nv">output</span> <span class="nv">of</span> <span class="nv">log</span> <span class="nv">lines</span>, <span class="nv">as</span> <span class="nv">they</span> <span class="nv">are</span> <span class="nv">not</span> <span class="nv">useful</span> <span class="nv">to</span> <span class="k">show</span>. 
-<span class="nv">real</span>    <span class="mi">0</span><span class="nv">m14</span>.<span class="mi">712</span><span class="nv">s</span>
-<span class="nv">user</span>    <span class="mi">0</span><span class="nv">m9</span>.<span class="mi">213</span><span class="nv">s</span>
-<span class="nv">sys</span>     <span class="mi">0</span><span class="nv">m1</span>.<span class="mi">842</span><span class="nv">s</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">time cat /tmp/testlog.txt |./arena.sh -a argHolder</span>
+<span class="err">... # I conceal the output of log lines, as they are not useful to show. </span>
+<span class="err">real    0m14.712s</span>
+<span class="err">user    0m9.213s</span>
+<span class="err">sys     0m1.842s</span>
+</code></pre></div>
 
 
 <p>Here is the awk version I ran with.</p>
-<div class="highlight"><pre><span></span><span class="n">awk</span> <span class="o">-</span><span class="k">version</span>
-<span class="n">awk</span> <span class="k">version</span> <span class="mi">20070501</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">awk -version</span>
+<span class="err">awk version 20070501</span>
+</code></pre></div>
 
 
 <h1>How good perl can do.</h1>
 <p>Looks amazing. It runs faster than awk.</p>
-<div class="highlight"><pre><span></span><span class="nv">time</span> <span class="nv">cat</span> <span class="o">/</span><span class="nv">tmp</span><span class="o">/</span><span class="nv">testlog</span>.<span class="nv">txt</span> <span class="o">|</span>.<span class="o">/</span><span class="nv">arena</span>.<span class="nv">sh</span> <span class="o">-</span><span class="nv">p</span> <span class="nv">argHolder</span>
-... # <span class="nv">I</span> <span class="nv">conceal</span> <span class="nv">the</span> <span class="nv">output</span> <span class="nv">of</span> <span class="nv">log</span> <span class="nv">lines</span>, <span class="nv">as</span> <span class="nv">they</span> <span class="nv">are</span> <span class="nv">not</span> <span class="nv">useful</span> <span class="nv">to</span> <span class="k">show</span>. 
-<span class="nv">real</span>    <span class="mi">0</span><span class="nv">m6</span>.<span class="mi">941</span><span class="nv">s</span>
-<span class="nv">user</span>    <span class="mi">0</span><span class="nv">m0</span>.<span class="mi">991</span><span class="nv">s</span>
-<span class="nv">sys</span>     <span class="mi">0</span><span class="nv">m1</span>.<span class="mi">724</span><span class="nv">s</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">time cat /tmp/testlog.txt |./arena.sh -p argHolder</span>
+<span class="err">... # I conceal the output of log lines, as they are not useful to show. </span>
+<span class="err">real    0m6.941s</span>
+<span class="err">user    0m0.991s</span>
+<span class="err">sys     0m1.724s</span>
+</code></pre></div>
 
 
 <p>Here is the perl version I ran with.    </p>
-<div class="highlight"><pre><span></span><span class="nv">perl</span> <span class="o">-</span><span class="nv">version</span>
-<span class="nv">This</span> <span class="nv">is</span> <span class="nv">perl</span> <span class="mi">5</span>, <span class="nv">version</span> <span class="mi">18</span>, <span class="nv">subversion</span> <span class="mi">2</span> <span class="ss">(</span><span class="nv">v5</span>.<span class="mi">18</span>.<span class="mi">2</span><span class="ss">)</span> <span class="nv">built</span> <span class="k">for</span> <span class="nv">darwin</span><span class="o">-</span><span class="nv">thread</span><span class="o">-</span><span class="nv">multi</span><span class="o">-</span><span class="mi">2</span><span class="nv">level</span>
-<span class="ss">(</span><span class="nv">with</span> <span class="mi">2</span> <span class="nv">registered</span> <span class="nv">patches</span>, <span class="nv">see</span> <span class="nv">perl</span> <span class="o">-</span><span class="nv">V</span> <span class="k">for</span> <span class="nv">more</span> <span class="nv">detail</span><span class="ss">)</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">perl -version</span>
+<span class="err">This is perl 5, version 18, subversion 2 (v5.18.2) built for darwin-thread-multi-2level</span>
+<span class="err">(with 2 registered patches, see perl -V for more detail)</span>
+</code></pre></div>
 
 
 <h1>Conclusion</h1>

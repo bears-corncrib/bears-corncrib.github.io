@@ -175,15 +175,15 @@ Here is a basic issuestration about these areas. This picture is not my work, bu
 <p>There can be a few braches, which either is built by <code>git branch</code> or <code>git fetch</code> from an unrelated RR. The very first branch is named master.</p>
 <p>Here is an planground that we can test moving index abount LR.</p>
 <h3>Making a WA</h3>
-<div class="highlight"><pre><span></span>$ mkdir gitTest
+<div class="highlight"><pre><span></span><code>$ mkdir gitTest
 $ <span class="nb">cd</span> gitTest
 $ git init
 Initialized empty Git repository in /private/tmp/gitTest/.git/
-</pre></div>
+</code></pre></div>
 
 
 <h3>Making a commit</h3>
-<div class="highlight"><pre><span></span>$ <span class="nb">echo</span> <span class="s2">&quot;111&quot;</span> &gt;&gt;t1.text
+<div class="highlight"><pre><span></span><code>$ <span class="nb">echo</span> <span class="s2">&quot;111&quot;</span> &gt;&gt;t1.text
 $ ls
 t1.text
 $ git add .
@@ -199,7 +199,7 @@ Date:   Sun Jul <span class="m">14</span> <span class="m">12</span>:42:35 <span 
     <span class="m">1</span> in master
 $ git log --oneline
 56b1732 <span class="o">(</span>HEAD -&gt; master<span class="o">)</span> <span class="m">1</span> in master
-</pre></div>
+</code></pre></div>
 
 
 <p>Here we an illustrate the LR as below:</p>
@@ -222,7 +222,7 @@ $ git log --oneline
 </tbody>
 </table>
 <h3>Making another commit</h3>
-<div class="highlight"><pre><span></span>$ <span class="nb">echo</span> <span class="s2">&quot;222&quot;</span> &gt;&gt;t1.text
+<div class="highlight"><pre><span></span><code>$ <span class="nb">echo</span> <span class="s2">&quot;222&quot;</span> &gt;&gt;t1.text
 $ git commit -m <span class="s2">&quot;2 in master&quot;</span> -a
 <span class="o">[</span>master 41e433e<span class="o">]</span> <span class="m">2</span> in master
  <span class="m">1</span> file changed, <span class="m">1</span> insertion<span class="o">(</span>+<span class="o">)</span>
@@ -241,7 +241,7 @@ Date:   Sun Jul <span class="m">14</span> <span class="m">12</span>:42:35 <span 
 $ git log --oneline
 41e433e <span class="o">(</span>HEAD -&gt; master<span class="o">)</span> <span class="m">2</span> in master
 56b1732 <span class="m">1</span> in master
-</pre></div>
+</code></pre></div>
 
 
 <p>Here we an illustrate the LR as below:</p>
@@ -270,7 +270,7 @@ $ git log --oneline
 </tbody>
 </table>
 <h3>Making a brach</h3>
-<div class="highlight"><pre><span></span>$ git branch new1
+<div class="highlight"><pre><span></span><code>$ git branch new1
 $ git branch
 * master
   new1
@@ -294,7 +294,7 @@ Date:   Sun Jul <span class="m">14</span> <span class="m">12</span>:42:35 <span 
 $ git log --oneline
 41e433e <span class="o">(</span>HEAD -&gt; new1, master<span class="o">)</span> <span class="m">2</span> in master
 56b1732 <span class="m">1</span> in master
-</pre></div>
+</code></pre></div>
 
 
 <p>Here we an illustrate the LR as below:</p>
@@ -323,7 +323,7 @@ $ git log --oneline
 </tbody>
 </table>
 <h3>Keep working in new brach</h3>
-<div class="highlight"><pre><span></span><span class="err">$</span> <span class="n">echo</span> <span class="s">&quot;333&quot;</span> <span class="o">&gt;&gt;</span><span class="n">t1</span><span class="p">.</span><span class="n">text</span>
+<div class="highlight"><pre><span></span><code><span class="err">$</span> <span class="n">echo</span> <span class="s">&quot;333&quot;</span> <span class="o">&gt;&gt;</span><span class="n">t1</span><span class="p">.</span><span class="n">text</span>
 <span class="err">$</span> <span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s">&quot;3 in new1&quot;</span> <span class="o">-</span><span class="n">a</span>
 <span class="p">[</span><span class="n">new1</span> <span class="n">fa1cd19</span><span class="p">]</span> <span class="mi">3</span> <span class="k">in</span> <span class="n">new1</span>
  <span class="mi">1</span> <span class="n">file</span> <span class="n">changed</span><span class="p">,</span> <span class="mi">1</span> <span class="n">insertion</span><span class="p">(</span><span class="o">+</span><span class="p">)</span>
@@ -331,7 +331,7 @@ $ git log --oneline
 <span class="n">fa1cd19</span> <span class="p">(</span><span class="n">HEAD</span> <span class="o">-&gt;</span> <span class="n">new1</span><span class="p">)</span> <span class="mi">3</span> <span class="k">in</span> <span class="n">new1</span>
 <span class="mf">41e433</span><span class="n">e</span> <span class="p">(</span><span class="n">master</span><span class="p">)</span> <span class="mi">2</span> <span class="k">in</span> <span class="n">master</span>
 <span class="mi">56</span><span class="n">b1732</span> <span class="mi">1</span> <span class="k">in</span> <span class="n">master</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>Here we an illustrate the LR as below:</p>
@@ -366,24 +366,24 @@ $ git log --oneline
 </tbody>
 </table>
 <h3>Go back to historical file</h3>
-<div class="highlight"><pre><span></span>$ <span class="nv">git</span> <span class="nv">checkout</span> <span class="mi">56</span><span class="nv">b1732</span>
-<span class="nv">Note</span>: <span class="nv">checking</span> <span class="nv">out</span> <span class="s1">&#39;</span><span class="s">56b1732</span><span class="s1">&#39;</span>.
+<div class="highlight"><pre><span></span><code>$ git checkout 56b1732
+Note: checking out <span class="s1">&#39;56b1732&#39;</span>.
 
-<span class="nv">You</span> <span class="nv">are</span> <span class="nv">in</span> <span class="s1">&#39;</span><span class="s">detached HEAD</span><span class="s1">&#39;</span> <span class="nv">state</span>. <span class="nv">You</span> <span class="nv">can</span> <span class="nv">look</span> <span class="nv">around</span>, <span class="nv">make</span> <span class="nv">experimental</span>
-<span class="nv">changes</span> <span class="nv">and</span> <span class="nv">commit</span> <span class="nv">them</span>, <span class="nv">and</span> <span class="nv">you</span> <span class="nv">can</span> <span class="nv">discard</span> <span class="nv">any</span> <span class="nv">commits</span> <span class="nv">you</span> <span class="nv">make</span> <span class="nv">in</span> <span class="nv">this</span>
-<span class="nv">state</span> <span class="nv">without</span> <span class="nv">impacting</span> <span class="nv">any</span> <span class="nv">branches</span> <span class="nv">by</span> <span class="nv">performing</span> <span class="nv">another</span> <span class="nv">checkout</span>.
+You are in <span class="s1">&#39;detached HEAD&#39;</span> state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
 
-<span class="k">If</span> <span class="nv">you</span> <span class="nv">want</span> <span class="nv">to</span> <span class="nv">create</span> <span class="nv">a</span> <span class="nv">new</span> <span class="nv">branch</span> <span class="nv">to</span> <span class="nv">retain</span> <span class="nv">commits</span> <span class="nv">you</span> <span class="nv">create</span>, <span class="nv">you</span> <span class="nv">may</span>
-<span class="k">do</span> <span class="nv">so</span> <span class="ss">(</span><span class="nv">now</span> <span class="nv">or</span> <span class="nv">later</span><span class="ss">)</span> <span class="nv">by</span> <span class="nv">using</span> <span class="o">-</span><span class="nv">b</span> <span class="nv">with</span> <span class="nv">the</span> <span class="nv">checkout</span> <span class="nv">command</span> <span class="nv">again</span>. <span class="nv">Example</span>:
+If you want to create a new branch to retain commits you create, you may
+<span class="k">do</span> so <span class="o">(</span>now or later<span class="o">)</span> by using -b with the checkout <span class="nb">command</span> again. Example:
 
-  <span class="nv">git</span> <span class="nv">checkout</span> <span class="o">-</span><span class="nv">b</span> <span class="o">&lt;</span><span class="nv">new</span><span class="o">-</span><span class="nv">branch</span><span class="o">-</span><span class="nv">name</span><span class="o">&gt;</span>
+  git checkout -b &lt;new-branch-name&gt;
 
-<span class="nv">HEAD</span> <span class="nv">is</span> <span class="nv">now</span> <span class="nv">at</span> <span class="mi">56</span><span class="nv">b1732</span> <span class="mi">1</span> <span class="nv">in</span> <span class="nv">master</span>
-$ <span class="nv">cat</span> <span class="nv">t1</span>.<span class="nv">text</span> 
-<span class="mi">111</span>
-$ <span class="nv">git</span> <span class="nv">log</span> <span class="o">--</span><span class="nv">oneline</span>
-<span class="mi">56</span><span class="nv">b1732</span> <span class="ss">(</span><span class="nv">HEAD</span><span class="ss">)</span> <span class="mi">1</span> <span class="nv">in</span> <span class="nv">master</span>
-</pre></div>
+HEAD is now at 56b1732 <span class="m">1</span> in master
+$ cat t1.text 
+<span class="m">111</span>
+$ git log --oneline
+56b1732 <span class="o">(</span>HEAD<span class="o">)</span> <span class="m">1</span> in master
+</code></pre></div>
 
 
 <p>Here we an illustrate the LR as below:</p>
@@ -418,7 +418,7 @@ $ <span class="nv">git</span> <span class="nv">log</span> <span class="o">--</sp
 </tbody>
 </table>
 <h3>What happen if we commit current WA</h3>
-<div class="highlight"><pre><span></span>$ <span class="nb">echo</span> <span class="s2">&quot;111???&quot;</span> &gt;&gt;t1.text
+<div class="highlight"><pre><span></span><code>$ <span class="nb">echo</span> <span class="s2">&quot;111???&quot;</span> &gt;&gt;t1.text
 $ git commit -m <span class="s2">&quot;4 in new1&quot;</span> -a
 <span class="o">[</span>detached HEAD cef991e<span class="o">]</span> <span class="m">4</span> in new1
  <span class="m">1</span> file changed, <span class="m">1</span> insertion<span class="o">(</span>+<span class="o">)</span>
@@ -429,7 +429,7 @@ $ git branch
 * <span class="o">(</span>HEAD detached from 56b1732<span class="o">)</span>
   master
   new1
-</pre></div>
+</code></pre></div>
 
 
 <p>Here we an illustrate the LR as below:</p>
@@ -470,61 +470,61 @@ $ git branch
 </tbody>
 </table>
 <p>It seems we have nothing lost from other branches</p>
-<div class="highlight"><pre><span></span>$ <span class="nv">git</span> <span class="nv">checkout</span> <span class="nv">new1</span>
-<span class="nv">Warning</span>: <span class="nv">you</span> <span class="nv">are</span> <span class="nv">leaving</span> <span class="mi">1</span> <span class="nv">commit</span> <span class="nv">behind</span>, <span class="nv">not</span> <span class="nv">connected</span> <span class="nv">to</span>
-<span class="nv">any</span> <span class="nv">of</span> <span class="nv">your</span> <span class="nv">branches</span>:
+<div class="highlight"><pre><span></span><code>$ git checkout new1
+Warning: you are leaving <span class="m">1</span> commit behind, not connected to
+any of your branches:
 
-  <span class="nv">cef991e</span> <span class="mi">4</span> <span class="nv">in</span> <span class="nv">new1</span>
+  cef991e <span class="m">4</span> in new1
 
-<span class="k">If</span> <span class="nv">you</span> <span class="nv">want</span> <span class="nv">to</span> <span class="nv">keep</span> <span class="nv">it</span> <span class="nv">by</span> <span class="nv">creating</span> <span class="nv">a</span> <span class="nv">new</span> <span class="nv">branch</span>, <span class="nv">this</span> <span class="nv">may</span> <span class="nv">be</span> <span class="nv">a</span> <span class="nv">good</span> <span class="nv">time</span>
-<span class="nv">to</span> <span class="k">do</span> <span class="nv">so</span> <span class="nv">with</span>:
+If you want to keep it by creating a new branch, this may be a good <span class="nb">time</span>
+to <span class="k">do</span> so with:
 
- <span class="nv">git</span> <span class="nv">branch</span> <span class="o">&lt;</span><span class="nv">new</span><span class="o">-</span><span class="nv">branch</span><span class="o">-</span><span class="nv">name</span><span class="o">&gt;</span> <span class="nv">cef991e</span>
+ git branch &lt;new-branch-name&gt; cef991e
 
-<span class="nv">Switched</span> <span class="nv">to</span> <span class="nv">branch</span> <span class="s1">&#39;</span><span class="s">new1</span><span class="s1">&#39;</span>
-$ <span class="nv">git</span> <span class="nv">log</span> <span class="o">--</span><span class="nv">oneline</span>
-<span class="nv">fa1cd19</span> <span class="ss">(</span><span class="nv">HEAD</span> <span class="o">-&gt;</span> <span class="nv">new1</span><span class="ss">)</span> <span class="mi">3</span> <span class="nv">in</span> <span class="nv">new1</span>
-<span class="mi">41</span><span class="nv">e433e</span> <span class="ss">(</span><span class="nv">master</span><span class="ss">)</span> <span class="mi">2</span> <span class="nv">in</span> <span class="nv">master</span>
-<span class="mi">56</span><span class="nv">b1732</span> <span class="mi">1</span> <span class="nv">in</span> <span class="nv">master</span>
-$ <span class="nv">git</span> <span class="nv">branch</span>
-  <span class="nv">master</span>
-<span class="o">*</span> <span class="nv">new1</span>
-</pre></div>
+Switched to branch <span class="s1">&#39;new1&#39;</span>
+$ git log --oneline
+fa1cd19 <span class="o">(</span>HEAD -&gt; new1<span class="o">)</span> <span class="m">3</span> in new1
+41e433e <span class="o">(</span>master<span class="o">)</span> <span class="m">2</span> in master
+56b1732 <span class="m">1</span> in master
+$ git branch
+  master
+* new1
+</code></pre></div>
 
 
 <h3>Saving detached HEAD in a new branch</h3>
-<div class="highlight"><pre><span></span>$ <span class="nv">git</span> <span class="nv">checkout</span> <span class="nv">cef991e</span>
-<span class="nv">Note</span>: <span class="nv">checking</span> <span class="nv">out</span> <span class="s1">&#39;</span><span class="s">cef991e</span><span class="s1">&#39;</span>.
+<div class="highlight"><pre><span></span><code>$ git checkout cef991e
+Note: checking out <span class="s1">&#39;cef991e&#39;</span>.
 
-<span class="nv">You</span> <span class="nv">are</span> <span class="nv">in</span> <span class="s1">&#39;</span><span class="s">detached HEAD</span><span class="s1">&#39;</span> <span class="nv">state</span>. <span class="nv">You</span> <span class="nv">can</span> <span class="nv">look</span> <span class="nv">around</span>, <span class="nv">make</span> <span class="nv">experimental</span>
-<span class="nv">changes</span> <span class="nv">and</span> <span class="nv">commit</span> <span class="nv">them</span>, <span class="nv">and</span> <span class="nv">you</span> <span class="nv">can</span> <span class="nv">discard</span> <span class="nv">any</span> <span class="nv">commits</span> <span class="nv">you</span> <span class="nv">make</span> <span class="nv">in</span> <span class="nv">this</span>
-<span class="nv">state</span> <span class="nv">without</span> <span class="nv">impacting</span> <span class="nv">any</span> <span class="nv">branches</span> <span class="nv">by</span> <span class="nv">performing</span> <span class="nv">another</span> <span class="nv">checkout</span>.
+You are in <span class="s1">&#39;detached HEAD&#39;</span> state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
 
-<span class="k">If</span> <span class="nv">you</span> <span class="nv">want</span> <span class="nv">to</span> <span class="nv">create</span> <span class="nv">a</span> <span class="nv">new</span> <span class="nv">branch</span> <span class="nv">to</span> <span class="nv">retain</span> <span class="nv">commits</span> <span class="nv">you</span> <span class="nv">create</span>, <span class="nv">you</span> <span class="nv">may</span>
-<span class="k">do</span> <span class="nv">so</span> <span class="ss">(</span><span class="nv">now</span> <span class="nv">or</span> <span class="nv">later</span><span class="ss">)</span> <span class="nv">by</span> <span class="nv">using</span> <span class="o">-</span><span class="nv">b</span> <span class="nv">with</span> <span class="nv">the</span> <span class="nv">checkout</span> <span class="nv">command</span> <span class="nv">again</span>. <span class="nv">Example</span>:
+If you want to create a new branch to retain commits you create, you may
+<span class="k">do</span> so <span class="o">(</span>now or later<span class="o">)</span> by using -b with the checkout <span class="nb">command</span> again. Example:
 
-  <span class="nv">git</span> <span class="nv">checkout</span> <span class="o">-</span><span class="nv">b</span> <span class="o">&lt;</span><span class="nv">new</span><span class="o">-</span><span class="nv">branch</span><span class="o">-</span><span class="nv">name</span><span class="o">&gt;</span>
+  git checkout -b &lt;new-branch-name&gt;
 
-<span class="nv">HEAD</span> <span class="nv">is</span> <span class="nv">now</span> <span class="nv">at</span> <span class="nv">cef991e</span> <span class="mi">4</span> <span class="nv">in</span> <span class="nv">new1</span>
-$ <span class="nv">git</span> <span class="nv">branch</span>
-<span class="o">*</span> <span class="ss">(</span><span class="nv">HEAD</span> <span class="nv">detached</span> <span class="nv">at</span> <span class="nv">cef991e</span><span class="ss">)</span>
-  <span class="nv">master</span>
-  <span class="nv">new1</span>
-$ <span class="nv">cat</span> <span class="nv">t1</span>.<span class="nv">text</span> 
-<span class="mi">111</span>
-<span class="mi">111</span>???
-$ <span class="nv">git</span> <span class="nv">branch</span> <span class="nv">new2</span>
-$ <span class="nv">git</span> <span class="nv">branch</span>
-<span class="o">*</span> <span class="ss">(</span><span class="nv">HEAD</span> <span class="nv">detached</span> <span class="nv">at</span> <span class="nv">cef991e</span><span class="ss">)</span>
-  <span class="nv">master</span>
-  <span class="nv">new1</span>
-  <span class="nv">new2</span>
-$ <span class="nv">git</span> <span class="nv">checkout</span> <span class="nv">new2</span>
-<span class="nv">Switched</span> <span class="nv">to</span> <span class="nv">branch</span> <span class="s1">&#39;</span><span class="s">new2</span><span class="s1">&#39;</span>
-$ <span class="nv">git</span> <span class="nv">log</span> <span class="o">--</span><span class="nv">oneline</span>
-<span class="nv">cef991e</span> <span class="ss">(</span><span class="nv">HEAD</span> <span class="o">-&gt;</span> <span class="nv">new2</span><span class="ss">)</span> <span class="mi">4</span> <span class="nv">in</span> <span class="nv">new1</span>
-<span class="mi">56</span><span class="nv">b1732</span> <span class="mi">1</span> <span class="nv">in</span> <span class="nv">master</span>
-</pre></div>
+HEAD is now at cef991e <span class="m">4</span> in new1
+$ git branch
+* <span class="o">(</span>HEAD detached at cef991e<span class="o">)</span>
+  master
+  new1
+$ cat t1.text 
+<span class="m">111</span>
+<span class="m">111</span>???
+$ git branch new2
+$ git branch
+* <span class="o">(</span>HEAD detached at cef991e<span class="o">)</span>
+  master
+  new1
+  new2
+$ git checkout new2
+Switched to branch <span class="s1">&#39;new2&#39;</span>
+$ git log --oneline
+cef991e <span class="o">(</span>HEAD -&gt; new2<span class="o">)</span> <span class="m">4</span> in new1
+56b1732 <span class="m">1</span> in master
+</code></pre></div>
 
 
 <p>Here we an illustrate the LR as below:</p>
@@ -573,7 +573,7 @@ fa1cd19 (HEAD -&gt; new1) 3 in new1
 41e433e (master) 2 in master
 56b1732 1 in master</p>
 <h3>Adding new files in current branch</h3>
-<div class="highlight"><pre><span></span>$ git branch
+<div class="highlight"><pre><span></span><code>$ git branch
   master
 * new1
 $ git log --oneline
@@ -597,12 +597,12 @@ $ git log --oneline
 fa1cd19 <span class="m">3</span> in new1
 41e433e <span class="o">(</span>master<span class="o">)</span> <span class="m">2</span> in master
 56b1732 <span class="m">1</span> in master
-</pre></div>
+</code></pre></div>
 
 
 <p>Here we an illustrate the LR as below:</p>
-<div class="highlight"><pre><span></span><span class="o">|</span><span class="n">Branch1</span><span class="p">(</span><span class="n">master</span><span class="p">)</span><span class="o">|</span><span class="n">Branch2</span><span class="p">(</span><span class="n">new1</span><span class="p">)</span><span class="o">|</span><span class="n">Branch</span> <span class="n">N</span><span class="o">|</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">|Branch1(master)|Branch2(new1)|Branch N|</span>
+</code></pre></div>
 
 
 <p>---|---|---|---
@@ -611,59 +611,59 @@ Commit |41e433e (HEAD -&gt; master)|41e433e
 Commit||fa1cd19
 Commit||87fe783 (HEAD -&gt; new1)</p>
 <h3>Going back to master and move new file to it</h3>
-<div class="highlight"><pre><span></span>$ <span class="nv">git</span> <span class="nv">checkout</span> <span class="nv">master</span>
-<span class="nv">Switched</span> <span class="nv">to</span> <span class="nv">branch</span> <span class="s1">&#39;</span><span class="s">master</span><span class="s1">&#39;</span>
-$ <span class="nv">ls</span>
-<span class="nv">t1</span>.<span class="nv">text</span>
-$ <span class="nv">cat</span> <span class="nv">t1</span>.<span class="nv">text</span> 
-<span class="mi">111</span>
-<span class="mi">222</span>
-$ <span class="nv">git</span> <span class="nv">reset</span> <span class="nv">new1</span>
-<span class="nv">Unstaged</span> <span class="nv">changes</span> <span class="nv">after</span> <span class="nv">reset</span>:
-<span class="nv">M</span>   <span class="nv">t1</span>.<span class="nv">text</span>
-<span class="nv">D</span>   <span class="nv">t2</span>.<span class="nv">txt</span>
-$ <span class="nv">git</span> <span class="nv">checkout</span> <span class="nv">t2</span>.<span class="nv">txt</span>
-$ <span class="nv">ls</span>
-<span class="nv">t1</span>.<span class="nv">text</span> <span class="nv">t2</span>.<span class="nv">txt</span>
-$ <span class="nv">git</span> <span class="nv">log</span> <span class="o">--</span><span class="nv">oneline</span>
-<span class="mi">87</span><span class="nv">fe783</span> <span class="ss">(</span><span class="nv">HEAD</span> <span class="o">-&gt;</span> <span class="nv">master</span>, <span class="nv">new1</span><span class="ss">)</span> <span class="nv">new</span> <span class="nv">file</span> <span class="nv">t2</span>
-<span class="nv">fa1cd19</span> <span class="mi">3</span> <span class="nv">in</span> <span class="nv">new1</span>
-<span class="mi">41</span><span class="nv">e433e</span> <span class="mi">2</span> <span class="nv">in</span> <span class="nv">master</span>
-<span class="mi">56</span><span class="nv">b1732</span> <span class="mi">1</span> <span class="nv">in</span> <span class="nv">master</span>
-$ <span class="nv">git</span> <span class="nv">branch</span>
-<span class="o">*</span> <span class="nv">master</span>
-  <span class="nv">new1</span>
-$ <span class="nv">cat</span> <span class="nv">t1</span>.<span class="nv">text</span> 
-<span class="mi">111</span>
-<span class="mi">222</span>
-$ <span class="nv">git</span> <span class="nv">status</span>
-<span class="nv">On</span> <span class="nv">branch</span> <span class="nv">master</span>
-<span class="nv">Changes</span> <span class="nv">not</span> <span class="nv">staged</span> <span class="k">for</span> <span class="nv">commit</span>:
-  <span class="ss">(</span><span class="nv">use</span> <span class="s2">&quot;</span><span class="s">git add &lt;file&gt;...</span><span class="s2">&quot;</span> <span class="nv">to</span> <span class="nv">update</span> <span class="nv">what</span> <span class="nv">will</span> <span class="nv">be</span> <span class="nv">committed</span><span class="ss">)</span>
-  <span class="ss">(</span><span class="nv">use</span> <span class="s2">&quot;</span><span class="s">git checkout -- &lt;file&gt;...</span><span class="s2">&quot;</span> <span class="nv">to</span> <span class="nv">discard</span> <span class="nv">changes</span> <span class="nv">in</span> <span class="nv">working</span> <span class="nv">directory</span><span class="ss">)</span>
+<div class="highlight"><pre><span></span><code>$ git checkout master
+Switched to branch <span class="s1">&#39;master&#39;</span>
+$ ls
+t1.text
+$ cat t1.text 
+<span class="m">111</span>
+<span class="m">222</span>
+$ git reset new1
+Unstaged changes after reset:
+M   t1.text
+D   t2.txt
+$ git checkout t2.txt
+$ ls
+t1.text t2.txt
+$ git log --oneline
+87fe783 <span class="o">(</span>HEAD -&gt; master, new1<span class="o">)</span> new file t2
+fa1cd19 <span class="m">3</span> in new1
+41e433e <span class="m">2</span> in master
+56b1732 <span class="m">1</span> in master
+$ git branch
+* master
+  new1
+$ cat t1.text 
+<span class="m">111</span>
+<span class="m">222</span>
+$ git status
+On branch master
+Changes not staged <span class="k">for</span> commit:
+  <span class="o">(</span>use <span class="s2">&quot;git add &lt;file&gt;...&quot;</span> to update what will be committed<span class="o">)</span>
+  <span class="o">(</span>use <span class="s2">&quot;git checkout -- &lt;file&gt;...&quot;</span> to discard changes in working directory<span class="o">)</span>
 
-    <span class="nv">modified</span>:   <span class="nv">t1</span>.<span class="nv">text</span>
+    modified:   t1.text
 
-<span class="nv">no</span> <span class="nv">changes</span> <span class="nv">added</span> <span class="nv">to</span> <span class="nv">commit</span> <span class="ss">(</span><span class="nv">use</span> <span class="s2">&quot;</span><span class="s">git add</span><span class="s2">&quot;</span> <span class="nv">and</span><span class="o">/</span><span class="nv">or</span> <span class="s2">&quot;</span><span class="s">git commit -a</span><span class="s2">&quot;</span><span class="ss">)</span>
-$ <span class="nv">git</span> <span class="nv">add</span> .
-$ <span class="nv">git</span> <span class="nv">status</span>
-<span class="nv">On</span> <span class="nv">branch</span> <span class="nv">master</span>
-<span class="nv">Changes</span> <span class="nv">to</span> <span class="nv">be</span> <span class="nv">committed</span>:
-  <span class="ss">(</span><span class="nv">use</span> <span class="s2">&quot;</span><span class="s">git reset HEAD &lt;file&gt;...</span><span class="s2">&quot;</span> <span class="nv">to</span> <span class="nv">unstage</span><span class="ss">)</span>
+no changes added to commit <span class="o">(</span>use <span class="s2">&quot;git add&quot;</span> and/or <span class="s2">&quot;git commit -a&quot;</span><span class="o">)</span>
+$ git add .
+$ git status
+On branch master
+Changes to be committed:
+  <span class="o">(</span>use <span class="s2">&quot;git reset HEAD &lt;file&gt;...&quot;</span> to unstage<span class="o">)</span>
 
-    <span class="nv">modified</span>:   <span class="nv">t1</span>.<span class="nv">text</span>
+    modified:   t1.text
 
 
-$ <span class="nv">git</span> <span class="nv">commit</span> <span class="o">-</span><span class="nv">m</span> <span class="s2">&quot;</span><span class="s">new file t2 in master</span><span class="s2">&quot;</span>
-[<span class="nv">master</span> <span class="mi">9218660</span>] <span class="nv">new</span> <span class="nv">file</span> <span class="nv">t2</span> <span class="nv">in</span> <span class="nv">master</span>
- <span class="mi">1</span> <span class="nv">file</span> <span class="nv">changed</span>, <span class="mi">1</span> <span class="nv">deletion</span><span class="ss">(</span><span class="o">-</span><span class="ss">)</span>
-$ <span class="nv">git</span> <span class="nv">log</span> <span class="o">--</span><span class="nv">oneline</span>
-<span class="mi">9218660</span> <span class="ss">(</span><span class="nv">HEAD</span> <span class="o">-&gt;</span> <span class="nv">master</span><span class="ss">)</span> <span class="nv">new</span> <span class="nv">file</span> <span class="nv">t2</span> <span class="nv">in</span> <span class="nv">master</span>
-<span class="mi">87</span><span class="nv">fe783</span> <span class="ss">(</span><span class="nv">new1</span><span class="ss">)</span> <span class="nv">new</span> <span class="nv">file</span> <span class="nv">t2</span>
-<span class="nv">fa1cd19</span> <span class="mi">3</span> <span class="nv">in</span> <span class="nv">new1</span>
-<span class="mi">41</span><span class="nv">e433e</span> <span class="mi">2</span> <span class="nv">in</span> <span class="nv">master</span>
-<span class="mi">56</span><span class="nv">b1732</span> <span class="mi">1</span> <span class="nv">in</span> <span class="nv">master</span>
-</pre></div>
+$ git commit -m <span class="s2">&quot;new file t2 in master&quot;</span>
+<span class="o">[</span>master <span class="m">9218660</span><span class="o">]</span> new file t2 in master
+ <span class="m">1</span> file changed, <span class="m">1</span> deletion<span class="o">(</span>-<span class="o">)</span>
+$ git log --oneline
+<span class="m">9218660</span> <span class="o">(</span>HEAD -&gt; master<span class="o">)</span> new file t2 in master
+87fe783 <span class="o">(</span>new1<span class="o">)</span> new file t2
+fa1cd19 <span class="m">3</span> in new1
+41e433e <span class="m">2</span> in master
+56b1732 <span class="m">1</span> in master
+</code></pre></div>
 
 
 <p><code>t2.txt</code> is right now in master, but <code>t1.txt</code> stay no change.
@@ -712,7 +712,7 @@ We can also merge changes in <code>t1.txt</code> from branch <code>new1</code>. 
 </tbody>
 </table>
 <h3>What if we pull an unrelated RR here?</h3>
-<div class="highlight"><pre><span></span><span class="err">$</span> <span class="n">ls</span> <span class="p">.</span><span class="n">git</span>
+<div class="highlight"><pre><span></span><code><span class="err">$</span> <span class="n">ls</span> <span class="p">.</span><span class="n">git</span>
 <span class="n">COMMIT_EDITMSG</span>  <span class="n">ORIG_HEAD</span>   <span class="n">config</span>      <span class="n">hooks</span>       <span class="n">info</span>        <span class="n">objects</span>
 <span class="n">HEAD</span>        <span class="n">branches</span>    <span class="n">description</span> <span class="n">index</span>       <span class="n">logs</span>        <span class="n">refs</span>
 
@@ -741,39 +741,39 @@ We can also merge changes in <code>t1.txt</code> from branch <code>new1</code>. 
 <span class="err">$</span> <span class="n">ls</span> <span class="p">.</span><span class="n">git</span>
 <span class="n">COMMIT_EDITMSG</span>  <span class="n">HEAD</span>        <span class="n">branches</span>    <span class="n">description</span> <span class="n">index</span>       <span class="n">logs</span>        <span class="n">refs</span>
 <span class="n">FETCH_HEAD</span>  <span class="n">ORIG_HEAD</span>   <span class="n">config</span>      <span class="n">hooks</span>       <span class="n">info</span>        <span class="n">objects</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>There is no new branch, but a two new heads, named FETCH_HEAD and ORIG_HEAD. </p>
-<div class="highlight"><pre><span></span>$ <span class="nv">git</span> <span class="nv">checkout</span> <span class="nv">FETCH_HEAD</span>
-<span class="nv">Note</span>: <span class="nv">checking</span> <span class="nv">out</span> <span class="s1">&#39;</span><span class="s">FETCH_HEAD</span><span class="s1">&#39;</span>.
+<div class="highlight"><pre><span></span><code>$ git checkout FETCH_HEAD
+Note: checking out <span class="s1">&#39;FETCH_HEAD&#39;</span>.
 
-<span class="nv">You</span> <span class="nv">are</span> <span class="nv">in</span> <span class="s1">&#39;</span><span class="s">detached HEAD</span><span class="s1">&#39;</span> <span class="nv">state</span>. <span class="nv">You</span> <span class="nv">can</span> <span class="nv">look</span> <span class="nv">around</span>, <span class="nv">make</span> <span class="nv">experimental</span>
-<span class="nv">changes</span> <span class="nv">and</span> <span class="nv">commit</span> <span class="nv">them</span>, <span class="nv">and</span> <span class="nv">you</span> <span class="nv">can</span> <span class="nv">discard</span> <span class="nv">any</span> <span class="nv">commits</span> <span class="nv">you</span> <span class="nv">make</span> <span class="nv">in</span> <span class="nv">this</span>
-<span class="nv">state</span> <span class="nv">without</span> <span class="nv">impacting</span> <span class="nv">any</span> <span class="nv">branches</span> <span class="nv">by</span> <span class="nv">performing</span> <span class="nv">another</span> <span class="nv">checkout</span>.
+You are in <span class="s1">&#39;detached HEAD&#39;</span> state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
 
-<span class="k">If</span> <span class="nv">you</span> <span class="nv">want</span> <span class="nv">to</span> <span class="nv">create</span> <span class="nv">a</span> <span class="nv">new</span> <span class="nv">branch</span> <span class="nv">to</span> <span class="nv">retain</span> <span class="nv">commits</span> <span class="nv">you</span> <span class="nv">create</span>, <span class="nv">you</span> <span class="nv">may</span>
-<span class="k">do</span> <span class="nv">so</span> <span class="ss">(</span><span class="nv">now</span> <span class="nv">or</span> <span class="nv">later</span><span class="ss">)</span> <span class="nv">by</span> <span class="nv">using</span> <span class="o">-</span><span class="nv">b</span> <span class="nv">with</span> <span class="nv">the</span> <span class="nv">checkout</span> <span class="nv">command</span> <span class="nv">again</span>. <span class="nv">Example</span>:
+If you want to create a new branch to retain commits you create, you may
+<span class="k">do</span> so <span class="o">(</span>now or later<span class="o">)</span> by using -b with the checkout <span class="nb">command</span> again. Example:
 
-  <span class="nv">git</span> <span class="nv">checkout</span> <span class="o">-</span><span class="nv">b</span> <span class="o">&lt;</span><span class="nv">new</span><span class="o">-</span><span class="nv">branch</span><span class="o">-</span><span class="nv">name</span><span class="o">&gt;</span>
+  git checkout -b &lt;new-branch-name&gt;
 
-<span class="nv">HEAD</span> <span class="nv">is</span> <span class="nv">now</span> <span class="nv">at</span> <span class="nv">a47ef20</span> <span class="nv">merge</span> <span class="nv">test</span>
-$ <span class="nv">ls</span>
-<span class="nv">README</span>.<span class="nv">en</span>.<span class="nv">md</span>    <span class="nv">README</span>.<span class="nv">md</span>   <span class="nv">index</span>.<span class="nv">html</span>
-$ <span class="nv">git</span> <span class="nv">branch</span>
-<span class="o">*</span> <span class="ss">(</span><span class="nv">HEAD</span> <span class="nv">detached</span> <span class="nv">at</span> <span class="nv">FETCH_HEAD</span><span class="ss">)</span>
-  <span class="nv">master</span>
-  <span class="nv">new1</span>
-$ <span class="nv">git</span> <span class="nv">status</span>
-<span class="nv">HEAD</span> <span class="nv">detached</span> <span class="nv">at</span> <span class="nv">FETCH_HEAD</span>
-<span class="nv">nothing</span> <span class="nv">to</span> <span class="nv">commit</span>, <span class="nv">working</span> <span class="nv">tree</span> <span class="nv">clean</span>
-$ <span class="nv">git</span> <span class="nv">log</span> <span class="o">--</span><span class="nv">oneline</span>
-<span class="nv">a47ef20</span> <span class="ss">(</span><span class="nv">HEAD</span>, <span class="nv">xxx</span><span class="o">/</span><span class="nv">master</span><span class="ss">)</span> <span class="nv">merge</span> <span class="nv">test</span>
-<span class="mi">78</span><span class="nv">a7f21</span> <span class="nv">Initial</span> <span class="nv">commit</span>
-<span class="mi">77</span><span class="nv">d03d4</span> <span class="nv">Create</span> <span class="nv">index</span>.<span class="nv">html</span>
-<span class="mi">5159440</span> <span class="nv">Initial</span> <span class="nv">commit</span>
-<span class="mi">7</span><span class="nv">a16d16</span> <span class="nv">Initial</span> <span class="nv">commit</span>
-</pre></div>
+HEAD is now at a47ef20 merge <span class="nb">test</span>
+$ ls
+README.en.md    README.md   index.html
+$ git branch
+* <span class="o">(</span>HEAD detached at FETCH_HEAD<span class="o">)</span>
+  master
+  new1
+$ git status
+HEAD detached at FETCH_HEAD
+nothing to commit, working tree clean
+$ git log --oneline
+a47ef20 <span class="o">(</span>HEAD, xxx/master<span class="o">)</span> merge <span class="nb">test</span>
+78a7f21 Initial commit
+77d03d4 Create index.html
+<span class="m">5159440</span> Initial commit
+7a16d16 Initial commit
+</code></pre></div>
 
 
 <p>All the historical commits from RR are here. Then we can move the index and checkout file we need or merge it and commit.</p>
@@ -854,7 +854,7 @@ $ <span class="nv">git</span> <span class="nv">log</span> <span class="o">--</sp
 <h3>Why I can't put something only in SA and get it back to WA, before <code>git commit</code></h3>
 <p>Actually we can, but seledom use.  <code>git add</code> actually add files to SA, which working like cache. <code>git rm --cache</code> removes file from SA. <code>git rm</code> will also delete file pysically from WA.</p>
 <p>Let's work only in master brach here to understand SA</p>
-<div class="highlight"><pre><span></span>$ git branch -v
+<div class="highlight"><pre><span></span><code>$ git branch -v
 * <span class="o">(</span>HEAD detached at FETCH_HEAD<span class="o">)</span> a47ef20 merge <span class="nb">test</span>
   master                        <span class="m">9218660</span> new file t2 in master
   new1                          87fe783 new file t2
@@ -873,44 +873,44 @@ $ cat t1.text
 <span class="m">222</span>
 $ cat t2.txt 
 <span class="m">111</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>Making some changes to file t2.txt and commit it to LR</p>
-<div class="highlight"><pre><span></span>$ <span class="nv">echo</span> <span class="s2">&quot;</span><span class="s">222</span><span class="s2">&quot;</span> <span class="o">&gt;&gt;</span><span class="nv">t2</span>.<span class="nv">txt</span> 
-$ <span class="nv">git</span> <span class="nv">add</span> <span class="nv">t2</span>.<span class="nv">txt</span> 
-$ <span class="nv">git</span> <span class="nv">commit</span> <span class="o">-</span><span class="nv">m</span> <span class="s2">&quot;</span><span class="s">Change something in t2</span><span class="s2">&quot;</span>
-[<span class="nv">detached</span> <span class="nv">HEAD</span> <span class="mi">16</span><span class="nv">ae937</span>] <span class="nv">Change</span> <span class="nv">something</span> <span class="nv">in</span> <span class="nv">t2</span>
- <span class="mi">1</span> <span class="nv">file</span> <span class="nv">changed</span>, <span class="mi">1</span> <span class="nv">insertion</span><span class="ss">(</span><span class="o">+</span><span class="ss">)</span>
-$ <span class="nv">git</span> <span class="nv">status</span>
-<span class="nv">HEAD</span> <span class="nv">detached</span> <span class="nv">from</span> <span class="nv">ORIG_HEAD</span>
-<span class="nv">nothing</span> <span class="nv">to</span> <span class="nv">commit</span>, <span class="nv">working</span> <span class="nv">tree</span> <span class="nv">clean</span>
-$ <span class="nv">git</span> <span class="k">show</span>
-<span class="nv">commit</span> <span class="mi">16</span><span class="nv">ae93745f7f7cf2db80d8046e0f550723e88921</span> <span class="ss">(</span><span class="nv">HEAD</span><span class="ss">)</span>
-<span class="nv">Author</span>: <span class="nv">Tao</span> <span class="nv">Tao</span> <span class="o">&lt;</span><span class="nv">tao_tao</span>@<span class="nv">apple</span>.<span class="nv">com</span><span class="o">&gt;</span>
-<span class="nv">Date</span>:   <span class="nv">Tue</span> <span class="nv">Jul</span> <span class="mi">16</span> <span class="mi">21</span>:<span class="mi">01</span>:<span class="mi">40</span> <span class="mi">2019</span> <span class="o">+</span><span class="mi">0800</span>
+<div class="highlight"><pre><span></span><code>$ <span class="nb">echo</span> <span class="s2">&quot;222&quot;</span> &gt;&gt;t2.txt 
+$ git add t2.txt 
+$ git commit -m <span class="s2">&quot;Change something in t2&quot;</span>
+<span class="o">[</span>detached HEAD 16ae937<span class="o">]</span> Change something in t2
+ <span class="m">1</span> file changed, <span class="m">1</span> insertion<span class="o">(</span>+<span class="o">)</span>
+$ git status
+HEAD detached from ORIG_HEAD
+nothing to commit, working tree clean
+$ git show
+commit 16ae93745f7f7cf2db80d8046e0f550723e88921 <span class="o">(</span>HEAD<span class="o">)</span>
+Author: Tao Tao &lt;tao_tao@apple.com&gt;
+Date:   Tue Jul <span class="m">16</span> <span class="m">21</span>:01:40 <span class="m">2019</span> +0800
 
-    <span class="nv">Change</span> <span class="nv">something</span> <span class="nv">in</span> <span class="nv">t2</span>
+    Change something in t2
 
-<span class="nv">diff</span> <span class="o">--</span><span class="nv">git</span> <span class="nv">a</span><span class="o">/</span><span class="nv">t2</span>.<span class="nv">txt</span> <span class="nv">b</span><span class="o">/</span><span class="nv">t2</span>.<span class="nv">txt</span>
-<span class="nv">index</span> <span class="mi">58</span><span class="nv">c9bdf</span>..<span class="nv">a30a52a</span> <span class="mi">100644</span>
-<span class="o">---</span> <span class="nv">a</span><span class="o">/</span><span class="nv">t2</span>.<span class="nv">txt</span>
-<span class="o">+++</span> <span class="nv">b</span><span class="o">/</span><span class="nv">t2</span>.<span class="nv">txt</span>
-@@ <span class="o">-</span><span class="mi">1</span> <span class="o">+</span><span class="mi">1</span>,<span class="mi">2</span> @@
- <span class="mi">111</span>
-<span class="o">+</span><span class="mi">222</span>
-</pre></div>
+diff --git a/t2.txt b/t2.txt
+index 58c9bdf..a30a52a <span class="m">100644</span>
+--- a/t2.txt
++++ b/t2.txt
+@@ -1 +1,2 @@
+ <span class="m">111</span>
++222
+</code></pre></div>
 
 
 <p>Making some changes again to file t2.txt, only do <code>git add</code> to cache it in SA.  </p>
-<div class="highlight"><pre><span></span>$ <span class="nb">echo</span> <span class="s2">&quot;333&quot;</span> &gt;&gt;t2.txt 
+<div class="highlight"><pre><span></span><code>$ <span class="nb">echo</span> <span class="s2">&quot;333&quot;</span> &gt;&gt;t2.txt 
 $ git add t2.txt
-</pre></div>
+</code></pre></div>
 
 
 <p>Making more changes to file t2.txt, then we check what t2.txt looks like in different areas.</p>
-<div class="highlight"><pre><span></span>$ <span class="nb">echo</span> <span class="s2">&quot;444&quot;</span> &gt;&gt;t2.txt
-</pre></div>
+<div class="highlight"><pre><span></span><code>$ <span class="nb">echo</span> <span class="s2">&quot;444&quot;</span> &gt;&gt;t2.txt
+</code></pre></div>
 
 
 <p>In WA, it has the most recent line "444".<br>
@@ -920,7 +920,7 @@ $ git add t2.txt
     333
     444</p>
 <p><code>git diff</code> compares WA on top of SA. </p>
-<div class="highlight"><pre><span></span>$ git diff
+<div class="highlight"><pre><span></span><code>$ git diff
 diff --git a/t2.txt b/t2.txt
 index 641d574..337d413 <span class="m">100644</span>
 --- a/t2.txt
@@ -930,11 +930,11 @@ index 641d574..337d413 <span class="m">100644</span>
  <span class="m">222</span>
  <span class="m">333</span>
 +444
-</pre></div>
+</code></pre></div>
 
 
 <p><code>git diff --cached</code> or <code>git diff --staged</code> compares SA on top of Current HEAD in LR. </p>
-<div class="highlight"><pre><span></span>$ git diff --cached
+<div class="highlight"><pre><span></span><code>$ git diff --cached
 diff --git a/t2.txt b/t2.txt
 index a30a52a..641d574 <span class="m">100644</span>
 --- a/t2.txt
@@ -943,11 +943,11 @@ index a30a52a..641d574 <span class="m">100644</span>
  <span class="m">111</span>
  <span class="m">222</span>
 +333
-</pre></div>
+</code></pre></div>
 
 
 <p><code>git diff HEAD</code> compares WA on top of current HEAD in LR.</p>
-<div class="highlight"><pre><span></span>$ git diff HEAD
+<div class="highlight"><pre><span></span><code>$ git diff HEAD
 diff --git a/t2.txt b/t2.txt
 index a30a52a..337d413 <span class="m">100644</span>
 --- a/t2.txt
@@ -957,7 +957,7 @@ index a30a52a..337d413 <span class="m">100644</span>
  <span class="m">222</span>
 +333
 +444
-</pre></div>
+</code></pre></div>
 
 
 <p>If we always quickly use <code>git add</code>,<code>git commit</code> together. Staging Area seems transparent and useless. We can just use <code>git diff HEAD</code> for difference. </p>

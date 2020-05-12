@@ -78,10 +78,10 @@
 <img alt="" src="./pictures/3D banlanced signal.png">
 非平衡信号相对简单了，不需要反相位差分信号，那么两根导线就可以了。</p>
 <p>说到这里，需要提一下立体声（两路声音，左右声道）。传输立体声信号可以通过</p>
-<div class="highlight"><pre><span></span><span class="err">两根非平衡信号线（</span><span class="mi">2</span><span class="err">根</span><span class="mi">2</span><span class="err">芯），比如</span><span class="n">RCA音频信号线</span><span class="err">，下面讨论</span>
-<span class="err">也可以通过一根平衡信号线（</span><span class="mi">1</span><span class="err">根</span><span class="mi">3</span><span class="err">芯），但是这两种方法最终在接收端得到的都是“非平衡信号“。一些只有单口的电子乐器使用，比如</span><span class="n">Yamaha</span> <span class="n">dd75</span><span class="p">.</span>
-<span class="err">第三种办法就是通过两根平衡信号线（</span><span class="mi">2</span><span class="err">根</span><span class="mi">3</span><span class="err">芯），这样接收端得到的就是平衡的立体声信号的。一些配置有所有省道接口的电子乐器使用，比如</span><span class="n">Roland</span> <span class="err">电鼓音源主输出口。</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">两根非平衡信号线（2根2芯），比如RCA音频信号线，下面讨论</span>
+<span class="err">也可以通过一根平衡信号线（1根3芯），但是这两种方法最终在接收端得到的都是“非平衡信号“。一些只有单口的电子乐器使用，比如Yamaha dd75.</span>
+<span class="err">第三种办法就是通过两根平衡信号线（2根3芯），这样接收端得到的就是平衡的立体声信号的。一些配置有所有省道接口的电子乐器使用，比如Roland 电鼓音源主输出口。</span>
+</code></pre></div>
 
 
 <p>上面三种情况，都是传输一对立体声信号，差别就是中间线缆是不是足够抗干扰。</p>
@@ -152,10 +152,10 @@
 <p>首先，电吉他是通过电感拾音生成模拟电信号的，这与电鼓和电子键盘提前采样录制不同。
 电感所产生的感抗（阻抗分量之一），与识取频率成正比，也就是说电吉他的输出阻抗是变量，而且阻抗比较高（高阻乐器）。
 由于阻抗匹配高进低出（输入阻抗高于前级输出阻抗）的匹配原则，吉他需要对应高阻输入。这个原则有几个常见的实践注意事项：</p>
-<div class="highlight"><pre><span></span><span class="mi">1</span><span class="p">.</span> <span class="err">电吉他录音的声卡，需要有高阻接口，一般以吉他🎸符号标示，或者配置一个阻抗切换开关，一般是</span><span class="n">inst</span><span class="o">/</span><span class="n">line开关</span>
-<span class="mi">2</span><span class="p">.</span> <span class="err">电吉他一般有单独的电吉他音箱，但是对于需要接入调音台之后才输出到音响到场景，往往需要先接</span><span class="n">DI盒</span><span class="err">（把信号变成低阻平衡信号）才行。</span>
-<span class="mi">3</span><span class="p">.</span> <span class="err">吉他常用的效果器，也需要考虑高阻输入低阻输出的问题。</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">1. 电吉他录音的声卡，需要有高阻接口，一般以吉他🎸符号标示，或者配置一个阻抗切换开关，一般是inst/line开关</span>
+<span class="err">2. 电吉他一般有单独的电吉他音箱，但是对于需要接入调音台之后才输出到音响到场景，往往需要先接DI盒（把信号变成低阻平衡信号）才行。</span>
+<span class="err">3. 吉他常用的效果器，也需要考虑高阻输入低阻输出的问题。</span>
+</code></pre></div>
 
 
 <h3>关于阻抗匹配</h3>
@@ -166,10 +166,10 @@
 https://zhuanlan.zhihu.com/p/37196399</p>
 <h2>购买电声乐器的辅助设备</h2>
 <p>一般电声乐器带耳机就能自娱自乐了。 等玩儿的差不多了，表演欲上来，就会考虑直播、录音和现场，那么购买声卡的时候，就可以根据上述两个内容来选购线材和声卡功能</p>
-<div class="highlight"><pre><span></span><span class="o">*</span> <span class="err">如果是玩吉他，高阻输入功能的音频接口（声卡），</span><span class="n">DI盒都需要考虑</span>
-<span class="o">*</span> <span class="err">如果玩电鼓、电子键盘，立体声输入需要考虑</span>
-<span class="o">*</span> <span class="err">连接各种音箱，需要考虑音箱输入接口以及线缆传输干扰，尤其存在较长距离连接的情况。</span> <span class="mi">3</span><span class="p">.</span><span class="mi">5</span><span class="n">mm线缆以及各种二合一线缆就基本可以排除了</span><span class="err">，它们只适合末端连接。</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">* 如果是玩吉他，高阻输入功能的音频接口（声卡），DI盒都需要考虑</span>
+<span class="err">* 如果玩电鼓、电子键盘，立体声输入需要考虑</span>
+<span class="err">* 连接各种音箱，需要考虑音箱输入接口以及线缆传输干扰，尤其存在较长距离连接的情况。 3.5mm线缆以及各种二合一线缆就基本可以排除了，它们只适合末端连接。</span>
+</code></pre></div>
 
 
 <p>最后，用yamaha 多用途音频接口AG03为例，它配置了上述多种接口，方便多种应用场景和线缆的接入。

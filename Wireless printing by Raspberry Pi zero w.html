@@ -88,15 +88,15 @@ What I want to do is to connect it to the USB port from my old printer, and prov
 <li>Simulate you toy as a netcard.</li>
 </ol>
 <p>This is a way I got from someone's post, but fail to locate it from official guideline. Two changes only.</p>
-<div class="highlight"><pre><span></span><span class="k">Add</span> <span class="n">one</span> <span class="n">line</span> <span class="o">`</span><span class="n">dtoverlay</span><span class="o">=</span><span class="n">dwc2</span><span class="o">`</span> <span class="k">in</span> <span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">config</span><span class="p">.</span><span class="n">txt</span>
-<span class="n">Attach</span> <span class="o">`</span><span class="n">modules</span><span class="o">-</span><span class="k">load</span><span class="o">=</span><span class="n">dwc2</span><span class="p">,</span><span class="n">g_ether</span><span class="o">`</span> <span class="k">at</span> <span class="n">the</span> <span class="n">tail</span> <span class="k">of</span> <span class="n">the</span> <span class="n">same</span> <span class="n">line</span> <span class="k">in</span> <span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">cmdline</span><span class="p">.</span><span class="n">txt</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">Add one line `dtoverlay=dwc2` in /boot/config.txt</span>
+<span class="err">Attach `modules-load=dwc2,g_ether` at the tail of the same line in /boot/cmdline.txt</span>
+</code></pre></div>
 
 
 <p>Reboot, then connect your toy directly to MacOS. 
 By using arp -all, you will see a new local device, like mine </p>
-<div class="highlight"><pre><span></span><span class="n">raspberrypiprinter</span><span class="p">.</span><span class="k">local</span> <span class="n">d2</span><span class="p">:</span><span class="n">f5</span><span class="p">:</span><span class="mi">6</span><span class="n">d</span><span class="p">:</span><span class="n">c3</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="n">f0</span> <span class="mi">2</span><span class="n">m13s</span>     <span class="mi">2</span><span class="n">m15s</span>         <span class="n">en90</span>    <span class="mi">1</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">raspberrypiprinter.local d2:f5:6d:c3:50:f0 2m13s     2m15s         en90    1</span>
+</code></pre></div>
 
 
 <p>Then ssh into it <code>ssh pi@raspberrypiprinter.local</code>and use <code>ifconfig</code> to check what is the assigned IP from router.</p>
@@ -105,12 +105,12 @@ By using arp -all, you will see a new local device, like mine </p>
 <p>Check out from here to understand what is <a href="https://www.cups.org">CUPS</a></p>
 <p>Install is kind of strait-forward. ssh into you toy, then</p>
 <p><em>TBC: Will do more explanations.</em></p>
-<div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="k">get</span> <span class="k">update</span>
-<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="k">get</span> <span class="n">install</span> <span class="n">cups</span> 
-<span class="n">sudo</span> <span class="n">usermod</span> <span class="o">-</span><span class="n">a</span> <span class="o">-</span><span class="k">G</span> <span class="n">lpadmin</span> <span class="n">pi</span>
-<span class="n">sudo</span> <span class="n">cupsctl</span> <span class="c1">--remote-any</span>
-<span class="n">sudo</span> <span class="n">service</span> <span class="n">cups</span> <span class="k">start</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">sudo apt-get update</span>
+<span class="err">sudo apt-get install cups </span>
+<span class="err">sudo usermod -a -G lpadmin pi</span>
+<span class="err">sudo cupsctl --remote-any</span>
+<span class="err">sudo service cups start</span>
+</code></pre></div>
 
 
 <h1>Run service- TBC</h1>

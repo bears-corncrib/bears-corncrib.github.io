@@ -101,9 +101,9 @@ It is installed by default in <code>C:\ProgramData\ssh</code>, <a href="https://
 <p>Use whatever way to copy "id_rsa.pub" to "C:\Users|YourUsername.ssh\", and rename the file to "authorized_keys"</p>
 <p>The last, wo enable passwordless. Run "PowerShell" as administrator, make sure run as administrator, otherwise the config file won't let you to save. <code>Start-Process powershell -Verb runAs</code> By using this way, your running Powershell will open a new powershwell which is as administator.
 Run <code>notepad C:\ProgramData\ssh\sshd_config</code> and commont out the last two lines by adding # sign in the very front.</p>
-<div class="highlight"><pre><span></span><span class="o">#</span><span class="k">Match</span> <span class="k">Group</span> <span class="n">administrators</span>
-<span class="o">#</span>       <span class="n">AuthorizedKeysFile</span> <span class="n">__PROGRAMDATA__</span><span class="o">/</span><span class="n">ssh</span><span class="o">/</span><span class="n">administrators_authorized_keys</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">#Match Group administrators</span>
+<span class="err">#       AuthorizedKeysFile __PROGRAMDATA__/ssh/administrators_authorized_keys</span>
+</code></pre></div>
 
 
 <p>Restart sshd service to make the change to be effect.</p>
@@ -116,7 +116,7 @@ The automator translate the path into windows format then run scripts from Windo
 Here I have some difficulty to solve, <code>osascript</code> call Terminal and run a bash script, but in the bash script, I can't put windows command to quote bash variables. For example, if I want to use <code>/usr/bin/ssh tao@10.211.55.4 "dir"</code>. I had tried to use EOF way to add windows command, but not able to use quotation marks either. 
 <code>osascript</code> limits my use of quotation marks, which means I can't use quotation mark to quote bash variable freely. I need to run this simple file as a stand alone bash script to aovid the confliction with osascript. 
 Here is my oringinal solution, but not so good.</p>
-<div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">poSIX_path</span> <span class="k">in</span> <span class="s">&quot;$@&quot;</span><span class="err">``</span>
+<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="n">poSIX_path</span> <span class="k">in</span> <span class="s">&quot;$@&quot;</span><span class="err">``</span>
 <span class="k">do</span>
     <span class="n">temp1</span><span class="o">=</span><span class="err">$</span><span class="p">{</span><span class="n">poSIX_path</span><span class="c1">//\\ / }</span>
     <span class="n">temp2</span><span class="o">=</span><span class="err">$</span><span class="p">{</span><span class="n">temp1</span><span class="c1">//\//\\}</span>
@@ -136,12 +136,12 @@ Here is my oringinal solution, but not so good.</p>
 <span class="n">EOF</span><span class="s">&quot;&#39;</span>
     <span class="cp">#open /Users/scabbard/Applications\ \(Parallels\)/\{3e397001-53ca-4a16-8e1a-ef5e837b8a76\}\ Applications.localized/命令提示符.app</span>
 <span class="n">done</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>Here is my optimized solution. To solve the problem mentioned above, I move all of the bash script funtion in a standalone script, but only keep enviroment settings here in automatoer service. Doing so, I don't bother the use of quotation mark and other people can freely redefine enviroment per their use cases. Here <code>export</code> needs to be highlighted, it is used to put these variables in evnromnet of bash, otherwise bash script can't use them.
 These variables can also be added to the end of <code>$HOME/.bash_profile</code>, if you don't use automator but Terminal instead. </p>
-<div class="highlight"><pre><span></span>    <span class="k">for</span> <span class="n">f</span> <span class="k">in</span> <span class="s">&quot;$@&quot;</span>
+<div class="highlight"><pre><span></span><code>    <span class="k">for</span> <span class="n">f</span> <span class="k">in</span> <span class="s">&quot;$@&quot;</span>
 <span class="k">do</span>
     <span class="n">tt</span><span class="o">=</span><span class="s">&quot;${f//\ /[[:space:]]}&quot;</span>
     <span class="n">osascript</span> <span class="o">-</span><span class="n">e</span> <span class="err">&#39;</span><span class="n">tell</span> <span class="n">application</span> <span class="s">&quot;Terminal&quot;</span> <span class="n">to</span> <span class="k">do</span> <span class="n">script</span> <span class="s">&quot;</span>
@@ -151,7 +151,7 @@ These variables can also be added to the end of <code>$HOME/.bash_profile</code>
 <span class="n">export</span> <span class="n">VMpassword</span><span class="o">=</span><span class="n">tao</span>
 <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">coffee</span> <span class="o">-</span><span class="n">q</span> <span class="err">&#39;$</span><span class="n">tt</span><span class="err">&#39;</span><span class="p">;</span><span class="s">&quot;&#39;</span>
 <span class="n">done</span>
-</pre></div>
+</code></pre></div>
 
 
 <h1>Quick notes about Terminal and CMD or powershell</h1>

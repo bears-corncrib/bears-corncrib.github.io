@@ -171,7 +171,7 @@
 </tbody>
 </table>
 <h4>note 1: About Getting var from Shell by awk</h4>
-<div class="highlight"><pre><span></span>$ <span class="nv">a</span><span class="o">=(</span>Hello Good Nice Well<span class="o">)</span> 
+<div class="highlight"><pre><span></span><code>$ <span class="nv">a</span><span class="o">=(</span>Hello Good Nice Well<span class="o">)</span> 
 $ awk <span class="s1">&#39;BEGIN{print &quot;&#39;</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">a</span><span class="p">[*]</span><span class="si">}</span><span class="s2">&quot;</span><span class="s1">&#39;&quot;}&#39;</span>
 Hello Good Nice Well
 $ awk <span class="s1">&#39;BEGIN{print &quot;&#39;</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">a</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span><span class="s1">&#39;&quot;}&#39;</span> <span class="c1"># ${a[@]} doesn&#39;t work equally as ${a[*]}</span>
@@ -182,7 +182,7 @@ awk: giving up
  <span class="nb">source</span> line number <span class="m">2</span>
 $ awk <span class="s1">&#39;BEGIN{split(&quot;&#39;</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">a</span><span class="p">[*]</span><span class="si">}</span><span class="s2">&quot;</span><span class="s1">&#39;&quot;,test);print test[4]}&#39;</span>
 Well
-</pre></div>
+</code></pre></div>
 
 
 <h4>note 2: About using Expect in Bash script.</h4>
@@ -194,8 +194,8 @@ The path I put in a bash var is <code>$UTSHome="C:\Program Files (x86)\Qualcomm\
 </ul>
 <p><code>send "dir '$QUTSHome' \r\r"</code></p>
 <p><code>send "dir \"${winPATHs[@]}\" \r\r"</code></p>
-<div class="highlight"><pre><span></span><span class="n">Failed</span> <span class="n">tries</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">Failed tries</span>
+</code></pre></div>
 
 
 <p><code>send "dir '"$QUTSHome"' \r\r"</code></p>
@@ -267,7 +267,7 @@ Which way to use, it depenses on if you need expect variables. </p>
 <p>To Be Added.
 I have not yet got chance to started this chapater, but I have a very intersting topic:How we can quickly remove the redantant spaces at both sides of the a string but keep space in the middle no change. Here are some methord I got from web but not all of the perfectly solve this question. </p>
 <p>Perfact solutions</p>
-<div class="highlight"><pre><span></span>$ <span class="nb">echo</span> <span class="s2">&quot;      adcd   hijk      &quot;</span><span class="p">|</span> python -c <span class="s2">&quot;s=raw_input();print(s.strip())&quot;</span>
+<div class="highlight"><pre><span></span><code>$ <span class="nb">echo</span> <span class="s2">&quot;      adcd   hijk      &quot;</span><span class="p">|</span> python -c <span class="s2">&quot;s=raw_input();print(s.strip())&quot;</span>
 adcd   hijk
 
 $ <span class="nb">echo</span> <span class="s2">&quot;      adcd   hijk      &quot;</span><span class="p">|</span>sed -e <span class="s1">&#39;s/^[ ]*//g&#39;</span> <span class="p">|</span> sed -e <span class="s1">&#39;s/[ ]*$//g&#39;</span>
@@ -281,11 +281,11 @@ adcd   hijk
 &lt;!--    https://www.cnblogs.com/pekkle/p/6568844.html
 https://blog.csdn.net/Jerry_1126/article/details/86726719    
 https://www.cnblogs.com/Dev0ps/p/10696575.html--&gt;
-</pre></div>
+</code></pre></div>
 
 
 <p>Work, but not perfact.</p>
-<div class="highlight"><pre><span></span>$ <span class="nb">echo</span> <span class="s2">&quot;      adcd   hijk      &quot;</span><span class="p">|</span>awk <span class="s1">&#39;$1=$1&#39;</span>
+<div class="highlight"><pre><span></span><code>$ <span class="nb">echo</span> <span class="s2">&quot;      adcd   hijk      &quot;</span><span class="p">|</span>awk <span class="s1">&#39;$1=$1&#39;</span>
 adcd hijk
 
 $ <span class="nv">test</span><span class="o">=</span> <span class="s2">&quot;      adcd   hijk      &quot;</span>
@@ -295,15 +295,15 @@ adfa lskdj
 
 $ <span class="nb">eval</span> <span class="nb">echo</span> <span class="s2">&quot;      adcd   hijk      &quot;</span>
 adcd hijk
-</pre></div>
+</code></pre></div>
 
 
 <p>Not working on Mac</p>
-<div class="highlight"><pre><span></span>$ <span class="nb">echo</span> <span class="s2">&quot;      adcd   hijk      &quot;</span><span class="p">|</span>sed -r <span class="s1">&#39;s/^[ \t]+(.*)[ \t]+$//g&#39;</span>
+<div class="highlight"><pre><span></span><code>$ <span class="nb">echo</span> <span class="s2">&quot;      adcd   hijk      &quot;</span><span class="p">|</span>sed -r <span class="s1">&#39;s/^[ \t]+(.*)[ \t]+$//g&#39;</span>
 sed: illegal option -- r
 usage: sed script <span class="o">[</span>-Ealn<span class="o">]</span> <span class="o">[</span>-i extension<span class="o">]</span> <span class="o">[</span>file ...<span class="o">]</span>
    sed <span class="o">[</span>-Ealn<span class="o">]</span> <span class="o">[</span>-i extension<span class="o">]</span> <span class="o">[</span>-e script<span class="o">]</span> ... <span class="o">[</span>-f script_file<span class="o">]</span> ... <span class="o">[</span>file ...<span class="o">]</span>
-</pre></div>
+</code></pre></div>
 
 
 <h2>Collection types</h2>
@@ -378,51 +378,51 @@ usage: sed script <span class="o">[</span>-Ealn<span class="o">]</span> <span cl
 </tbody>
 </table>
 <p>Note 1: About duplicating Bash array</p>
-<div class="highlight"><pre><span></span>$ <span class="nv">a</span><span class="o">=</span><span class="ss">(</span><span class="nv">Hello</span> <span class="nv">Good</span> <span class="nv">Nice</span> <span class="nv">Well</span><span class="ss">)</span> 
-$ <span class="nv">echo</span> <span class="mh">$a</span>
-<span class="nv">Hello</span> #<span class="nv">Only</span> <span class="nv">print</span> <span class="nv">the</span> <span class="nv">first</span> <span class="nv">element</span>, <span class="nv">it</span> <span class="nv">equals</span> <span class="nv">echo</span> ${<span class="nv">a</span>[<span class="mi">0</span>]}
-$ <span class="nv">echo</span> ${<span class="nv">a</span>[<span class="o">*</span>]}
-<span class="nv">Hello</span> <span class="nv">Good</span> <span class="nv">Nice</span> <span class="nv">Well</span> #<span class="nv">Eveny</span> <span class="nv">elements</span> <span class="nv">are</span> <span class="nv">printed</span>
-$ <span class="nv">echo</span> ${<span class="nv">a</span>[@]}
-<span class="nv">Hello</span> <span class="nv">Good</span> <span class="nv">Nice</span> <span class="nv">Well</span> #<span class="nv">Eveny</span> <span class="nv">elements</span> <span class="nv">are</span> <span class="nv">printed</span>, <span class="nv">Same</span> <span class="nv">as</span> <span class="nv">above</span>
-$ <span class="nv">b</span><span class="o">=</span><span class="mh">$a</span>
-$ <span class="nv">echo</span> ${<span class="nv">b</span>[<span class="o">*</span>]}
-<span class="nv">Hello</span>   #<span class="nv">b</span> <span class="nv">only</span> <span class="nv">get</span> <span class="nv">the</span> <span class="nv">first</span> <span class="nv">element</span>
-$ <span class="nv">echo</span> ${<span class="nv">b</span>[@]}
-<span class="nv">Hello</span>   #<span class="nv">b</span> <span class="nv">only</span> <span class="nv">get</span> <span class="nv">the</span> <span class="nv">first</span> <span class="nv">element</span>, <span class="nv">Same</span> <span class="nv">as</span> <span class="nv">above</span>
-$ <span class="nv">c</span><span class="o">=</span>${<span class="nv">a</span>[<span class="o">*</span>]}
-$ <span class="nv">echo</span> ${<span class="nv">c</span>} # <span class="nv">This</span> <span class="nv">equals</span> <span class="nv">echo</span> ${<span class="nv">c</span>[<span class="mi">0</span>]}
-<span class="nv">Hello</span> <span class="nv">Good</span> <span class="nv">Nice</span> <span class="nv">Well</span>
-$ <span class="nv">echo</span> ${<span class="nv">c</span>[<span class="mi">1</span>]} # <span class="nv">Here</span> <span class="nv">in</span> <span class="k">next</span> <span class="nv">line</span>, <span class="nv">nothing</span> <span class="nv">is</span> <span class="nv">printed</span>. <span class="nv">Means</span> <span class="nv">c</span> <span class="nv">is</span> <span class="nv">actually</span> <span class="nv">a</span> <span class="nv">string</span>, <span class="nv">but</span> <span class="nv">not</span> <span class="nv">an</span> <span class="nv">array</span>.
+<div class="highlight"><pre><span></span><code>$ <span class="nv">a</span><span class="o">=(</span>Hello Good Nice Well<span class="o">)</span> 
+$ <span class="nb">echo</span> <span class="nv">$a</span>
+Hello <span class="c1">#Only print the first element, it equals echo ${a[0]}</span>
+$ <span class="nb">echo</span> <span class="si">${</span><span class="nv">a</span><span class="p">[*]</span><span class="si">}</span>
+Hello Good Nice Well <span class="c1">#Eveny elements are printed</span>
+$ <span class="nb">echo</span> <span class="si">${</span><span class="nv">a</span><span class="p">[@]</span><span class="si">}</span>
+Hello Good Nice Well <span class="c1">#Eveny elements are printed, Same as above</span>
+$ <span class="nv">b</span><span class="o">=</span><span class="nv">$a</span>
+$ <span class="nb">echo</span> <span class="si">${</span><span class="nv">b</span><span class="p">[*]</span><span class="si">}</span>
+Hello   <span class="c1">#b only get the first element</span>
+$ <span class="nb">echo</span> <span class="si">${</span><span class="nv">b</span><span class="p">[@]</span><span class="si">}</span>
+Hello   <span class="c1">#b only get the first element, Same as above</span>
+$ <span class="nv">c</span><span class="o">=</span><span class="si">${</span><span class="nv">a</span><span class="p">[*]</span><span class="si">}</span>
+$ <span class="nb">echo</span> <span class="si">${</span><span class="nv">c</span><span class="si">}</span> <span class="c1"># This equals echo ${c[0]}</span>
+Hello Good Nice Well
+$ <span class="nb">echo</span> <span class="si">${</span><span class="nv">c</span><span class="p">[1]</span><span class="si">}</span> <span class="c1"># Here in next line, nothing is printed. Means c is actually a string, but not an array.</span>
 
-$ <span class="nv">d</span><span class="o">=</span>${<span class="nv">a</span>[@]}
-$ <span class="nv">echo</span> ${<span class="nv">d</span>} # <span class="nv">This</span> <span class="nv">equals</span> <span class="nv">echo</span> ${<span class="nv">d</span>[<span class="mi">0</span>]}
-<span class="nv">Hello</span> <span class="nv">Good</span> <span class="nv">Nice</span> <span class="nv">Well</span>
-$ <span class="nv">echo</span> ${<span class="nv">d</span>[<span class="mi">1</span>]} # <span class="nv">Here</span> <span class="nv">in</span> <span class="k">next</span> <span class="nv">line</span>, <span class="nv">nothing</span> <span class="nv">is</span> <span class="nv">printed</span>. <span class="nv">Means</span> <span class="nv">d</span> <span class="nv">is</span> <span class="nv">actually</span> <span class="nv">a</span> <span class="nv">string</span>, <span class="nv">but</span> <span class="nv">not</span> <span class="nv">an</span> <span class="nv">array</span>.
+$ <span class="nv">d</span><span class="o">=</span><span class="si">${</span><span class="nv">a</span><span class="p">[@]</span><span class="si">}</span>
+$ <span class="nb">echo</span> <span class="si">${</span><span class="nv">d</span><span class="si">}</span> <span class="c1"># This equals echo ${d[0]}</span>
+Hello Good Nice Well
+$ <span class="nb">echo</span> <span class="si">${</span><span class="nv">d</span><span class="p">[1]</span><span class="si">}</span> <span class="c1"># Here in next line, nothing is printed. Means d is actually a string, but not an array.</span>
 
-$ <span class="nv">cc</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">${a[*]}</span><span class="s2">&quot;</span>
-$ <span class="nv">echo</span> ${<span class="nv">cc</span>}
-<span class="nv">Hello</span> <span class="nv">Good</span> <span class="nv">Nice</span> <span class="nv">Well</span>
-$ <span class="nv">echo</span> ${<span class="nv">cc</span>[<span class="mi">1</span>]} # <span class="nv">Here</span> <span class="nv">in</span> <span class="k">next</span> <span class="nv">line</span>, <span class="nv">nothing</span> <span class="nv">is</span> <span class="nv">printed</span>. <span class="nv">Means</span> <span class="nv">cc</span> <span class="nv">is</span> <span class="nv">actually</span> <span class="nv">a</span> <span class="nv">string</span>, <span class="nv">but</span> <span class="nv">not</span> <span class="nv">an</span> <span class="nv">array</span>.
+$ <span class="nv">cc</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">a</span><span class="p">[*]</span><span class="si">}</span><span class="s2">&quot;</span>
+$ <span class="nb">echo</span> <span class="si">${</span><span class="nv">cc</span><span class="si">}</span>
+Hello Good Nice Well
+$ <span class="nb">echo</span> <span class="si">${</span><span class="nv">cc</span><span class="p">[1]</span><span class="si">}</span> <span class="c1"># Here in next line, nothing is printed. Means cc is actually a string, but not an array.</span>
 
-$ <span class="nv">dd</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">${a[@]}</span><span class="s2">&quot;</span>
-$ <span class="nv">echo</span> ${<span class="nv">dd</span>}
-<span class="nv">Hello</span> <span class="nv">Good</span> <span class="nv">Nice</span> <span class="nv">Well</span>
-$ <span class="nv">echo</span> ${<span class="nv">dd</span>[<span class="mi">1</span>]} # <span class="nv">Here</span> <span class="nv">in</span> <span class="k">next</span> <span class="nv">line</span>, <span class="nv">nothing</span> <span class="nv">is</span> <span class="nv">printed</span>. <span class="nv">Means</span> <span class="nv">dd</span> <span class="nv">is</span> <span class="nv">actually</span> <span class="nv">a</span> <span class="nv">string</span>, <span class="nv">but</span> <span class="nv">not</span> <span class="nv">an</span> <span class="nv">array</span>.
+$ <span class="nv">dd</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">a</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span>
+$ <span class="nb">echo</span> <span class="si">${</span><span class="nv">dd</span><span class="si">}</span>
+Hello Good Nice Well
+$ <span class="nb">echo</span> <span class="si">${</span><span class="nv">dd</span><span class="p">[1]</span><span class="si">}</span> <span class="c1"># Here in next line, nothing is printed. Means dd is actually a string, but not an array.</span>
 
-$ <span class="nv">ccc</span><span class="o">=</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">${a[*]}</span><span class="s2">&quot;</span><span class="ss">)</span>
-$ <span class="nv">echo</span> ${<span class="nv">ccc</span>[<span class="mi">1</span>]} # <span class="nv">Here</span> <span class="nv">in</span> <span class="k">next</span> <span class="nv">line</span>, <span class="nv">nothing</span> <span class="nv">is</span> <span class="nv">printed</span>. <span class="nv">Means</span> <span class="nv">ccc</span> <span class="nv">is</span> <span class="nv">actually</span> <span class="nv">a</span> <span class="nv">string</span>, <span class="nv">but</span> <span class="nv">not</span> <span class="nv">an</span> <span class="nv">array</span>.
+$ <span class="nv">ccc</span><span class="o">=(</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">a</span><span class="p">[*]</span><span class="si">}</span><span class="s2">&quot;</span><span class="o">)</span>
+$ <span class="nb">echo</span> <span class="si">${</span><span class="nv">ccc</span><span class="p">[1]</span><span class="si">}</span> <span class="c1"># Here in next line, nothing is printed. Means ccc is actually a string, but not an array.</span>
 
-$ <span class="nv">ddd</span><span class="o">=</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">${a[@]}</span><span class="s2">&quot;</span><span class="ss">)</span>
-$ <span class="nv">echo</span> ${<span class="nv">ddd</span>[<span class="mi">1</span>]} # <span class="nv">Finally</span>, <span class="nv">we</span> <span class="nv">sussessfuly</span> <span class="nv">duplicate</span> <span class="nv">array</span> <span class="nv">a</span>. <span class="nv">And</span> <span class="nv">this</span> <span class="nv">shows</span> <span class="nv">how</span> @ <span class="nv">is</span> <span class="nv">used</span> <span class="nv">differenlty</span> <span class="nv">fro</span> <span class="o">*</span> <span class="ss">(</span><span class="nv">see</span> <span class="nv">test</span> <span class="nv">above</span> <span class="k">next</span>, <span class="nv">value</span> <span class="nv">of</span> <span class="nv">ccc</span><span class="ss">)</span>
-<span class="nv">Good</span>
-$ <span class="nv">cccc</span><span class="o">=</span><span class="ss">(</span>${<span class="nv">a</span>[<span class="o">*</span>]}<span class="ss">)</span>
-$ <span class="nv">echo</span> ${<span class="nv">cccc</span>[<span class="mi">1</span>]} # <span class="nv">Here</span> <span class="nv">is</span> <span class="nv">another</span> <span class="nv">way</span> <span class="nv">to</span> <span class="nv">duplicate</span> <span class="nv">array</span> <span class="nv">a</span>
-<span class="nv">Good</span>
-$ <span class="nv">dddd</span><span class="o">=</span><span class="ss">(</span>${<span class="nv">a</span>[@]}<span class="ss">)</span>
-$ <span class="nv">echo</span> ${<span class="nv">dddd</span>[<span class="mi">1</span>]} # <span class="nv">Here</span> <span class="nv">is</span> <span class="nv">another</span> <span class="nv">way</span> <span class="nv">to</span> <span class="nv">duplicate</span> <span class="nv">array</span> <span class="nv">a</span>, <span class="nv">same</span> <span class="nv">as</span> <span class="nv">above</span>
-<span class="nv">Good</span>
-</pre></div>
+$ <span class="nv">ddd</span><span class="o">=(</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">a</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span><span class="o">)</span>
+$ <span class="nb">echo</span> <span class="si">${</span><span class="nv">ddd</span><span class="p">[1]</span><span class="si">}</span> <span class="c1"># Finally, we sussessfuly duplicate array a. And this shows how @ is used differenlty fro * (see test above next, value of ccc)</span>
+Good
+$ <span class="nv">cccc</span><span class="o">=(</span><span class="si">${</span><span class="nv">a</span><span class="p">[*]</span><span class="si">}</span><span class="o">)</span>
+$ <span class="nb">echo</span> <span class="si">${</span><span class="nv">cccc</span><span class="p">[1]</span><span class="si">}</span> <span class="c1"># Here is another way to duplicate array a</span>
+Good
+$ <span class="nv">dddd</span><span class="o">=(</span><span class="si">${</span><span class="nv">a</span><span class="p">[@]</span><span class="si">}</span><span class="o">)</span>
+$ <span class="nb">echo</span> <span class="si">${</span><span class="nv">dddd</span><span class="p">[1]</span><span class="si">}</span> <span class="c1"># Here is another way to duplicate array a, same as above</span>
+Good
+</code></pre></div>
 
 
 <h3>Dictionary or Hash</h3>

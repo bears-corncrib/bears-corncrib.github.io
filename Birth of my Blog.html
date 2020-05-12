@@ -101,45 +101,45 @@ Here 'pelican' is the name of my vertual enviroment. </p>
 <p>Easly get module pelican. </p>
 <p><code>pip install pelican</code></p>
 <p>Alternatively, it can also be installed from source.</p>
-<div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">getpelican</span><span class="o">/</span><span class="n">pelican</span>
-<span class="n">cd</span> <span class="n">path</span><span class="o">-</span><span class="k">to</span><span class="o">-</span><span class="n">Pelican</span><span class="o">-</span><span class="k">source</span>
-<span class="n">python</span> <span class="n">setup</span><span class="p">.</span><span class="n">py</span> <span class="n">install</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">git clone https://github.com/getpelican/pelican</span>
+<span class="err">cd path-to-Pelican-source</span>
+<span class="err">python setup.py install</span>
+</code></pre></div>
 
 
 <p>'Markdown' is strongly proposed. I don't see any use case that people host blog in github but not using Markdown as the orignal text of postes.</p>
 <p><code>pip install Markdown</code> </p>
 <p>Then, choose a folder where you want all your project files to be stored. You can put it in you <code>$HOME</code> path or any sync-up folder using any cloud APP. For me, I just simply use a path in my icloud. Here below let me use <code>$MyBlog</code> as an alias of my own path.</p>
-<div class="highlight"><pre><span></span><span class="n">cd</span> <span class="err">$</span><span class="n">MyBlog</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">cd $MyBlog</span>
+</code></pre></div>
 
 
 <p>Initialize the project. </p>
-<div class="highlight"><pre><span></span><span class="n">pelican</span><span class="o">-</span><span class="n">quickstart</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">pelican-quickstart</span>
+</code></pre></div>
 
 
 <p>It generates some folers and configuration files. We are using them later.</p>
-<div class="highlight"><pre><span></span><span class="err">$</span><span class="n">MyBlog</span><span class="o">/</span>
-<span class="err">├──</span> <span class="n">content</span>
-<span class="err">│</span>   <span class="err">└──</span> <span class="p">(</span><span class="n">pages</span><span class="p">)</span>
-<span class="err">├──</span> <span class="k">output</span>
-<span class="err">├──</span> <span class="n">Makefile</span>
-<span class="err">├──</span> <span class="n">pelicanconf</span><span class="p">.</span><span class="n">py</span>       <span class="o">#</span> <span class="n">Main</span> <span class="n">settings</span> <span class="n">file</span>
-<span class="err">└──</span> <span class="n">publishconf</span><span class="p">.</span><span class="n">py</span>       <span class="o">#</span> <span class="n">Settings</span> <span class="k">to</span> <span class="n">use</span> <span class="k">when</span> <span class="n">ready</span> <span class="k">to</span> <span class="n">publish</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">$MyBlog/</span>
+<span class="err">├── content</span>
+<span class="err">│   └── (pages)</span>
+<span class="err">├── output</span>
+<span class="err">├── Makefile</span>
+<span class="err">├── pelicanconf.py       # Main settings file</span>
+<span class="err">└── publishconf.py       # Settings to use when ready to publish</span>
+</code></pre></div>
 
 
 <p>Here I list my project folder as an example.</p>
-<div class="highlight"><pre><span></span><span class="n">ls</span> <span class="err">$</span><span class="n">MyBlog</span>
-<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="c1">--r--    1 scabbard  staff  3116 Jun 20 17:17 Makefile</span>
-<span class="n">drwxr</span><span class="o">-</span><span class="n">xr</span><span class="o">-</span><span class="n">x</span>    <span class="mi">4</span> <span class="n">scabbard</span>  <span class="n">staff</span>   <span class="mi">128</span> <span class="n">Jun</span> <span class="mi">20</span> <span class="mi">17</span><span class="p">:</span><span class="mi">41</span> <span class="n">__pycache__</span>
-<span class="n">drwxr</span><span class="o">-</span><span class="n">xr</span><span class="o">-</span><span class="n">x</span>    <span class="mi">4</span> <span class="n">scabbard</span>  <span class="n">staff</span>   <span class="mi">128</span> <span class="n">Jun</span> <span class="mi">22</span> <span class="mi">23</span><span class="p">:</span><span class="mi">10</span> <span class="n">content</span>
-<span class="n">drwxr</span><span class="o">-</span><span class="n">xr</span><span class="o">-</span><span class="n">x</span>    <span class="mi">4</span> <span class="n">scabbard</span>  <span class="n">staff</span>   <span class="mi">128</span> <span class="n">Jun</span> <span class="mi">20</span> <span class="mi">17</span><span class="p">:</span><span class="mi">42</span> <span class="k">output</span>
-<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="c1">--r--    1 scabbard  staff   893 Jun 20 17:41 pelicanconf.py</span>
-<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="c1">--r--    1 scabbard  staff   597 Jun 15 16:36 publishconf.py</span>
-<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="c1">--r--    1 scabbard  staff  2109 Jun 15 16:36 tasks.py</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">ls $MyBlog</span>
+<span class="err">-rw-r--r--    1 scabbard  staff  3116 Jun 20 17:17 Makefile</span>
+<span class="err">drwxr-xr-x    4 scabbard  staff   128 Jun 20 17:41 __pycache__</span>
+<span class="err">drwxr-xr-x    4 scabbard  staff   128 Jun 22 23:10 content</span>
+<span class="err">drwxr-xr-x    4 scabbard  staff   128 Jun 20 17:42 output</span>
+<span class="err">-rw-r--r--    1 scabbard  staff   893 Jun 20 17:41 pelicanconf.py</span>
+<span class="err">-rw-r--r--    1 scabbard  staff   597 Jun 15 16:36 publishconf.py</span>
+<span class="err">-rw-r--r--    1 scabbard  staff  2109 Jun 15 16:36 tasks.py</span>
+</code></pre></div>
 
 
 <h2>sign up for a new account from github, and activate github page</h2>
@@ -149,8 +149,8 @@ Here 'pelican' is the name of my vertual enviroment. </p>
 <p>By either way above, github page need to be activated. You need to create a new reposiborty, named as <em>name USERNAME.github.io or ORGANIZATION.github.io</em>. It is a must, refer to <a href="https://pages.github.com">Github Page</a>. 
 For new git user, I would propose to check "Initialize this repository with a README" when you creat your repository, otherwise you will see error next when your run git clone to build your locate repository. </p>
 <p>After Signing up, change path to <code>$HOMEofBLOG/output</code> and then clone your own remote repository. </p>
-<div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">bears</span><span class="o">-</span><span class="n">corncrib</span><span class="o">/</span><span class="n">bears</span><span class="o">-</span><span class="n">corncrib</span><span class="p">.</span><span class="n">github</span><span class="p">.</span><span class="n">io</span><span class="p">.</span><span class="n">git</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">git clone https://github.com/bears-corncrib/bears-corncrib.github.io.git</span>
+</code></pre></div>
 
 
 <p>It init an local repository in <code>output</code> and have a full copy of your remote repository. </p>
@@ -162,7 +162,7 @@ For new git user, I would propose to check "Initialize this repository with a RE
 </li>
 </ul>
 <p>You can check config fire in <code>.git</code> folder</p>
-<div class="highlight"><pre><span></span><span class="n">cat</span><span class="w"> </span><span class="n">config</span><span class="w"> </span>
+<div class="highlight"><pre><span></span><code><span class="n">cat</span><span class="w"> </span><span class="n">config</span><span class="w"> </span>
 <span class="o">[</span><span class="n">core</span><span class="o">]</span><span class="w"></span>
 <span class="w">    </span><span class="n">repositoryformatversion</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
 <span class="w">    </span><span class="n">filemode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="w"></span>
@@ -170,7 +170,7 @@ For new git user, I would propose to check "Initialize this repository with a RE
 <span class="w">    </span><span class="n">logallrefupdates</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="w"></span>
 <span class="w">    </span><span class="n">ignorecase</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="w"></span>
 <span class="w">    </span><span class="n">precomposeunicode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="w"></span>
-</pre></div>
+</code></pre></div>
 
 
 <ul>
@@ -180,7 +180,7 @@ For new git user, I would propose to check "Initialize this repository with a RE
 </li>
 </ul>
 <p>Check what has been changed in config.</p>
-<div class="highlight"><pre><span></span><span class="n">cat</span><span class="w"> </span><span class="n">config</span><span class="w"> </span>
+<div class="highlight"><pre><span></span><code><span class="n">cat</span><span class="w"> </span><span class="n">config</span><span class="w"> </span>
 <span class="o">[</span><span class="n">core</span><span class="o">]</span><span class="w"></span>
 <span class="w">    </span><span class="n">repositoryformatversion</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
 <span class="w">    </span><span class="n">filemode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="w"></span>
@@ -191,15 +191,15 @@ For new git user, I would propose to check "Initialize this repository with a RE
 <span class="o">[</span><span class="n">remote &quot;origin&quot;</span><span class="o">]</span><span class="w"></span>
 <span class="w">    </span><span class="n">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nl">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">bears</span><span class="o">-</span><span class="n">corncrib</span><span class="o">/</span><span class="n">bears</span><span class="o">-</span><span class="n">corncrib</span><span class="p">.</span><span class="n">github</span><span class="p">.</span><span class="n">io</span><span class="p">.</span><span class="n">git</span><span class="w"></span>
 <span class="w">    </span><span class="k">fetch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">+</span><span class="n">refs</span><span class="o">/</span><span class="n">heads</span><span class="cm">/*:refs/remotes/origin/*</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>You can use <code>git remote -v</code> to check current remote repository.</p>
-<div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">remote</span> <span class="o">-</span><span class="n">v</span>
-<span class="n">origin</span>  <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">bears</span><span class="o">-</span><span class="n">corncrib</span><span class="o">/</span><span class="n">bears</span><span class="o">-</span><span class="n">corncrib</span><span class="p">.</span><span class="n">github</span><span class="p">.</span><span class="n">io</span><span class="p">.</span><span class="n">git</span> <span class="p">(</span><span class="k">fetch</span><span class="p">)</span>
-<span class="n">origin</span>  <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">bears</span><span class="o">-</span><span class="n">corncrib</span><span class="o">/</span><span class="n">bears</span><span class="o">-</span><span class="n">corncrib</span><span class="p">.</span><span class="n">github</span><span class="p">.</span><span class="n">io</span><span class="p">.</span><span class="n">git</span> <span class="p">(</span><span class="n">push</span><span class="p">)</span>
-<span class="n">git</span> <span class="n">pull</span> <span class="n">origin</span> <span class="n">master</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">git remote -v</span>
+<span class="err">origin  https://github.com/bears-corncrib/bears-corncrib.github.io.git (fetch)</span>
+<span class="err">origin  https://github.com/bears-corncrib/bears-corncrib.github.io.git (push)</span>
+<span class="err">git pull origin master</span>
+</code></pre></div>
 
 
 <ul>
@@ -213,12 +213,12 @@ For new git user, I would propose to check "Initialize this repository with a RE
 <p>Sign up for an account in Gitee, and similarly start your gitee page. 
 It is different from github. In gitee, you don't have to name your repository like <em>name USERNAME.github.io or ORGANIZATION.github.io</em> to activate page. Just name your repository withou <code>gitee.io</code>, then your page will be accessible from YOURREPOSITORY.gitee.io. Mine is bears-corncrib.gitee.io.</p>
 <p>Adding another remote repository. In your local repository folder <code>cd $HOMEofBLOG/output/YOURLOCALREPOSITORY</code></p>
-<div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">remote</span> <span class="k">set</span><span class="o">-</span><span class="n">url</span> <span class="n">origin</span> <span class="c1">--add https://gitee.com/bears-corncrib/bears-corncrib.git</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">git remote set-url origin --add https://gitee.com/bears-corncrib/bears-corncrib.git</span>
+</code></pre></div>
 
 
 <p>Check what has been changed in config.</p>
-<div class="highlight"><pre><span></span><span class="n">cat</span><span class="w"> </span><span class="p">.</span><span class="n">git</span><span class="o">/</span><span class="n">config</span><span class="w"> </span>
+<div class="highlight"><pre><span></span><code><span class="n">cat</span><span class="w"> </span><span class="p">.</span><span class="n">git</span><span class="o">/</span><span class="n">config</span><span class="w"> </span>
 <span class="o">[</span><span class="n">core</span><span class="o">]</span><span class="w"></span>
 <span class="w">    </span><span class="n">repositoryformatversion</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
 <span class="w">    </span><span class="n">filemode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="w"></span>
@@ -230,15 +230,15 @@ It is different from github. In gitee, you don't have to name your repository li
 <span class="w">    </span><span class="n">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nl">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">bears</span><span class="o">-</span><span class="n">corncrib</span><span class="o">/</span><span class="n">bears</span><span class="o">-</span><span class="n">corncrib</span><span class="p">.</span><span class="n">github</span><span class="p">.</span><span class="n">io</span><span class="p">.</span><span class="n">git</span><span class="w"></span>
 <span class="w">    </span><span class="k">fetch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">+</span><span class="n">refs</span><span class="o">/</span><span class="n">heads</span><span class="cm">/*:refs/remotes/origin/*</span>
 <span class="cm">    url = https://gitee.com/bears-corncrib/bears-corncrib.git</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>You can use <code>git remote -v</code> to check current remote repository.</p>
-<div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">remote</span> <span class="o">-</span><span class="n">v</span>
-<span class="n">origin</span>  <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">bears</span><span class="o">-</span><span class="n">corncrib</span><span class="o">/</span><span class="n">bears</span><span class="o">-</span><span class="n">corncrib</span><span class="p">.</span><span class="n">github</span><span class="p">.</span><span class="n">io</span><span class="p">.</span><span class="n">git</span> <span class="p">(</span><span class="k">fetch</span><span class="p">)</span>
-<span class="n">origin</span>  <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">bears</span><span class="o">-</span><span class="n">corncrib</span><span class="o">/</span><span class="n">bears</span><span class="o">-</span><span class="n">corncrib</span><span class="p">.</span><span class="n">github</span><span class="p">.</span><span class="n">io</span><span class="p">.</span><span class="n">git</span> <span class="p">(</span><span class="n">push</span><span class="p">)</span>
-<span class="n">origin</span>  <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">gitee</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">bears</span><span class="o">-</span><span class="n">corncrib</span><span class="o">/</span><span class="n">bears</span><span class="o">-</span><span class="n">corncrib</span><span class="p">.</span><span class="n">git</span> <span class="p">(</span><span class="n">push</span><span class="p">)</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">git remote -v</span>
+<span class="err">origin  https://github.com/bears-corncrib/bears-corncrib.github.io.git (fetch)</span>
+<span class="err">origin  https://github.com/bears-corncrib/bears-corncrib.github.io.git (push)</span>
+<span class="err">origin  https://gitee.com/bears-corncrib/bears-corncrib.git (push)</span>
+</code></pre></div>
 
 
 <!--This is the config generated by git init which is different from what generated by git clone at 'branch "master"'
@@ -263,55 +263,55 @@ It is different from github. In gitee, you don't have to name your repository li
 <h2>Confiure your Pelican, make output folder to local repository of git</h2>
 <p>Edit <code>Makefile</code> to let pelican knows that which folder to output.</p>
 <p>If your project folder path contains space, I would propose you to give a obsolute path, otherwise Pelican will compile your postes with failure. In your obsolute path, just add an escpate sign \ for all the spaces.  Mine is blow as an example.</p>
-<div class="highlight"><pre><span></span><span class="c">#BASEDIR=$(CURDIR)</span>
-<span class="nv">BASEDIR</span><span class="o">=</span>~/Library/Mobile<span class="se">\ </span>Documents/com~apple~CloudDocs/MyBlog/pelicanBlog
-<span class="nv">INPUTDIR</span><span class="o">=</span><span class="k">$(</span>BASEDIR<span class="k">)</span>/content
-<span class="nv">OUTPUTDIR</span><span class="o">=</span><span class="k">$(</span>BASEDIR<span class="k">)</span>/output/bears-corncrib.github.io <span class="c1">#Here point to your local repository.</span>
-<span class="nv">CONFFILE</span><span class="o">=</span><span class="k">$(</span>BASEDIR<span class="k">)</span>/pelicanconf.py
-<span class="nv">PUBLISHCONF</span><span class="o">=</span><span class="k">$(</span>BASEDIR<span class="k">)</span>/publishconf.py
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">#BASEDIR=$(CURDIR)</span>
+<span class="err">BASEDIR=~/Library/Mobile\ Documents/com~apple~CloudDocs/MyBlog/pelicanBlog</span>
+<span class="err">INPUTDIR=$(BASEDIR)/content</span>
+<span class="err">OUTPUTDIR=$(BASEDIR)/output/bears-corncrib.github.io #Here point to your local repository.</span>
+<span class="err">CONFFILE=$(BASEDIR)/pelicanconf.py</span>
+<span class="err">PUBLISHCONF=$(BASEDIR)/publishconf.py</span>
+</code></pre></div>
 
 
 <p>If you are not so good with Pelican's default theme, just download themes into a subfolder. My is <code>$MyBlog/pelican-themes</code>, and then give the path in pelicanconf.py. <code>THEME = 'pelican-themes/THEMEofYOURS'</code>
 There are some other parameters in pelicanconf.py, you can easily define and try.</p>
 <h2>Compose your first post</h2>
 <p>In <code>content</code>, make a new markdown file, extension .md. Put the following meta data in the file on the top.</p>
-<div class="highlight"><pre><span></span>    <span class="nv">Title</span>: <span class="nv">My</span> <span class="nv">super</span> <span class="nv">title</span>
-    <span class="nv">Date</span>: <span class="mi">2010</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">03</span> <span class="mi">10</span>:<span class="mi">20</span>
-    <span class="nv">Modified</span>: <span class="mi">2010</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">05</span> <span class="mi">19</span>:<span class="mi">30</span>
-    <span class="nv">Category</span>: <span class="nv">Python</span>
-    <span class="nv">Tags</span>: <span class="nv">pelican</span>, <span class="nv">publishing</span>
-    <span class="nv">Slug</span>: <span class="nv">my</span><span class="o">-</span><span class="nv">super</span><span class="o">-</span><span class="nv">post</span>
-    <span class="nv">Authors</span>: <span class="nv">Alexis</span> <span class="nv">Metaireau</span>, <span class="nv">Conan</span> <span class="nv">Doyle</span>
-    <span class="nv">Summary</span>: <span class="nv">Short</span> <span class="nv">version</span> <span class="k">for</span> <span class="nv">index</span> <span class="nv">and</span> <span class="nv">feeds</span>
+<div class="highlight"><pre><span></span><code>    <span class="n">Title</span><span class="p">:</span> <span class="n">My</span> <span class="n">super</span> <span class="n">title</span>
+    <span class="nb">Date</span><span class="p">:</span> <span class="mi">2010</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">03</span> <span class="mi">10</span><span class="p">:</span><span class="mi">20</span>
+    <span class="n">Modified</span><span class="p">:</span> <span class="mi">2010</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">05</span> <span class="mi">19</span><span class="p">:</span><span class="mi">30</span>
+    <span class="n">Category</span><span class="p">:</span> <span class="n">Python</span>
+    <span class="n">Tags</span><span class="p">:</span> <span class="n">pelican</span><span class="p">,</span> <span class="n">publishing</span>
+    <span class="n">Slug</span><span class="p">:</span> <span class="n">my</span><span class="o">-</span><span class="n">super</span><span class="o">-</span><span class="n">post</span>
+    <span class="n">Authors</span><span class="p">:</span> <span class="n">Alexis</span> <span class="n">Metaireau</span><span class="p">,</span> <span class="n">Conan</span> <span class="n">Doyle</span>
+    <span class="n">Summary</span><span class="p">:</span> <span class="n">Short</span> <span class="k">version</span> <span class="k">for</span> <span class="k">index</span> <span class="k">and</span> <span class="n">feeds</span>
 
-    <span class="nv">This</span> <span class="nv">is</span> <span class="nv">the</span> <span class="nv">content</span> <span class="nv">of</span> <span class="nv">my</span> <span class="nv">super</span> <span class="nv">blog</span> <span class="nv">post</span>.
-</pre></div>
+    <span class="n">This</span> <span class="k">is</span> <span class="n">the</span> <span class="n">content</span> <span class="k">of</span> <span class="n">my</span> <span class="n">super</span> <span class="n">blog</span> <span class="n">post</span><span class="p">.</span>
+</code></pre></div>
 
 
 <p>To understand how you should use the meta data, here is the example from this page.</p>
-<div class="highlight"><pre><span></span>    <span class="n">Title</span><span class="p">:</span> <span class="n">Birth</span> <span class="k">of</span> <span class="n">my</span> <span class="n">Blog</span><span class="p">,</span> <span class="n">Pelican</span> <span class="n">based</span>
-    <span class="nb">Date</span><span class="p">:</span> <span class="mi">2019</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">15</span> <span class="mi">20</span><span class="p">:</span><span class="mi">00</span>
-    <span class="n">Modified</span><span class="p">:</span> <span class="mi">2019</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">05</span>
-    <span class="n">Category</span><span class="p">:</span> <span class="n">bear</span><span class="err">&#39;</span><span class="n">s</span> <span class="n">corncobs</span>
-    <span class="n">Tags</span><span class="p">:</span> <span class="n">github</span><span class="p">,</span> <span class="n">gitee</span><span class="p">,</span> <span class="n">Pelican</span><span class="p">,</span> <span class="n">Blog</span><span class="p">,</span> <span class="n">Python</span>
-    <span class="n">Slug</span><span class="p">:</span> <span class="n">Birth</span> <span class="k">of</span> <span class="n">my</span> <span class="n">Blog</span>
-    <span class="n">Authors</span><span class="p">:</span> <span class="n">Tao</span>
-    <span class="n">Summary</span><span class="p">:</span> <span class="n">Here</span> <span class="k">in</span> <span class="n">this</span> <span class="n">post</span><span class="p">,</span> <span class="n">it</span> <span class="n">records</span> <span class="n">how</span> <span class="n">I</span> <span class="n">understand</span> <span class="n">the</span> <span class="n">steps</span> <span class="n">building</span> <span class="n">up</span> <span class="n">my</span> <span class="n">blog</span> <span class="k">in</span> <span class="n">a</span> <span class="k">static</span> <span class="n">web</span> <span class="n">pages</span><span class="p">,</span> <span class="k">and</span> <span class="k">host</span> <span class="n">it</span> <span class="k">in</span> <span class="k">both</span> <span class="n">github</span> <span class="k">and</span> <span class="n">gitee</span><span class="p">.</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">    Title: Birth of my Blog, Pelican based</span>
+<span class="err">    Date: 2019-06-15 20:00</span>
+<span class="err">    Modified: 2019-07-05</span>
+<span class="err">    Category: bear&#39;s corncobs</span>
+<span class="err">    Tags: github, gitee, Pelican, Blog, Python</span>
+<span class="err">    Slug: Birth of my Blog</span>
+<span class="err">    Authors: Tao</span>
+<span class="err">    Summary: Here in this post, it records how I understand the steps building up my blog in a static web pages, and host it in both github and gitee.</span>
+</code></pre></div>
 
 
 <h2>Compile your first blog</h2>
 <p>Once you have finish composing your poste in .md files. You are ready to update you blog.
 Go to the home of you Pelican project folder, like <code>cd $HOMEofBLOG</code></p>
 <p>Compile your post from markdown into html.</p>
-<div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">html</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">make html</span>
+</code></pre></div>
 
 
 <p>You can review your page locally.</p>
-<div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">devserver</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">make devserver</span>
+</code></pre></div>
 
 
 <p>Then, browse you blog from 0.0.0.0:8000 or localhost:8000</p>
@@ -321,10 +321,10 @@ If your site is a User or Organization Page that has a repository named <usernam
 <h2>publish to both of your remote repositories.</h2>
 <p>I am not using Pelican to publish blog pages to remote repositoriy, but directly using git. I would propose you to understand some of the basic use of git for this part.</p>
 <p>Change working direcytory to <code>cd $HOMEofBLOG/output/YOURLOCALREPOSITORY</code>, like mine  <code>cd $MyBlog/output/bears-corncrib.github.io</code></p>
-<div class="highlight"><pre><span></span><span class="n">git</span> <span class="k">add</span> <span class="p">.</span> <span class="o">#</span><span class="n">This</span> <span class="n">will</span> <span class="n">make</span> <span class="n">sure</span> <span class="k">all</span> <span class="n">your</span> <span class="k">new</span> <span class="n">files</span> <span class="n">will</span> <span class="n">be</span> <span class="n">added</span> <span class="k">to</span> <span class="n">track</span> <span class="k">by</span> <span class="n">stage</span> <span class="k">of</span> <span class="k">local</span> <span class="n">respository</span>
-<span class="n">git</span> <span class="k">commit</span> <span class="o">-</span><span class="n">m</span> <span class="ss">&quot;Your comments&quot;</span> <span class="o">#</span><span class="n">This</span> <span class="n">will</span> <span class="n">submit</span> <span class="n">your</span> <span class="n">stage</span> <span class="k">to</span> <span class="k">local</span> <span class="n">repository</span>
-<span class="n">git</span> <span class="n">push</span> <span class="o">-</span><span class="n">u</span> <span class="n">origin</span> <span class="n">master</span>  <span class="o">#</span><span class="n">Push</span> <span class="k">local</span> <span class="n">repository</span> <span class="k">to</span> <span class="n">reomote</span> <span class="n">repositories</span><span class="p">,</span> <span class="k">both</span> <span class="n">github</span> <span class="k">and</span> <span class="n">gitee</span><span class="p">,</span> <span class="n">which</span> <span class="k">defined</span> <span class="n">above</span><span class="p">.</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">git add . #This will make sure all your new files will be added to track by stage of local respository</span>
+<span class="err">git commit -m &quot;Your comments&quot; #This will submit your stage to local repository</span>
+<span class="err">git push -u origin master  #Push local repository to reomote repositories, both github and gitee, which defined above.</span>
+</code></pre></div>
 
 
 <p>Note. Gitee.com doesn't automatically refresh you blog the same as github. You need to login your gitee account and refresh gitee page "Services-&gt;Gitee pages-&gt;Update"</p>
@@ -344,7 +344,7 @@ If your site is a User or Organization Page that has a repository named <usernam
 11
 12
 13
-14</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+14</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
 <span class="c1">#Go to you Blog project folder</span>
 <span class="c1">#active your virtual env</span>
 <span class="c1">#I do above two actions by aliase, which is in ~/.bash_profile</span>
@@ -358,7 +358,7 @@ git add .
 git commit -m <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>
 git push -u origin master
 <span class="nb">cd</span> -
-</pre></div>
+</code></pre></div>
 </td></tr></table>
 
 <p>Run it in your project folder <code>bash ./updateBlog.sh "Here is your comments for git commit"</code></p>
